@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="id" value="${item.id}" underline="true"/>
+                            <#input id="objectId" name="缴费主题ID" value="${item.objectId}" underline="true"/>
+                            <#input id="type" name="类型:个人、单位" value="${item.type}" underline="true"/>
+                            <#input id="payAccType" name="缴费账户类型" value="${item.payAccType}" underline="true"/>
+                            <#input id="apyAccNum" name="缴费账户编号" value="${item.apyAccNum}" underline="true"/>
+                            <#input id="payDt" name="缴费日期" value="${item.payDt}" underline="true"/>
+                            <#input id="accType" name="收费账户类型" value="${item.accType}" underline="true"/>
+                            <#input id="accNum" name="收费账户编号" value="${item.accNum}" underline="true"/>
+                            <#input id="operId" name="业务办理人" value="${item.operId}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="operOrgId" name="业务办理机构" value="${item.operOrgId}" underline="true"/>
+                            <#input id="status" name="状态" value="${item.status}" underline="true"/>
+                            <#input id="delStatus" name="是否删除" value="${item.delStatus}" underline="true"/>
+                            <#input id="updUserId" name="最后修改人" value="${item.updUserId}" underline="true"/>
+                            <#input id="updOrgId" name="最后修改机构" value="${item.updOrgId}" underline="true"/>
+                            <#input id="updTm" name="最后修改时间" value="${item.updTm}" underline="true"/>
+                            <#input id="crtUserId" name="创建人" value="${item.crtUserId}" underline="true"/>
+                            <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
+                            <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="AccInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="AccInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/gs/acc/acc_info.js"></script>
+@}

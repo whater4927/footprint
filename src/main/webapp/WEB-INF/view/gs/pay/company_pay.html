@@ -1,0 +1,92 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>单位管理管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Company.search()"/>
+                            </div>
+                        </div>
+                        <#table id="CompanyTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+/**
+ * 单位管理管理初始化
+ */
+var Company = {
+    id: "CompanyTable",	//表格id
+    seItem: null,		//选中的条目
+    table: null,
+    layerIndex: -1
+};
+
+/**
+ * 初始化表格的列
+ */
+Company.initColumn = function () {
+    return [
+        {field: 'selectItem', radio: true},
+            {title: '单位名称', field: 'name', visible: true, align: 'center', valign: 'middle'},
+            {title: '组织机构编码', field: 'orgCode', visible: true, align: 'center', valign: 'middle'},
+            {title: '单位地址', field: 'address', visible: true, align: 'center', valign: 'middle'},
+            {title: '单位注册时间', field: 'regDate', visible: true,formatter:dateFormatter, align: 'center', valign: 'middle'},
+            {title: '单位注册资金', field: 'regAmt', visible: true,formatter:amtFormatter, align: 'center', valign: 'middle'},
+            {title: '单位法人', field: 'legalPerson', visible: true, align: 'center', valign: 'middle'},
+            {title: '法人电话号码', field: 'legalPhone', visible: true, align: 'center', valign: 'middle'},
+            {title: '单位参保状态', field: 'joinStatusName', visible: true, align: 'center', valign: 'middle'},
+            {title: '参保时间', field: 'joinTm', visible: true,formatter:dateFormatter, align: 'center', valign: 'middle'},
+            {title: '个人缴纳比例', field: 'empRation', visible: true,formatter:rationFormatter, align: 'center', valign: 'middle'},
+            {title: '单位缴纳比例', field: 'comRation', visible: true,formatter:rationFormatter, align: 'center', valign: 'middle'},
+            {title: '账户类型', field: 'accTypeName', visible: true, align: 'center', valign: 'middle'},
+            {title: '缴费账户编号', field: 'accNo', visible: true, align: 'center', valign: 'middle'},
+            {title: '用途', field: 'accUseTypeName', visible: true, align: 'center', valign: 'middle'},
+            {title: '状态', field: 'statusName', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建人', field: 'createUserName', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建机构', field: 'createOrgName', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'}
+    ];
+};
+Company.search = function (){
+	var queryData = {};
+    queryData['condition'] = $("#condition").val();
+    Company.table.refresh({query: queryData});
+};
+amtFormatter = function(value, row, index){
+	return parseFloat (value).toFixed(2);
+}
+/**
+ * 检查是否选中
+ */
+Company.check = function () {
+    var selected = $('#' + this.id).bootstrapTable('getSelections');
+    if(selected.length == 0){
+        Feng.info("请先选中表格中的某一记录！");
+        return false;
+    }else{
+        Company.seItem = selected[0];
+        return true;
+    }
+};
+
+$(function () {
+    var defaultColunms = Company.initColumn();
+    var table = new BSTable(Company.id, "/company/list", defaultColunms);
+    table.setPaginationType("client");
+    Company.table = table.init();
+});
+</script>
+@}

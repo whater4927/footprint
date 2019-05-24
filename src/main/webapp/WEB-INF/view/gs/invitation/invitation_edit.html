@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<style>
+.highlight {
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 4px;
+}
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+        	<figure class="highlight">
+				<div class="row container">
+					<input type="hidden" id="pid" value="${item.id}">
+	                <div class="col-sm-12 b-r">
+	                     <h3 id="title">${item.title}</h3>
+	                     <h6 id="info">楼主:张三 时间：2019-05-10 12:56:21 回复:5</h6>
+	                     <p id="content">${item.content}</p>
+	                </div>
+	            </div>
+            </figure>
+            <div id="detail">
+            </div>
+            <div class="row">
+            	<div class="col-sm-11 b-r">
+            		<textarea class="form-control" id="rep_content" rows="3"></textarea>
+            	</div>
+            	<div class="col-sm-1 b-r">
+            		<button type="button" class="btn btn-success" onclick="InvitationInfoDlg.editSubmit()">回复</button>
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/gs/invitation/invitation_info.js"></script>
+@}

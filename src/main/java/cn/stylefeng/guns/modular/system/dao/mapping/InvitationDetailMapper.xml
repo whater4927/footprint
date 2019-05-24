@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.InvitationDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.InvitationDetail">
+        <id column="id" property="id" />
+        <result column="pid" property="pid" />
+        <result column="user_id" property="userId" />
+        <result column="content" property="content" />
+        <result column="status" property="status" />
+        <result column="del_status" property="delStatus" />
+        <result column="upd_user_id" property="updUserId" />
+        <result column="upd_org_id" property="updOrgId" />
+        <result column="upd_tm" property="updTm" />
+        <result column="crt_user_id" property="crtUserId" />
+        <result column="crt_org_id" property="crtOrgId" />
+        <result column="crt_tm" property="crtTm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, pid, user_id, content, status, del_status, upd_user_id, upd_org_id, upd_tm, crt_user_id, crt_org_id, crt_tm
+    </sql>
+
+</mapper>

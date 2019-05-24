@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.CompanyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Company">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="org_code" property="orgCode" />
+        <result column="address" property="address" />
+        <result column="reg_date" property="regDate" />
+        <result column="reg_amt" property="regAmt" />
+        <result column="legal_person" property="legalPerson" />
+        <result column="legal_phone" property="legalPhone" />
+        <result column="join_status" property="joinStatus" />
+        <result column="join_tm" property="joinTm" />
+        <result column="emp_ration" property="empRation" />
+        <result column="com_ration" property="comRation" />
+        <result column="acc_type" property="accType" />
+        <result column="acc_no" property="accNo" />
+        <result column="acc_use_type" property="accUseType" />
+        <result column="status" property="status" />
+        <result column="del_status" property="delStatus" />
+        <result column="upd_user_id" property="updUserId" />
+        <result column="upd_org_id" property="updOrgId" />
+        <result column="upd_tm" property="updTm" />
+        <result column="crt_user_id" property="crtUserId" />
+        <result column="crt_org_id" property="crtOrgId" />
+        <result column="crt_tm" property="crtTm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, org_code, address, reg_date, reg_amt, legal_person, legal_phone, join_status, join_tm, emp_ration, com_ration, acc_type, acc_no, acc_use_type, status, del_status, upd_user_id, upd_org_id, upd_tm, crt_user_id, crt_org_id, crt_tm
+    </sql>
+
+</mapper>

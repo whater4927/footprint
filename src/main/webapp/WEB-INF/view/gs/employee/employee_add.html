@@ -1,0 +1,40 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="form">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="name" name="姓名" />
+                            <#input id="idNum" name="身份证号" />
+                            <#input id="email" name="邮箱" />
+                            <#select id="education" name="文化程度" />
+                            <#select id="comId" name="工作单位" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="salary" name="工资" />
+                            <#select id="status" name="状态"/>
+                            <#select id="nativePlace" name="民族" />
+                            <#input id="entryDt" name="入职日期" />
+                            <#input id="phone" name="手机号" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12" align="center">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="EmployeeInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="EmployeeInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+ <script src="${ctxPath}/static/modular/gs/employee/employee_info.js"></script>
+<script type="text/javascript">
+    laydate.render({
+        elem: '#entryDt'
+    });
+</script>
+@}

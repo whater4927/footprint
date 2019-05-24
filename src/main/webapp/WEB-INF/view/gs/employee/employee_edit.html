@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="form">
+
+            <div class="row">
+             	<input type="hidden" id="id" value="${item.id}">
+             	<input type="hidden" id="education_value" value="${item.education}">
+             	<input type="hidden" id="nativePlace_value" value="${item.nativePlace}">
+             	<input type="hidden" id="comId_value" value="${item.comId}">
+             	<input type="hidden" id="status_value" value="${item.status}">
+                <div class="col-sm-6 b-r">
+                            <#input id="name" name="姓名" value="${item.name}" />
+                            <#input id="idNum" name="身份证号" value="${item.idNum}" />
+                            <#input id="email" name="邮箱" value="${item.email}" />
+                            <#select id="education" name="文化程度" />
+                            <#select id="comId" name="工作单位"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="salary" name="工资" value="${item.salary}" />
+                            <#select id="nativePlace" name="民族"/>
+                            <#input id="entryDt" name="入职日期" value="${item.entryDt}" />
+                            <#input id="phone" name="手机号" value="${item.phone}" />
+                            <#select id="status" name="状态"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12" align="center">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="EmployeeInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="EmployeeInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/gs/employee/employee_info.js"></script>
+<script>
+    laydate.render({
+        elem: '#entryDt'
+    });
+    laydate.render({
+        elem: '#updTm'
+    });
+    laydate.render({
+       elem: '#crtTm'
+    });
+</script>
+@}

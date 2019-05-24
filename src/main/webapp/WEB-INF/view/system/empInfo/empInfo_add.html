@@ -1,0 +1,37 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="id" underline="true"/>
+                            <#input id="name" name="name" underline="true"/>
+                            <#input id="birthday" name="birthday" underline="true"/>
+                            <#input id="sex" name="sex"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="salary" name="salary" underline="true"/>
+                            <#input id="address" name="address" underline="true"/>
+                            <#input id="remark" name="remark" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="EmpInfoInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="EmpInfoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/empInfo/empInfo_info.js"></script>
+<script>
+    laydate.render({
+        elem: '#birthday'
+    });
+</script>
+@}

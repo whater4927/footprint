@@ -1,0 +1,56 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>生成财务数据管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <!-- <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div> -->
+                            <div class="col-sm-4">
+                                <div class="input-group">
+								  <div class="input-group-btn">
+								    <!-- <#button name="搜索" icon="fa-search" clickFun="GenerAcc.search()"/> -->
+								    <#button name="生成" icon="fa-plus" clickFun="GenerAcc.generation()"/>
+								  </div>
+								  <input type="text" id="genDt" class="form-control" aria-label="...">
+								</div>
+                            </div>
+                            <!-- <div class="col-sm-3">
+                                 <#button name="生成" icon="fa-search" clickFun="GenerAcc.search()"/>
+                                 <#input id="condition" name="日期" />
+                                 
+                                 
+                            </div> -->
+                        </div>
+                        <!-- <div class="hidden-xs" id="GenerAccTableToolbar" role="group">
+                            @if(shiro.hasPermission("/generAcc/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="GenerAcc.openAddGenerAcc()"/>
+                            @}
+                            @if(shiro.hasPermission("/generAcc/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="GenerAcc.openGenerAccDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/generAcc/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="GenerAcc.delete()" space="true"/>
+                            @}
+                        </div> -->
+                        <#table id="GenerAccTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/gs/generAcc/generAcc.js"></script>
+<script type="text/javascript">
+	laydate.render({
+	  elem: '#genDt'
+	  ,type: 'month'
+	});
+</script>
+@}

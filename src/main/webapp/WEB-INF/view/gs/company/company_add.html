@@ -1,0 +1,49 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="form">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="name" name="单位名称" />
+                            <#input id="orgCode" name="组织机构编码"  />
+                            <#input id="address" name="单位地址" />
+                            <#input id="regDate" name="单位注册时间"  />
+                            <#input id="regAmt" name="单位注册资金(万元)"  />
+                            <#input id="legalPerson" name="单位法人"  />
+                            <#input id="legalPhone" name="法人电话号码"  />
+                            <#select id="status" name="状态" /><!-- company_status -->
+                           
+                </div>
+
+                <div class="col-sm-6">
+                            <#select id="accType" name="账户类型" /><!-- acc_type -->
+                            <#input id="accNo" name="缴费账户编号"  />
+                            <#select id="accUseType" name="用途" /><!-- acc_use_type -->
+                            <#select id="joinStatus" name="单位参保状态" /><!-- status_yn -->
+                            <#input id="joinTm" name="参保时间"  />
+                            <#input id="empRation" name="个人缴纳比例(%)" />
+                            <#input id="comRation" name="单位缴纳比例(%)"  />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12" align="center">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CompanyInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CompanyInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/gs/company/company_info.js"></script>
+<script>
+	laydate.render({
+	    elem: '#regDate'
+	});
+    laydate.render({
+        elem: '#joinTm'
+    });
+</script>
+@}

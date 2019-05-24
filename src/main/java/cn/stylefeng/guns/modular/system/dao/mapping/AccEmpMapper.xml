@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.AccEmpMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.AccEmp">
+        <id column="id" property="id" />
+        <result column="emp_id" property="empId" />
+        <result column="com_id" property="comId" />
+        <result column="pay_dt" property="payDt" />
+        <result column="emp_amt" property="empAmt" />
+        <result column="com_amt" property="comAmt" />
+        <result column="pay_status" property="payStatus" />
+        <result column="deal_tm" property="dealTm" />
+        <result column="oper_id" property="operId" />
+        <result column="oper_org_id" property="operOrgId" />
+        <result column="status" property="status" />
+        <result column="del_status" property="delStatus" />
+        <result column="upd_user_id" property="updUserId" />
+        <result column="upd_org_id" property="updOrgId" />
+        <result column="upd_tm" property="updTm" />
+        <result column="crt_user_id" property="crtUserId" />
+        <result column="crt_org_id" property="crtOrgId" />
+        <result column="crt_tm" property="crtTm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, emp_id, com_id,pay_dt, emp_amt, com_amt, pay_status, deal_tm, oper_id, oper_org_id, status, del_status, upd_user_id, upd_org_id, upd_tm, crt_user_id, crt_org_id, crt_tm
+    </sql>
+
+</mapper>

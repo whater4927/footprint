@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.AccMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Acc">
+        <id column="id" property="id" />
+        <result column="object_id" property="objectId" />
+        <result column="type" property="type" />
+        <result column="pay_acc_type" property="payAccType" />
+        <result column="apy_acc_num" property="apyAccNum" />
+        <result column="pay_dt" property="payDt" />
+        <result column="acc_type" property="accType" />
+        <result column="acc_num" property="accNum" />
+        <result column="oper_id" property="operId" />
+        <result column="oper_org_id" property="operOrgId" />
+        <result column="status" property="status" />
+        <result column="del_status" property="delStatus" />
+        <result column="upd_user_id" property="updUserId" />
+        <result column="upd_org_id" property="updOrgId" />
+        <result column="upd_tm" property="updTm" />
+        <result column="crt_user_id" property="crtUserId" />
+        <result column="crt_org_id" property="crtOrgId" />
+        <result column="crt_tm" property="crtTm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, object_id, type, pay_acc_type, apy_acc_num, pay_dt, acc_type, acc_num, oper_id, oper_org_id, status, del_status, upd_user_id, upd_org_id, upd_tm, crt_user_id, crt_org_id, crt_tm
+    </sql>
+
+</mapper>
