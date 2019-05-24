@@ -72,7 +72,7 @@ public class QueryController extends BaseController {
 	@RequestMapping(value = "/acc_emp/list")
 	@ResponseBody
 	public Object accEmpList(String condition) {
-		return null;
+		return "/footprint/test/test.html";
 	}
 
 }
