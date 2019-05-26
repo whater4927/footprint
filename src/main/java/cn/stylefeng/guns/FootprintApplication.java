@@ -15,19 +15,25 @@
  */
 package cn.stylefeng.guns;
 
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import cn.stylefeng.roses.core.config.WebAutoConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Guns Web程序启动类
+ * SpringBoot方式启动类
  *
- * @author fengshuonan
- * @date 2017-05-21 9:43
+ * @author stylefeng
+ * @Date 2017/5/21 12:06
  */
-public class GunsServletInitializer extends SpringBootServletInitializer {
+@SpringBootApplication(exclude = WebAutoConfiguration.class)
+public class FootprintApplication {
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(GunsMedicalMasterApplication.class);
+    private final static Logger logger = LoggerFactory.getLogger(FootprintApplication.class);
+
+    public static void main(String[] args) {
+        SpringApplication.run(FootprintApplication.class, args);
+        logger.info("FootptintApplication is success!");
     }
 }
