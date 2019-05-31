@@ -1,0 +1,46 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="csNo" name="嫌疑人编号" value="${item.csNo}" underline="true"/>
+                            <#input id="name" name="姓名" value="${item.name}" underline="true"/>
+                            <#input id="sex" name="性别" value="${item.sex}" underline="true"/>
+                            <#input id="heigh" name="身高" value="${item.heigh}" underline="true"/>
+                            <#input id="nation" name="籍贯" value="${item.nation}" underline="true"/>
+                            <#input id="idNo" name="身份证号" value="${item.idNo}" underline="true"/>
+                            <#input id="birthday" name="出生日期" value="${item.birthday}" underline="true"/>
+                            <#input id="address" name="居住地" value="${item.address}" underline="true"/>
+                            <#input id="csType" name="涉案类别" value="${item.csType}" underline="true"/>
+                            <#input id="graspDate" name="抓获日期" value="${item.graspDate}" underline="true"/>
+                            <#input id="graspUnit" name="抓获单位" value="${item.graspUnit}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="inputUser" name="录入人" value="${item.inputUser}" underline="true"/>
+                            <#input id="remark" name="备注" value="${item.remark}" underline="true"/>
+                            <#input id="status" name="状态" value="${item.status}" underline="true"/>
+                            <#input id="delStatus" name="是否删除" value="${item.delStatus}" underline="true"/>
+                            <#input id="updUserId" name="最后修改人" value="${item.updUserId}" underline="true"/>
+                            <#input id="updOrgId" name="最后修改机构" value="${item.updOrgId}" underline="true"/>
+                            <#input id="updTm" name="最后修改时间" value="${item.updTm}" underline="true"/>
+                            <#input id="crtUserId" name="创建人" value="${item.crtUserId}" underline="true"/>
+                            <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
+                            <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CriminalSuspectInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CriminalSuspectInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/footprint/criminalSuspect/criminalSuspect_info.js"></script>
+@}

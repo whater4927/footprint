@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="caseNo" name="案件编号" value="${item.caseNo}" underline="true"/>
+                            <#input id="caseState" name="案件状态" value="${item.caseState}" underline="true"/>
+                            <#input id="caseTm" name="案发时间" value="${item.caseTm}" underline="true"/>
+                            <#input id="caseAddress" name="案发地点" value="${item.caseAddress}" underline="true"/>
+                            <#input id="unit" name="所属单位" value="${item.unit}" underline="true"/>
+                            <#input id="caseDesc" name="简要案情" value="${item.caseDesc}" underline="true"/>
+                            <#input id="caseType" name="案件类别" value="${item.caseType}" underline="true"/>
+                            <#input id="intrusionMode" name="侵入方式" value="${item.intrusionMode}" underline="true"/>
+                            <#input id="stolenGoods" name="被盗物品" value="${item.stolenGoods}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="crimesPersonNum" name="作案人数" value="${item.crimesPersonNum}" underline="true"/>
+                            <#input id="status" name="状态" value="${item.status}" underline="true"/>
+                            <#input id="delStatus" name="是否删除" value="${item.delStatus}" underline="true"/>
+                            <#input id="updUserId" name="最后修改人" value="${item.updUserId}" underline="true"/>
+                            <#input id="updOrgId" name="最后修改机构" value="${item.updOrgId}" underline="true"/>
+                            <#input id="updTm" name="最后修改时间" value="${item.updTm}" underline="true"/>
+                            <#input id="crtUserId" name="创建人" value="${item.crtUserId}" underline="true"/>
+                            <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
+                            <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CaseInfoInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CaseInfoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/footprint/caseInfo/caseInfo_info.js"></script>
+@}

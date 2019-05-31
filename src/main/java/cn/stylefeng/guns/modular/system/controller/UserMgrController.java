@@ -26,6 +26,7 @@ import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
+import cn.stylefeng.guns.core.util.CommonUtil;
 import cn.stylefeng.guns.modular.system.factory.UserFactory;
 import cn.stylefeng.guns.modular.system.model.User;
 import cn.stylefeng.guns.modular.system.service.IUserService;
@@ -357,7 +358,7 @@ public class UserMgrController extends BaseController {
     @ResponseBody
     public String upload(@RequestPart("file") MultipartFile picture) {
 
-        String pictureName = UUID.randomUUID().toString() + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
+        String pictureName = CommonUtil.UUID() + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
         try {
             String fileSavePath = gunsProperties.getFileUploadPath();
             picture.transferTo(new File(fileSavePath + pictureName));

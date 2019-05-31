@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 
 /**
@@ -40,7 +42,9 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 @RequestMapping("/test")
 public class TestController extends BaseController {
 	private String PREFIX = "/footprint/test/";
-
+	@Autowired
+	private INoService noService ;
+	
 	@GetMapping("/test1")
 	public String test1() {
 		return PREFIX + "test1.html";
@@ -70,6 +74,26 @@ public class TestController extends BaseController {
 	@GetMapping(value = "/get2",produces = MediaType.IMAGE_JPEG_VALUE)
 	@ResponseBody
 	public byte[] getImage2() throws IOException {
+	    File file = new File("C:\\Users\\mayn\\git\\footprint\\src\\main\\webapp\\static\\footprint-img\\4\\K2301020000222015050082.jpg");
+	    FileInputStream inputStream = new FileInputStream(file);
+	    byte[] bytes = new byte[inputStream.available()];
+	    inputStream.read(bytes, 0, inputStream.available());
+	    return bytes;
+	}
+	
+	
+	@GetMapping(value = "/get3",produces = MediaType.IMAGE_JPEG_VALUE)
+	@ResponseBody
+	public byte[] getImage3() throws IOException {
+	    File file = new File("C:\\Users\\mayn\\git\\footprint\\src\\main\\webapp\\static\\footprint-img\\4\\K2301020000222015050082.jpg");
+	    FileInputStream inputStream = new FileInputStream(file);
+	    byte[] bytes = new byte[inputStream.available()];
+	    inputStream.read(bytes, 0, inputStream.available());
+	    return bytes;
+	}
+	@GetMapping(value = "/get4",produces = MediaType.IMAGE_JPEG_VALUE)
+	@ResponseBody
+	public byte[] getImage4() throws IOException {
 	    File file = new File("C:\\Users\\mayn\\git\\footprint\\src\\main\\webapp\\static\\footprint-img\\4\\K2301020000222015050082.jpg");
 	    FileInputStream inputStream = new FileInputStream(file);
 	    byte[] bytes = new byte[inputStream.available()];

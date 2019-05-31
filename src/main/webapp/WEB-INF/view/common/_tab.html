@@ -14,7 +14,7 @@
                                width="64px" height="64px"/></span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
-                       <span class="block m-t-xs"><strong class="font-bold">${shiro.getUser().name}</strong></span>
+                        <span class="block m-t-xs"><strong class="font-bold">${shiro.getUser().name}</strong></span>
                         <span class="text-muted text-xs block">${shiro.getUser().roleNames[0]}<b class="caret"></b></span>
                         </span>
                     </a>
@@ -22,12 +22,10 @@
                         <li><a class="J_menuItem" href="${ctxPath}/mgr/user_info">个人资料</a></li>
                         <li><a class="J_menuItem" href="${ctxPath}/mgr/user_chpwd">修改密码</a></li>
                         <li class="divider"></li>
-                        <li><a href="${ctxPath}/logout">安全退出</a>
-                        </li>
+                        <li><a href="${ctxPath}/logout">安全退出</a></li>
                     </ul>
                 </div>
-                <div class="logo-element">GS
-                </div>
+                <div class="logo-element">FP</div>
             </li>
             
             @for(title in titles){

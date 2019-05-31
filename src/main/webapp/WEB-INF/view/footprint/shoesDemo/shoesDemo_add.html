@@ -1,0 +1,40 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" underline="true"/>
+                            <#input id="brand" name="品牌" underline="true"/>
+                            <#input id="url" name="鞋底图案" underline="true"/>
+                            <#input id="length" name="长" underline="true"/>
+                            <#input id="width" name="宽" underline="true"/>
+                            <#input id="remark" name="备注" underline="true"/>
+                            <#input id="inputUser" name="录入人" underline="true"/>
+                            <#input id="status" name="状态"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="delStatus" name="是否删除" underline="true"/>
+                            <#input id="updUserId" name="最后修改人" underline="true"/>
+                            <#input id="updOrgId" name="最后修改机构" underline="true"/>
+                            <#input id="updTm" name="最后修改时间" underline="true"/>
+                            <#input id="crtUserId" name="创建人" underline="true"/>
+                            <#input id="crtOrgId" name="创建机构id" underline="true"/>
+                            <#input id="crtTm" name="创建时间" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ShoesDemoInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ShoesDemoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/footprint/shoesDemo/shoesDemo_info.js"></script>
+@}

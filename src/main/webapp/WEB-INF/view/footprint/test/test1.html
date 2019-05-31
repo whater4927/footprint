@@ -5,6 +5,7 @@
             <img src="/static/footprint-img/1/K2301020000222015040081.jpg"
                  alt="通用的占位符缩略图">
         </a>
+        <a href="#" class="btn btn-primary" role="button" id="testBtn">按钮1</a> 
     </div>
     <div class="col-sm-6 col-md-3">
         <a href="#" class="thumbnail">
@@ -52,13 +53,19 @@ function onImgLoaded() {
     onPreloadComplete();
   }
 }
+
+$("#testBtn").click(function(){
+	alert(1)
+})
+
+
 function onPreloadComplete(){
 	  //call the methods that will create a 64-bit version of thumbnail here.
 	  var newImg = getImagePortion(imgObject, 120, 150, 150, 80, 2);
 	  //place image in appropriate div
 	  document.getElementById("images").innerHTML = "<img alt='' src='"+newImg+"' />";
 	}
-getImagePortion(imgObj, newWidth, newHeight, startX, startY, ratio){
+function getImagePortion(imgObj, newWidth, newHeight, startX, startY, ratio){
 	 /* the parameters: - the image element - the new width - the new height - the x point we start taking pixels - the y point we start taking pixels - the ratio */
 	 //set up canvas for thumbnail
 	 var tnCanvas = document.createElement('canvas');

@@ -31,7 +31,17 @@ public class CommonUtil {
 
 	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+	public static String formatNumber(Integer number, int length) {
+		if (length <= 0) {
+			return new DecimalFormat("000000").format(number);
+		}
+		String formatString = "";
+		for (int i = 0; i < length; i++) {
+			formatString += "0";
+		}
+		return new DecimalFormat(formatString).format(number);
 
+	}
 	/**
 	 * 获取UUID
 	 *

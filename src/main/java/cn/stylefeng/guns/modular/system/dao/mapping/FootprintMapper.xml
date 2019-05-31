@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.FootprintMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Footprint">
+        <id column="fp_no" property="fpNo" />
+        <result column="case_no" property="caseNo" />
+        <result column="cs_no" property="csNo" />
+        <result column="position" property="position" />
+        <result column="legacy_mode" property="legacyMode" />
+        <result column="extraction_method" property="extractionMethod" />
+        <result column="original_img" property="originalImg" />
+        <result column="new_img" property="newImg" />
+        <result column="length" property="length" />
+        <result column="width" property="width" />
+        <result column="status" property="status" />
+        <result column="del_status" property="delStatus" />
+        <result column="upd_user_id" property="updUserId" />
+        <result column="upd_org_id" property="updOrgId" />
+        <result column="upd_tm" property="updTm" />
+        <result column="crt_user_id" property="crtUserId" />
+        <result column="crt_org_id" property="crtOrgId" />
+        <result column="crt_tm" property="crtTm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        fp_no, case_no, cs_no, position, legacy_mode, extraction_method, original_img, new_img, length, width, status, del_status, upd_user_id, upd_org_id, upd_tm, crt_user_id, crt_org_id, crt_tm
+    </sql>
+
+</mapper>

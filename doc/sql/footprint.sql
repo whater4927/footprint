@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 24/05/2019 16:42:24
+ Date: 31/05/2019 16:32:22
 */
 
 SET NAMES utf8mb4;
@@ -33,6 +33,35 @@ CREATE TABLE `code_dbinfo`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据库链接信息' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for criminal_suspect
+-- ----------------------------
+DROP TABLE IF EXISTS `criminal_suspect`;
+CREATE TABLE `criminal_suspect`  (
+  `cs_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '嫌疑人编号',
+  `name` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '姓名',
+  `sex` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '性别',
+  `heigh` int(11) NULL DEFAULT NULL COMMENT '身高',
+  `nation` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '籍贯',
+  `id_no` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '身份证号',
+  `birthday` date NULL DEFAULT NULL COMMENT '出生日期',
+  `address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '居住地',
+  `cs_type` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '涉案类别',
+  `grasp_date` date NULL DEFAULT NULL COMMENT '抓获日期',
+  `grasp_unit` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '抓获单位',
+  `input_user` int(11) NULL DEFAULT NULL COMMENT '录入人',
+  `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '备注',
+  `status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '状态',
+  `del_status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '是否删除',
+  `upd_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `upd_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改机构',
+  `upd_tm` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `crt_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建人',
+  `crt_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建机构id',
+  `crt_tm` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`cs_no`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '嫌疑人信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for doctor_point
@@ -67,6 +96,141 @@ CREATE TABLE `emp_info`  (
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for fp_case_info
+-- ----------------------------
+DROP TABLE IF EXISTS `fp_case_info`;
+CREATE TABLE `fp_case_info`  (
+  `case_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '案件编号',
+  `case_state` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '案件状态',
+  `case_tm` datetime(0) NULL DEFAULT NULL COMMENT '案发时间',
+  `case_address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '案发地点',
+  `unit` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '所属单位',
+  `case_desc` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '简要案情',
+  `case_type` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '案件类别',
+  `intrusion_mode` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '侵入方式',
+  `stolen_goods` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '被盗物品',
+  `crimes_person_num` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '作案人数',
+  `status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '状态',
+  `del_status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '是否删除',
+  `upd_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `upd_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改机构',
+  `upd_tm` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `crt_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建人',
+  `crt_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建机构id',
+  `crt_tm` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`case_no`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '案件基本信息' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for fp_case_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `fp_case_relation`;
+CREATE TABLE `fp_case_relation`  (
+  `relation_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '串并案件编号',
+  `relation_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '串案名称',
+  `relation_reason` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '串案依据',
+  `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '备注',
+  `status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '状态',
+  `del_status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '是否删除',
+  `upd_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `upd_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改机构',
+  `upd_tm` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `crt_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建人',
+  `crt_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建机构id',
+  `crt_tm` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`relation_no`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '07_串并案件' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for fp_case_relation_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `fp_case_relation_detail`;
+CREATE TABLE `fp_case_relation_detail`  (
+  `id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT 'id',
+  `relation_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '串并案件编号',
+  `case_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '案件编号',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '串并案件关联案件' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for fp_criminal_suspect
+-- ----------------------------
+DROP TABLE IF EXISTS `fp_criminal_suspect`;
+CREATE TABLE `fp_criminal_suspect`  (
+  `cs_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '嫌疑人编号',
+  `name` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '姓名',
+  `sex` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '性别',
+  `heigh` int(11) NULL DEFAULT NULL COMMENT '身高',
+  `nation` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '籍贯',
+  `id_no` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '身份证号',
+  `birthday` date NULL DEFAULT NULL COMMENT '出生日期',
+  `address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '居住地',
+  `cs_type` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '涉案类别',
+  `grasp_date` date NULL DEFAULT NULL COMMENT '抓获日期',
+  `grasp_unit` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '抓获单位',
+  `input_user` int(11) NULL DEFAULT NULL COMMENT '录入人',
+  `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '备注',
+  `status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '状态',
+  `del_status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '是否删除',
+  `upd_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `upd_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改机构',
+  `upd_tm` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `crt_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建人',
+  `crt_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建机构id',
+  `crt_tm` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`cs_no`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '嫌疑人信息' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for fp_footprint
+-- ----------------------------
+DROP TABLE IF EXISTS `fp_footprint`;
+CREATE TABLE `fp_footprint`  (
+  `fp_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '足迹编号',
+  `case_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '案件编号',
+  `cs_no` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '嫌疑人编号',
+  `position` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '足迹遗留部位',
+  `legacy_mode` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '足迹遗留方式',
+  `extraction_method` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '足迹提取方式',
+  `original_img` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '原始照片',
+  `new_img` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '处理后的照片',
+  `length` int(11) NULL DEFAULT NULL COMMENT '长',
+  `width` int(11) NULL DEFAULT NULL COMMENT '宽',
+  `status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '状态',
+  `del_status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '是否删除',
+  `upd_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `upd_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改机构',
+  `upd_tm` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `crt_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建人',
+  `crt_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建机构id',
+  `crt_tm` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`fp_no`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '足迹信息' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for fp_shoes_demo
+-- ----------------------------
+DROP TABLE IF EXISTS `fp_shoes_demo`;
+CREATE TABLE `fp_shoes_demo`  (
+  `id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `brand` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '品牌',
+  `url` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '鞋底图案',
+  `length` int(11) NULL DEFAULT NULL COMMENT '长',
+  `width` int(11) NULL DEFAULT NULL COMMENT '宽',
+  `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '备注',
+  `input_user` int(11) NULL DEFAULT NULL COMMENT '录入人',
+  `status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '状态',
+  `del_status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '是否删除',
+  `upd_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `upd_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改机构',
+  `upd_tm` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `crt_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建人',
+  `crt_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建机构id',
+  `crt_tm` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '鞋厂鞋样' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for gs_acc
@@ -150,6 +314,63 @@ INSERT INTO `gs_acc_emp` VALUES ('f803655661f3400195360621624aacab', '273c570533
 INSERT INTO `gs_acc_emp` VALUES ('fa8289c7ffbe456dbd2468ecbadf5952', '1', '3', '2019-02', 960.00, 960.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
 INSERT INTO `gs_acc_emp` VALUES ('fd198289868e40f09cb2addc54324838', '52a6a432d22a42f0906188251eba782f', '1', '2019-03', 9734.00, 9734.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
 INSERT INTO `gs_acc_emp` VALUES ('ff6bad479bba449d9a6727648b5448e3', '91487422119746d1b2600442620e6c87', '1', '2019-03', 678.00, 678.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+
+-- ----------------------------
+-- Table structure for gs_acc_emp_copy1
+-- ----------------------------
+DROP TABLE IF EXISTS `gs_acc_emp_copy1`;
+CREATE TABLE `gs_acc_emp_copy1`  (
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'id',
+  `emp_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '人员ID',
+  `com_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '单位ID',
+  `pay_dt` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '日期',
+  `emp_amt` decimal(12, 2) NULL DEFAULT NULL COMMENT '个人缴纳金额',
+  `com_amt` decimal(12, 2) NULL DEFAULT NULL COMMENT '单位缴纳金额',
+  `pay_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '缴纳状态',
+  `deal_tm` datetime(0) NULL DEFAULT NULL COMMENT '业务办理时间',
+  `oper_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '办理业务的用户ID',
+  `oper_org_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户的机构ID',
+  `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态',
+  `del_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否删除',
+  `upd_user_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `upd_org_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最后修改机构',
+  `upd_tm` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `crt_user_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `crt_org_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建机构id',
+  `crt_tm` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收缴记录明细' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of gs_acc_emp_copy1
+-- ----------------------------
+INSERT INTO `gs_acc_emp_copy1` VALUES ('07a4c3f2b3d74c9bbfa7d2885d0201fa', 'a4b7056284b047c5a95ab5ca1f95da6d', '2', '2019-04', 960.00, 960.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('07a5ff23f0cc455abdad0b29e032fe2d', '10ed344fb27149f8877ac0ce60c7cb31', '3', '2019-02', 10262.00, 10262.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('19a4622c385b4182b5e9923ae52fb36b', '52a6a432d22a42f0906188251eba782f', '1', '2019-04', 9734.00, 9734.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('20e49bdb86aa473380e127d4b063f5f9', 'a4b7056284b047c5a95ab5ca1f95da6d', '2', '2019-02', 960.00, 960.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('267f7458a84345ddb1a685287cbc5005', '273c5705335c41c8b95d44d4c370814e', '2', '2019-03', 600.00, 600.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('48082fbea2e941cc9ebe0315fdbe42a3', '5200e2185e4841149f6bcc6a91da00c1', '5', '2019-04', 26666.00, 26666.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('4eac05236dc2444aa6614cd125926df9', '5200e2185e4841149f6bcc6a91da00c1', '5', '2019-02', 26666.00, 26666.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('566c1f7f15ff45c4b22bc1ff78575bb5', '52a6a432d22a42f0906188251eba782f', '1', '2019-02', 9734.00, 9734.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('5f3cdf7a0e754041a07ddeab64620a57', 'a4b7056284b047c5a95ab5ca1f95da6d', '2', '2019-03', 960.00, 960.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('67debd5137eb4f25b0eb4883885a6800', '91487422119746d1b2600442620e6c87', '1', '2019-04', 678.00, 678.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('7676b83028b84131aa6aa99d991a3946', '38a8caf9ccba4bd487feb7ecdc00ef2a', '1', '2019-04', 2654.00, 2654.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('82955ba555ae438ab23f204e9086b00d', '635b0fbd45c04fc7b2bfa682670cab3e', '4', '2019-03', 6144.00, 6144.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('99056316fc98436184f63aa5207b94a0', '38a8caf9ccba4bd487feb7ecdc00ef2a', '1', '2019-02', 2654.00, 2654.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('a18e2a020f844da5b603815f1619f2e7', '635b0fbd45c04fc7b2bfa682670cab3e', '4', '2019-02', 6144.00, 6144.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('ad162414020c451eb18ca96f27afd094', '5200e2185e4841149f6bcc6a91da00c1', '5', '2019-03', 26666.00, 26666.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('bfca2c5e6eae4d968747957bfe27dbdc', '273c5705335c41c8b95d44d4c370814e', '2', '2019-02', 600.00, 600.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('c9a15886ea874939a8e8107f56ead387', '1', '3', '2019-03', 960.00, 960.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('d06a4db4f32a459595a69b302a2865e9', '635b0fbd45c04fc7b2bfa682670cab3e', '4', '2019-04', 6144.00, 6144.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('d46d8193f4e44cdabc360a5eb517234c', '10ed344fb27149f8877ac0ce60c7cb31', '3', '2019-03', 10262.00, 10262.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('d82c5bad1b57401db60db112d47881be', '1', '3', '2019-04', 960.00, 960.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('dfe813e9401c4245a2ac6deb4eda6ded', '38a8caf9ccba4bd487feb7ecdc00ef2a', '1', '2019-03', 2654.00, 2654.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('e538000b902d4732a0d1eddac3a56578', '91487422119746d1b2600442620e6c87', '1', '2019-02', 678.00, 678.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('e63b8d18b0eb46aabf5e3d08705a5157', '10ed344fb27149f8877ac0ce60c7cb31', '3', '2019-04', 10262.00, 10262.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('f803655661f3400195360621624aacab', '273c5705335c41c8b95d44d4c370814e', '2', '2019-04', 600.00, 600.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:05');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('fa8289c7ffbe456dbd2468ecbadf5952', '1', '3', '2019-02', 960.00, 960.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-05-04 15:40:55');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('fd198289868e40f09cb2addc54324838', '52a6a432d22a42f0906188251eba782f', '1', '2019-03', 9734.00, 9734.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
+INSERT INTO `gs_acc_emp_copy1` VALUES ('ff6bad479bba449d9a6727648b5448e3', '91487422119746d1b2600442620e6c87', '1', '2019-03', 678.00, 678.00, 'N', NULL, NULL, NULL, NULL, 'NOR', NULL, NULL, NULL, '1', '24', '2019-04-29 16:52:14');
 
 -- ----------------------------
 -- Table structure for gs_company
@@ -446,6 +667,29 @@ INSERT INTO `patient_info` VALUES ('52212114', '王竑超', '12000');
 INSERT INTO `patient_info` VALUES ('adadadq23e123e', '1231', '123');
 
 -- ----------------------------
+-- Table structure for shoes_demo
+-- ----------------------------
+DROP TABLE IF EXISTS `shoes_demo`;
+CREATE TABLE `shoes_demo`  (
+  `id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `brand` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '品牌',
+  `url` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '鞋底图案',
+  `length` int(11) NULL DEFAULT NULL COMMENT '长',
+  `width` int(11) NULL DEFAULT NULL COMMENT '宽',
+  `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '备注',
+  `input_user` int(11) NULL DEFAULT NULL COMMENT '录入人',
+  `status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '状态',
+  `del_status` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '是否删除',
+  `upd_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `upd_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '最后修改机构',
+  `upd_tm` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `crt_user_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建人',
+  `crt_org_id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '创建机构id',
+  `crt_tm` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '鞋厂鞋样' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
@@ -467,7 +711,6 @@ CREATE TABLE `sys_dept`  (
 INSERT INTO `sys_dept` VALUES (25, 2, 24, '[0],[24],', '001办事处', '001办事处', '', NULL);
 INSERT INTO `sys_dept` VALUES (26, 3, 24, '[0],[24],', '002办事处', '002办事处', '', NULL);
 INSERT INTO `sys_dept` VALUES (27, 4, 24, '[0],[24],', '003办事处', '003办事处', '', NULL);
-INSERT INTO `sys_dept` VALUES (28, 5, 1, NULL, '测试', '测试fullname', '测试tips', 1);
 
 -- ----------------------------
 -- Table structure for sys_dict
@@ -566,7 +809,7 @@ CREATE TABLE `sys_login_log`  (
   `message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '具体消息',
   `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录ip',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 440 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 488 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_login_log
@@ -794,6 +1037,54 @@ INSERT INTO `sys_login_log` VALUES (436, '登录日志', 1, '2019-05-24 11:32:47
 INSERT INTO `sys_login_log` VALUES (437, '登录日志', 45, '2019-05-24 13:43:26', '成功', NULL, '192.168.0.115');
 INSERT INTO `sys_login_log` VALUES (438, '退出日志', 45, '2019-05-24 13:43:29', '成功', NULL, '192.168.0.115');
 INSERT INTO `sys_login_log` VALUES (439, '登录日志', 1, '2019-05-24 13:43:33', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (440, '登录日志', 45, '2019-05-27 10:40:57', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (441, '退出日志', 45, '2019-05-27 10:41:01', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (442, '登录日志', 1, '2019-05-27 10:41:03', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (443, '退出日志', 1, '2019-05-27 10:42:11', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (444, '登录日志', 45, '2019-05-27 10:42:12', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (445, '登录日志', 45, '2019-05-28 09:42:01', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (446, '退出日志', 45, '2019-05-28 09:50:38', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (447, '登录日志', 45, '2019-05-28 09:50:42', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (448, '退出日志', 45, '2019-05-28 10:09:47', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (449, '登录日志', 45, '2019-05-28 10:09:48', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (450, '退出日志', 45, '2019-05-28 10:21:08', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (451, '登录日志', 1, '2019-05-28 10:21:13', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (452, '退出日志', 1, '2019-05-28 10:43:26', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (453, '登录日志', 45, '2019-05-28 10:43:27', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (454, '退出日志', 45, '2019-05-28 10:43:37', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (455, '登录日志', 1, '2019-05-28 10:43:40', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (456, '退出日志', 1, '2019-05-28 10:44:28', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (457, '登录日志', 45, '2019-05-28 10:48:49', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (458, '登录日志', 45, '2019-05-28 13:49:22', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (459, '退出日志', 45, '2019-05-28 14:03:39', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (460, '登录日志', 1, '2019-05-28 14:03:41', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (461, '登录日志', 1, '2019-05-28 14:12:24', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (462, '登录日志', 1, '2019-05-28 15:53:13', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (463, '登录日志', 1, '2019-05-28 17:18:22', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (464, '登录日志', 1, '2019-05-29 09:23:32', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (465, '登录日志', 1, '2019-05-29 09:34:05', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (466, '登录日志', 1, '2019-05-29 10:05:55', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (467, '退出日志', 1, '2019-05-29 10:09:29', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (468, '登录日志', 1, '2019-05-29 10:09:30', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (469, '登录日志', 1, '2019-05-29 10:44:04', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (470, '退出日志', 1, '2019-05-29 10:44:36', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (471, '登录日志', 1, '2019-05-29 10:44:37', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (472, '退出日志', 1, '2019-05-29 10:53:05', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (473, '登录日志', 1, '2019-05-29 10:53:07', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (474, '登录日志', 1, '2019-05-29 13:47:35', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (475, '登录日志', 1, '2019-05-29 17:29:02', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (476, '登录日志', 1, '2019-05-30 08:55:19', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (477, '登录日志', 1, '2019-05-31 11:17:25', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (478, '登录日志', 1, '2019-05-31 11:23:48', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (479, '登录日志', 1, '2019-05-31 11:27:38', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (480, '退出日志', 1, '2019-05-31 11:33:35', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (481, '登录日志', 1, '2019-05-31 11:33:37', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (482, '登录日志', 1, '2019-05-31 13:48:08', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (483, '登录日志', 1, '2019-05-31 13:59:41', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (484, '退出日志', 1, '2019-05-31 14:40:05', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (485, '登录日志', 1, '2019-05-31 14:40:06', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (486, '登录日志', 1, '2019-05-31 15:31:34', '成功', NULL, '192.168.0.115');
+INSERT INTO `sys_login_log` VALUES (487, '登录日志', 1, '2019-05-31 16:08:57', '成功', NULL, '192.168.0.115');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -814,7 +1105,7 @@ CREATE TABLE `sys_menu`  (
   `status` int(65) NULL DEFAULT NULL COMMENT '菜单状态 :  1:启用   0:不启用',
   `isopen` int(11) NULL DEFAULT NULL COMMENT '是否打开:    1:打开   0:不打开',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1128273316512018446 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1134301147718451207 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -926,6 +1217,55 @@ INSERT INTO `sys_menu` VALUES (1128273316512018442, 'test1', '0', '[0],', '测�
 INSERT INTO `sys_menu` VALUES (1128273316512018443, 'test2', '0', '[0],', '测试2', '', '/test/test2', 99, 1, 1, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (1128273316512018444, 'test3', '0', '[0],', '测试3', '', '/test/test3', 99, 1, 1, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (1128273316512018445, 'test4', '0', '[0],', '测试4', '', '/test/test4', 99, 1, 1, NULL, 1, NULL);
+INSERT INTO `sys_menu` VALUES (1128273316512018446, 'collection', '0', '[0],', '足迹信息采集', 'fa-paw', '#', 5, 1, 1, NULL, 1, NULL);
+INSERT INTO `sys_menu` VALUES (1133554521680871425, 'caseInfo', 'collection', '[0],[collection],', '案件基本信息', '', '/caseInfo', 99, 2, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1133554521680871426, 'caseInfo_list', 'caseInfo', '[0],[collection],[caseInfo],', '案件基本信息列表', '', '/caseInfo/list', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1133554521680871427, 'caseInfo_add', 'caseInfo', '[0],[collection],[caseInfo],', '案件基本信息添加', '', '/caseInfo/add', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1133554521680871428, 'caseInfo_update', 'caseInfo', '[0],[collection],[caseInfo],', '案件基本信息更新', '', '/caseInfo/update', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1133554521680871429, 'caseInfo_delete', 'caseInfo', '[0],[collection],[caseInfo],', '案件基本信息删除', '', '/caseInfo/delete', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1133554521680871430, 'caseInfo_detail', 'caseInfo', '[0],[collection],[caseInfo],', '案件基本信息详情', '', '/caseInfo/detail', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134298626811748354, 'criminalSuspect', 'collection', '[0],[collection],', '嫌疑人信息', '', '/criminalSuspect', 99, 2, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134298626811748355, 'criminalSuspect_list', 'criminalSuspect', '[0],[collection],[criminalSuspect],', '嫌疑人信息列表', '', '/criminalSuspect/list', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134298626811748356, 'criminalSuspect_add', 'criminalSuspect', '[0],[collection],[criminalSuspect],', '嫌疑人信息添加', '', '/criminalSuspect/add', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134298626811748357, 'criminalSuspect_update', 'criminalSuspect', '[0],[collection],[criminalSuspect],', '嫌疑人信息更新', '', '/criminalSuspect/update', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134298626811748358, 'criminalSuspect_delete', 'criminalSuspect', '[0],[collection],[criminalSuspect],', '嫌疑人信息删除', '', '/criminalSuspect/delete', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134298626811748359, 'criminalSuspect_detail', 'criminalSuspect', '[0],[collection],[criminalSuspect],', '嫌疑人信息详情', '', '/criminalSuspect/detail', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134299915691954178, 'shoesDemo', 'collection', '[0],[collection],', '鞋厂鞋样', '', '/shoesDemo', 99, 2, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134299915691954179, 'shoesDemo_list', 'shoesDemo', '[0],[collection],[shoesDemo],', '鞋厂鞋样列表', '', '/shoesDemo/list', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134299915691954180, 'shoesDemo_add', 'shoesDemo', '[0],[collection],[shoesDemo],', '鞋厂鞋样添加', '', '/shoesDemo/add', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134299915691954181, 'shoesDemo_update', 'shoesDemo', '[0],[collection],[shoesDemo],', '鞋厂鞋样更新', '', '/shoesDemo/update', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134299915691954182, 'shoesDemo_delete', 'shoesDemo', '[0],[collection],[shoesDemo],', '鞋厂鞋样删除', '', '/shoesDemo/delete', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134299915691954183, 'shoesDemo_detail', 'shoesDemo', '[0],[collection],[shoesDemo],', '鞋厂鞋样详情', '', '/shoesDemo/detail', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134300952217747457, 'caseRelation', 'collection', '[0],[collection],', '串并案件', '', '/caseRelation', 99, 2, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134300952217747458, 'caseRelation_list', 'caseRelation', '[0],[collection],[caseRelation],', '串并案件列表', '', '/caseRelation/list', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134300952217747459, 'caseRelation_add', 'caseRelation', '[0],[collection],[caseRelation],', '串并案件添加', '', '/caseRelation/add', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134300952217747460, 'caseRelation_update', 'caseRelation', '[0],[collection],[caseRelation],', '串并案件更新', '', '/caseRelation/update', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134300952217747461, 'caseRelation_delete', 'caseRelation', '[0],[collection],[caseRelation],', '串并案件删除', '', '/caseRelation/delete', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134300952217747462, 'caseRelation_detail', 'caseRelation', '[0],[collection],[caseRelation],', '串并案件详情', '', '/caseRelation/detail', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134301147718451201, 'footprint', 'collection', '[0],[collection],', '足迹信息', '', '/footprint', 99, 2, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134301147718451202, 'footprint_list', 'footprint', '[0],[collection],[footprint],', '足迹信息列表', '', '/footprint/list', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134301147718451203, 'footprint_add', 'footprint', '[0],[collection],[footprint],', '足迹信息添加', '', '/footprint/add', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134301147718451204, 'footprint_update', 'footprint', '[0],[collection],[footprint],', '足迹信息更新', '', '/footprint/update', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134301147718451205, 'footprint_delete', 'footprint', '[0],[collection],[footprint],', '足迹信息删除', '', '/footprint/delete', 99, 3, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1134301147718451206, 'footprint_detail', 'footprint', '[0],[collection],[footprint],', '足迹信息详情', '', '/footprint/detail', 99, 3, 0, NULL, 1, 0);
+
+-- ----------------------------
+-- Table structure for sys_no
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_no`;
+CREATE TABLE `sys_no`  (
+  `id` varchar(32) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `org_id` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `month` int(11) NOT NULL,
+  `seq_no` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = '业务编号' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_no
+-- ----------------------------
+INSERT INTO `sys_no` VALUES ('ec46e22e1e8745dd85483a98d93a8441', 24, 119, 4, 7000);
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -962,7 +1302,7 @@ CREATE TABLE `sys_operation_log`  (
   `succeed` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否成功',
   `message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 743 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 758 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_operation_log
@@ -1156,6 +1496,21 @@ INSERT INTO `sys_operation_log` VALUES (739, '业务日志', '修改菜单', 1, 
 INSERT INTO `sys_operation_log` VALUES (740, '业务日志', '菜单新增', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'add', '2019-05-24 11:34:00', '成功', '菜单名称=测试2');
 INSERT INTO `sys_operation_log` VALUES (741, '业务日志', '菜单新增', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'add', '2019-05-24 11:34:25', '成功', '菜单名称=测试3');
 INSERT INTO `sys_operation_log` VALUES (742, '业务日志', '菜单新增', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'add', '2019-05-24 11:34:45', '成功', '菜单名称=测试4');
+INSERT INTO `sys_operation_log` VALUES (743, '业务日志', '配置权限', 1, 'cn.stylefeng.guns.modular.system.controller.RoleController', 'setAuthority', '2019-05-27 10:42:04', '成功', '角色名称=普通用户,资源名称=');
+INSERT INTO `sys_operation_log` VALUES (744, '业务日志', '修改管理员', 45, 'cn.stylefeng.guns.modular.system.controller.UserMgrController', 'edit', '2019-05-28 10:14:15', '成功', '账号=opt;;;字段名称:null,旧值:6c0359f2fc2565ebf1ba7934a5004bfb,新值:;;;字段名称:名字,旧值:操作员1,新值:操作员2;;;字段名称:部门名称,旧值:,新值:001办事处');
+INSERT INTO `sys_operation_log` VALUES (745, '业务日志', '删除部门', 1, 'cn.stylefeng.guns.modular.system.controller.DeptController', 'delete', '2019-05-28 16:05:47', '成功', '部门名称=测试fullname');
+INSERT INTO `sys_operation_log` VALUES (746, '异常日志', '', 1, NULL, NULL, '2019-05-28 17:18:26', '失败', 'java.lang.NullPointerException\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImpl.busiNo(NoServiceImpl.java:66)\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImplTTFastClassBySpringCGLIBTT37b99f67.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)\r\n	at org.springframework.aop.framework.CglibAopProxyTCglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at com.alibaba.druid.support.spring.stat.DruidStatInterceptor.invoke(DruidStatInterceptor.java:72)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.framework.CglibAopProxyTDynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImplTTEnhancerBySpringCGLIBTTdea59d34.busiNo(<generated>)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestController.test1(TestController.java:51)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestControllerTTFastClassBySpringCGLIBTTee04affa.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)\r\n	at org.springframework.aop.framework.CglibAopProxyTCglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)\r\n	at cn.stylefeng.guns.core.interceptor.SessionHolderInterceptor.sessionKit(SessionHolderInterceptor.java:44)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)\r\n	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.framework.CglibAopProxyTDynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestControllerTTEnhancerBySpringCGLIBTTfad8e690.test1(<generated>)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:136)\r\n	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:877)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:783)\r\n	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\r\n	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)\r\n	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)\r\n	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)\r\n	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:866)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635)\r\n	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)\r\n	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)\r\n	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)\r\n	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)\r\n	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilterT1.call(AbstractShiroFilter.java:365)\r\n	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)\r\n	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)\r\n	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)\r\n	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at cn.stylefeng.roses.core.xss.XssFilter.doFilter(XssFilter.java:31)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)\r\n	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)\r\n	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)\r\n	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)\r\n	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)\r\n	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)\r\n	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)\r\n	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)\r\n	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)\r\n	at org.apache.coyote.AbstractProtocolTConnectionHandler.process(AbstractProtocol.java:790)\r\n	at org.apache.tomcat.util.net.NioEndpointTSocketProcessor.doRun(NioEndpoint.java:1459)\r\n	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\r\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\r\n	at java.util.concurrent.ThreadPoolExecutorTWorker.run(ThreadPoolExecutor.java:624)\r\n	at org.apache.tomcat.util.threads.TaskThreadTWrappingRunnable.run(TaskThread.java:61)\r\n	at java.lang.Thread.run(Thread.java:748)\r\n');
+INSERT INTO `sys_operation_log` VALUES (747, '异常日志', '', 1, NULL, NULL, '2019-05-29 09:23:39', '失败', 'java.lang.NullPointerException\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImpl.busiNo(NoServiceImpl.java:69)\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImplTTFastClassBySpringCGLIBTT37b99f67.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)\r\n	at org.springframework.aop.framework.CglibAopProxyTCglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at com.alibaba.druid.support.spring.stat.DruidStatInterceptor.invoke(DruidStatInterceptor.java:72)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.framework.CglibAopProxyTDynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImplTTEnhancerBySpringCGLIBTTdea59d34.busiNo(<generated>)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestController.test1(TestController.java:51)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestControllerTTFastClassBySpringCGLIBTTee04affa.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)\r\n	at org.springframework.aop.framework.CglibAopProxyTCglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)\r\n	at cn.stylefeng.guns.core.interceptor.SessionHolderInterceptor.sessionKit(SessionHolderInterceptor.java:44)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)\r\n	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.framework.CglibAopProxyTDynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestControllerTTEnhancerBySpringCGLIBTTfad8e690.test1(<generated>)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:136)\r\n	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:877)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:783)\r\n	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\r\n	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)\r\n	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)\r\n	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)\r\n	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:866)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635)\r\n	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)\r\n	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)\r\n	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)\r\n	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)\r\n	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilterT1.call(AbstractShiroFilter.java:365)\r\n	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)\r\n	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)\r\n	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)\r\n	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at cn.stylefeng.roses.core.xss.XssFilter.doFilter(XssFilter.java:31)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)\r\n	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)\r\n	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)\r\n	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)\r\n	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)\r\n	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)\r\n	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)\r\n	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)\r\n	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)\r\n	at org.apache.coyote.AbstractProtocolTConnectionHandler.process(AbstractProtocol.java:790)\r\n	at org.apache.tomcat.util.net.NioEndpointTSocketProcessor.doRun(NioEndpoint.java:1459)\r\n	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\r\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\r\n	at java.util.concurrent.ThreadPoolExecutorTWorker.run(ThreadPoolExecutor.java:624)\r\n	at org.apache.tomcat.util.threads.TaskThreadTWrappingRunnable.run(TaskThread.java:61)\r\n	at java.lang.Thread.run(Thread.java:748)\r\n');
+INSERT INTO `sys_operation_log` VALUES (748, '异常日志', '', 1, NULL, NULL, '2019-05-29 09:24:44', '失败', 'org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property \'id\' of \'class cn.stylefeng.guns.modular.system.model.No\' with value \'1133544669487214593\' Cause: java.lang.IllegalArgumentException: argument type mismatch\r\n	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:77)\r\n	at org.mybatis.spring.SqlSessionTemplateTSqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)\r\n	at com.sun.proxy.TProxy91.insert(Unknown Source)\r\n	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)\r\n	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:58)\r\n	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59)\r\n	at com.sun.proxy.TProxy108.insert(Unknown Source)\r\n	at com.baomidou.mybatisplus.service.impl.ServiceImpl.insert(ServiceImpl.java:98)\r\n	at com.baomidou.mybatisplus.service.impl.ServiceImpl.insertOrUpdate(ServiceImpl.java:159)\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImpl.busiNo(NoServiceImpl.java:74)\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImplTTFastClassBySpringCGLIBTT37b99f67.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)\r\n	at org.springframework.aop.framework.CglibAopProxyTCglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at com.alibaba.druid.support.spring.stat.DruidStatInterceptor.invoke(DruidStatInterceptor.java:72)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.framework.CglibAopProxyTDynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)\r\n	at cn.stylefeng.guns.modular.system.service.impl.NoServiceImplTTEnhancerBySpringCGLIBTTdea59d34.busiNo(<generated>)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestController.test1(TestController.java:51)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestControllerTTFastClassBySpringCGLIBTTee04affa.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)\r\n	at org.springframework.aop.framework.CglibAopProxyTCglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)\r\n	at cn.stylefeng.guns.core.interceptor.SessionHolderInterceptor.sessionKit(SessionHolderInterceptor.java:44)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)\r\n	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)\r\n	at org.springframework.aop.framework.CglibAopProxyTDynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)\r\n	at cn.stylefeng.guns.modular.footprint.controller.TestControllerTTEnhancerBySpringCGLIBTTfad8e690.test1(<generated>)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:136)\r\n	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:877)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:783)\r\n	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\r\n	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)\r\n	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)\r\n	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)\r\n	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:866)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635)\r\n	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)\r\n	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)\r\n	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)\r\n	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)\r\n	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilterT1.call(AbstractShiroFilter.java:365)\r\n	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)\r\n	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)\r\n	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)\r\n	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at cn.stylefeng.roses.core.xss.XssFilter.doFilter(XssFilter.java:31)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)\r\n	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)\r\n	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)\r\n	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)\r\n	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)\r\n	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)\r\n	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)\r\n	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)\r\n	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)\r\n	at org.apache.coyote.AbstractProtocolTConnectionHandler.process(AbstractProtocol.java:790)\r\n	at org.apache.tomcat.util.net.NioEndpointTSocketProcessor.doRun(NioEndpoint.java:1459)\r\n	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\r\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\r\n	at java.util.concurrent.ThreadPoolExecutorTWorker.run(ThreadPoolExecutor.java:624)\r\n	at org.apache.tomcat.util.threads.TaskThreadTWrappingRunnable.run(TaskThread.java:61)\r\n	at java.lang.Thread.run(Thread.java:748)\r\nCaused by: org.apache.ibatis.reflection.ReflectionException: Could not set property \'id\' of \'class cn.stylefeng.guns.modular.system.model.No\' with value \'1133544669487214593\' Cause: java.lang.IllegalArgumentException: argument type mismatch\r\n	at org.apache.ibatis.reflection.wrapper.BeanWrapper.setBeanProperty(BeanWrapper.java:185)\r\n	at org.apache.ibatis.reflection.wrapper.BeanWrapper.set(BeanWrapper.java:59)\r\n	at org.apache.ibatis.reflection.MetaObject.setValue(MetaObject.java:140)\r\n	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.populateKeys(MybatisDefaultParameterHandler.java:217)\r\n	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.processBatch(MybatisDefaultParameterHandler.java:156)\r\n	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.<init>(MybatisDefaultParameterHandler.java:71)\r\n	at com.baomidou.mybatisplus.MybatisXMLLanguageDriver.createParameterHandler(MybatisXMLLanguageDriver.java:37)\r\n	at org.apache.ibatis.session.Configuration.newParameterHandler(Configuration.java:545)\r\n	at org.apache.ibatis.executor.statement.BaseStatementHandler.<init>(BaseStatementHandler.java:69)\r\n	at org.apache.ibatis.executor.statement.PreparedStatementHandler.<init>(PreparedStatementHandler.java:40)\r\n	at org.apache.ibatis.executor.statement.RoutingStatementHandler.<init>(RoutingStatementHandler.java:46)\r\n	at org.apache.ibatis.session.Configuration.newStatementHandler(Configuration.java:558)\r\n	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:48)\r\n	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)\r\n	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)\r\n	at com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor.intercept(OptimisticLockerInterceptor.java:71)\r\n	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)\r\n	at com.sun.proxy.TProxy138.update(Unknown Source)\r\n	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:198)\r\n	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:185)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.mybatis.spring.SqlSessionTemplateTSqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)\r\n	... 109 more\r\nCaused by: java.lang.IllegalArgumentException: argument type mismatch\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.apache.ibatis.reflection.invoker.MethodInvoker.invoke(MethodInvoker.java:41)\r\n	at org.apache.ibatis.reflection.wrapper.BeanWrapper.setBeanProperty(BeanWrapper.java:180)\r\n	... 138 more\r\n');
+INSERT INTO `sys_operation_log` VALUES (749, '业务日志', '菜单新增', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'add', '2019-05-29 10:01:53', '成功', '菜单名称=足迹信息采集');
+INSERT INTO `sys_operation_log` VALUES (750, '业务日志', '修改菜单', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'edit', '2019-05-29 10:02:42', '成功', '菜单名称=足迹信息采集;;;字段名称:null,旧值:0,新值:1');
+INSERT INTO `sys_operation_log` VALUES (751, '业务日志', '修改菜单', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'edit', '2019-05-29 10:06:53', '成功', '菜单名称=足迹信息采集;;;字段名称:null,旧值:1,新值:0');
+INSERT INTO `sys_operation_log` VALUES (752, '业务日志', '修改菜单', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'edit', '2019-05-29 10:07:07', '成功', '菜单名称=足迹信息采集;;;字段名称:null,旧值:0,新值:1');
+INSERT INTO `sys_operation_log` VALUES (753, '业务日志', '修改菜单', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'edit', '2019-05-29 10:53:00', '成功', '菜单名称=足迹信息采集;;;字段名称:菜单图标,旧值:,新值:paw');
+INSERT INTO `sys_operation_log` VALUES (754, '业务日志', '修改菜单', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'edit', '2019-05-29 10:53:56', '成功', '菜单名称=足迹信息采集;;;字段名称:菜单图标,旧值:paw,新值:fa-paw');
+INSERT INTO `sys_operation_log` VALUES (755, '异常日志', '', 1, NULL, NULL, '2019-05-29 14:33:18', '失败', 'org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is java.io.IOException: The temporary upload location [C:\\Users\\whater\\AppData\\Local\\Temp\\tomcat.4062074735103955528.8080\\work\\Tomcat\\localhost\\ROOT] is not valid\r\n	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.handleParseFailure(StandardMultipartHttpServletRequest.java:122)\r\n	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.parseRequest(StandardMultipartHttpServletRequest.java:113)\r\n	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.<init>(StandardMultipartHttpServletRequest.java:86)\r\n	at org.springframework.web.multipart.support.StandardServletMultipartResolver.resolveMultipart(StandardServletMultipartResolver.java:93)\r\n	at org.springframework.web.servlet.DispatcherServlet.checkMultipart(DispatcherServlet.java:1128)\r\n	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:960)\r\n	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)\r\n	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)\r\n	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:877)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)\r\n	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)\r\n	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)\r\n	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)\r\n	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)\r\n	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilterT1.call(AbstractShiroFilter.java:365)\r\n	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)\r\n	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)\r\n	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)\r\n	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)\r\n	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at cn.stylefeng.roses.core.xss.XssFilter.doFilter(XssFilter.java:31)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)\r\n	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)\r\n	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)\r\n	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)\r\n	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)\r\n	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)\r\n	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)\r\n	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)\r\n	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)\r\n	at org.apache.coyote.AbstractProtocolTConnectionHandler.process(AbstractProtocol.java:790)\r\n	at org.apache.tomcat.util.net.NioEndpointTSocketProcessor.doRun(NioEndpoint.java:1459)\r\n	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\r\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\r\n	at java.util.concurrent.ThreadPoolExecutorTWorker.run(ThreadPoolExecutor.java:624)\r\n	at org.apache.tomcat.util.threads.TaskThreadTWrappingRunnable.run(TaskThread.java:61)\r\n	at java.lang.Thread.run(Thread.java:748)\r\nCaused by: java.io.IOException: The temporary upload location [C:\\Users\\whater\\AppData\\Local\\Temp\\tomcat.4062074735103955528.8080\\work\\Tomcat\\localhost\\ROOT] is not valid\r\n	at org.apache.catalina.connector.Request.parseParts(Request.java:2843)\r\n	at org.apache.catalina.connector.Request.parseParameters(Request.java:3216)\r\n	at org.apache.catalina.connector.Request.getParameter(Request.java:1137)\r\n	at org.apache.catalina.connector.RequestFacade.getParameter(RequestFacade.java:381)\r\n	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:75)\r\n	... 23 more\r\n');
+INSERT INTO `sys_operation_log` VALUES (756, '业务日志', '删除菜单', 1, 'cn.stylefeng.guns.modular.system.controller.MenuController', 'remove', '2019-05-31 13:48:53', '成功', '菜单id=1133564088636628995');
+INSERT INTO `sys_operation_log` VALUES (757, '业务日志', '修改管理员', 1, 'cn.stylefeng.guns.modular.system.controller.UserMgrController', 'edit', '2019-05-31 16:00:36', '成功', '账号=admin;;;字段名称:头像,旧值:b864a8e3-77d9-4869-b1ce-9a3d1d8885ad.png,新值:8fa4f57d319c47c88e0e8e17793e5332.jpg;;;字段名称:null,旧值:6c0359f2fc2565ebf1ba7934a5004bfb,新值:;;;字段名称:部门名称,旧值:,新值:');
 
 -- ----------------------------
 -- Table structure for sys_relation
@@ -1166,195 +1521,182 @@ CREATE TABLE `sys_relation`  (
   `menuid` bigint(11) NULL DEFAULT NULL COMMENT '菜单id',
   `roleid` int(11) NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5804 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6289 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_relation
 -- ----------------------------
-INSERT INTO `sys_relation` VALUES (5620, 1118154058989846535, 6);
-INSERT INTO `sys_relation` VALUES (5621, 1118408896358346754, 6);
-INSERT INTO `sys_relation` VALUES (5622, 1118408896358346755, 6);
-INSERT INTO `sys_relation` VALUES (5623, 1118408896358346756, 6);
-INSERT INTO `sys_relation` VALUES (5624, 1118408896358346757, 6);
-INSERT INTO `sys_relation` VALUES (5625, 1118408896358346758, 6);
-INSERT INTO `sys_relation` VALUES (5626, 1118408896358346759, 6);
-INSERT INTO `sys_relation` VALUES (5627, 1118409061299351554, 6);
-INSERT INTO `sys_relation` VALUES (5628, 1118409061299351555, 6);
-INSERT INTO `sys_relation` VALUES (5629, 1118409061299351556, 6);
-INSERT INTO `sys_relation` VALUES (5630, 1118409061299351557, 6);
-INSERT INTO `sys_relation` VALUES (5631, 1118409061299351558, 6);
-INSERT INTO `sys_relation` VALUES (5632, 1118409061299351559, 6);
-INSERT INTO `sys_relation` VALUES (5633, 1118409541685571593, 6);
-INSERT INTO `sys_relation` VALUES (5634, 1118409541685571594, 6);
-INSERT INTO `sys_relation` VALUES (5635, 1118407770099642369, 6);
-INSERT INTO `sys_relation` VALUES (5636, 1118407770099642370, 6);
-INSERT INTO `sys_relation` VALUES (5637, 1118407770099642374, 6);
-INSERT INTO `sys_relation` VALUES (5638, 1118409541685571585, 6);
-INSERT INTO `sys_relation` VALUES (5639, 1118409541685571586, 6);
-INSERT INTO `sys_relation` VALUES (5640, 1118409541685571590, 6);
-INSERT INTO `sys_relation` VALUES (5641, 1118409541685571595, 6);
-INSERT INTO `sys_relation` VALUES (5642, 1121613271109173250, 6);
-INSERT INTO `sys_relation` VALUES (5643, 1121613271109173251, 6);
-INSERT INTO `sys_relation` VALUES (5644, 1121613271109173252, 6);
-INSERT INTO `sys_relation` VALUES (5645, 1121613271109173253, 6);
-INSERT INTO `sys_relation` VALUES (5646, 1121613271109173254, 6);
-INSERT INTO `sys_relation` VALUES (5647, 1121613271109173255, 6);
-INSERT INTO `sys_relation` VALUES (5648, 1128273316512018440, 6);
-INSERT INTO `sys_relation` VALUES (5649, 1128273316512018441, 6);
-INSERT INTO `sys_relation` VALUES (5650, 1128273316512018434, 6);
-INSERT INTO `sys_relation` VALUES (5651, 1128273316512018435, 6);
-INSERT INTO `sys_relation` VALUES (5652, 1128273316512018436, 6);
-INSERT INTO `sys_relation` VALUES (5653, 1128273316512018437, 6);
-INSERT INTO `sys_relation` VALUES (5654, 1128273316512018438, 6);
-INSERT INTO `sys_relation` VALUES (5655, 1128273316512018439, 6);
-INSERT INTO `sys_relation` VALUES (5656, 105, 1);
-INSERT INTO `sys_relation` VALUES (5657, 106, 1);
-INSERT INTO `sys_relation` VALUES (5658, 107, 1);
-INSERT INTO `sys_relation` VALUES (5659, 108, 1);
-INSERT INTO `sys_relation` VALUES (5660, 109, 1);
-INSERT INTO `sys_relation` VALUES (5661, 110, 1);
-INSERT INTO `sys_relation` VALUES (5662, 111, 1);
-INSERT INTO `sys_relation` VALUES (5663, 112, 1);
-INSERT INTO `sys_relation` VALUES (5664, 113, 1);
-INSERT INTO `sys_relation` VALUES (5665, 165, 1);
-INSERT INTO `sys_relation` VALUES (5666, 166, 1);
-INSERT INTO `sys_relation` VALUES (5667, 167, 1);
-INSERT INTO `sys_relation` VALUES (5668, 114, 1);
-INSERT INTO `sys_relation` VALUES (5669, 115, 1);
-INSERT INTO `sys_relation` VALUES (5670, 116, 1);
-INSERT INTO `sys_relation` VALUES (5671, 117, 1);
-INSERT INTO `sys_relation` VALUES (5672, 118, 1);
-INSERT INTO `sys_relation` VALUES (5673, 162, 1);
-INSERT INTO `sys_relation` VALUES (5674, 163, 1);
-INSERT INTO `sys_relation` VALUES (5675, 164, 1);
-INSERT INTO `sys_relation` VALUES (5676, 119, 1);
-INSERT INTO `sys_relation` VALUES (5677, 120, 1);
-INSERT INTO `sys_relation` VALUES (5678, 121, 1);
-INSERT INTO `sys_relation` VALUES (5679, 122, 1);
-INSERT INTO `sys_relation` VALUES (5680, 150, 1);
-INSERT INTO `sys_relation` VALUES (5681, 151, 1);
-INSERT INTO `sys_relation` VALUES (5682, 128, 1);
-INSERT INTO `sys_relation` VALUES (5683, 134, 1);
-INSERT INTO `sys_relation` VALUES (5684, 158, 1);
-INSERT INTO `sys_relation` VALUES (5685, 159, 1);
-INSERT INTO `sys_relation` VALUES (5686, 130, 1);
-INSERT INTO `sys_relation` VALUES (5687, 131, 1);
-INSERT INTO `sys_relation` VALUES (5688, 135, 1);
-INSERT INTO `sys_relation` VALUES (5689, 136, 1);
-INSERT INTO `sys_relation` VALUES (5690, 137, 1);
-INSERT INTO `sys_relation` VALUES (5691, 152, 1);
-INSERT INTO `sys_relation` VALUES (5692, 153, 1);
-INSERT INTO `sys_relation` VALUES (5693, 154, 1);
-INSERT INTO `sys_relation` VALUES (5694, 132, 1);
-INSERT INTO `sys_relation` VALUES (5695, 138, 1);
-INSERT INTO `sys_relation` VALUES (5696, 139, 1);
-INSERT INTO `sys_relation` VALUES (5697, 140, 1);
-INSERT INTO `sys_relation` VALUES (5698, 155, 1);
-INSERT INTO `sys_relation` VALUES (5699, 156, 1);
-INSERT INTO `sys_relation` VALUES (5700, 157, 1);
-INSERT INTO `sys_relation` VALUES (5701, 133, 1);
-INSERT INTO `sys_relation` VALUES (5702, 160, 1);
-INSERT INTO `sys_relation` VALUES (5703, 161, 1);
-INSERT INTO `sys_relation` VALUES (5704, 141, 1);
-INSERT INTO `sys_relation` VALUES (5705, 142, 1);
-INSERT INTO `sys_relation` VALUES (5706, 143, 1);
-INSERT INTO `sys_relation` VALUES (5707, 144, 1);
-INSERT INTO `sys_relation` VALUES (5708, 145, 1);
-INSERT INTO `sys_relation` VALUES (5709, 148, 1);
-INSERT INTO `sys_relation` VALUES (5710, 149, 1);
-INSERT INTO `sys_relation` VALUES (5711, 1118154058989846535, 1);
-INSERT INTO `sys_relation` VALUES (5712, 1118408896358346754, 1);
-INSERT INTO `sys_relation` VALUES (5713, 1118408896358346755, 1);
-INSERT INTO `sys_relation` VALUES (5714, 1118408896358346756, 1);
-INSERT INTO `sys_relation` VALUES (5715, 1118408896358346757, 1);
-INSERT INTO `sys_relation` VALUES (5716, 1118408896358346758, 1);
-INSERT INTO `sys_relation` VALUES (5717, 1118408896358346759, 1);
-INSERT INTO `sys_relation` VALUES (5718, 1118409061299351554, 1);
-INSERT INTO `sys_relation` VALUES (5719, 1118409061299351555, 1);
-INSERT INTO `sys_relation` VALUES (5720, 1118409061299351556, 1);
-INSERT INTO `sys_relation` VALUES (5721, 1118409061299351557, 1);
-INSERT INTO `sys_relation` VALUES (5722, 1118409061299351558, 1);
-INSERT INTO `sys_relation` VALUES (5723, 1118409061299351559, 1);
-INSERT INTO `sys_relation` VALUES (5724, 1118409541685571593, 1);
-INSERT INTO `sys_relation` VALUES (5725, 1118409541685571594, 1);
-INSERT INTO `sys_relation` VALUES (5726, 1118407770099642369, 1);
-INSERT INTO `sys_relation` VALUES (5727, 1118407770099642370, 1);
-INSERT INTO `sys_relation` VALUES (5728, 1118407770099642371, 1);
-INSERT INTO `sys_relation` VALUES (5729, 1118407770099642372, 1);
-INSERT INTO `sys_relation` VALUES (5730, 1118407770099642373, 1);
-INSERT INTO `sys_relation` VALUES (5731, 1118407770099642374, 1);
-INSERT INTO `sys_relation` VALUES (5732, 1118409541685571585, 1);
-INSERT INTO `sys_relation` VALUES (5733, 1118409541685571586, 1);
-INSERT INTO `sys_relation` VALUES (5734, 1118409541685571587, 1);
-INSERT INTO `sys_relation` VALUES (5735, 1118409541685571588, 1);
-INSERT INTO `sys_relation` VALUES (5736, 1118409541685571589, 1);
-INSERT INTO `sys_relation` VALUES (5737, 1118409541685571590, 1);
-INSERT INTO `sys_relation` VALUES (5738, 1118409541685571595, 1);
-INSERT INTO `sys_relation` VALUES (5739, 1121613271109173250, 1);
-INSERT INTO `sys_relation` VALUES (5740, 1121613271109173251, 1);
-INSERT INTO `sys_relation` VALUES (5741, 1121613271109173252, 1);
-INSERT INTO `sys_relation` VALUES (5742, 1121613271109173253, 1);
-INSERT INTO `sys_relation` VALUES (5743, 1121613271109173254, 1);
-INSERT INTO `sys_relation` VALUES (5744, 1121613271109173255, 1);
-INSERT INTO `sys_relation` VALUES (5745, 1128273316512018440, 1);
-INSERT INTO `sys_relation` VALUES (5746, 1128273316512018441, 1);
-INSERT INTO `sys_relation` VALUES (5747, 1128273316512018434, 1);
-INSERT INTO `sys_relation` VALUES (5748, 1128273316512018435, 1);
-INSERT INTO `sys_relation` VALUES (5749, 1128273316512018436, 1);
-INSERT INTO `sys_relation` VALUES (5750, 1128273316512018437, 1);
-INSERT INTO `sys_relation` VALUES (5751, 1128273316512018438, 1);
-INSERT INTO `sys_relation` VALUES (5752, 1128273316512018439, 1);
-INSERT INTO `sys_relation` VALUES (5753, 1128273316512018442, 1);
-INSERT INTO `sys_relation` VALUES (5754, 1128273316512018443, 1);
-INSERT INTO `sys_relation` VALUES (5755, 1128273316512018444, 1);
-INSERT INTO `sys_relation` VALUES (5756, 1128273316512018445, 1);
-INSERT INTO `sys_relation` VALUES (5757, 145, 5);
-INSERT INTO `sys_relation` VALUES (5758, 1118154058989846535, 5);
-INSERT INTO `sys_relation` VALUES (5759, 1118408896358346754, 5);
-INSERT INTO `sys_relation` VALUES (5760, 1118408896358346755, 5);
-INSERT INTO `sys_relation` VALUES (5761, 1118408896358346756, 5);
-INSERT INTO `sys_relation` VALUES (5762, 1118408896358346757, 5);
-INSERT INTO `sys_relation` VALUES (5763, 1118408896358346758, 5);
-INSERT INTO `sys_relation` VALUES (5764, 1118408896358346759, 5);
-INSERT INTO `sys_relation` VALUES (5765, 1118409061299351554, 5);
-INSERT INTO `sys_relation` VALUES (5766, 1118409061299351555, 5);
-INSERT INTO `sys_relation` VALUES (5767, 1118409061299351556, 5);
-INSERT INTO `sys_relation` VALUES (5768, 1118409061299351557, 5);
-INSERT INTO `sys_relation` VALUES (5769, 1118409061299351558, 5);
-INSERT INTO `sys_relation` VALUES (5770, 1118409061299351559, 5);
-INSERT INTO `sys_relation` VALUES (5771, 1118409541685571593, 5);
-INSERT INTO `sys_relation` VALUES (5772, 1118409541685571594, 5);
-INSERT INTO `sys_relation` VALUES (5773, 1118407770099642369, 5);
-INSERT INTO `sys_relation` VALUES (5774, 1118407770099642370, 5);
-INSERT INTO `sys_relation` VALUES (5775, 1118407770099642371, 5);
-INSERT INTO `sys_relation` VALUES (5776, 1118407770099642372, 5);
-INSERT INTO `sys_relation` VALUES (5777, 1118407770099642373, 5);
-INSERT INTO `sys_relation` VALUES (5778, 1118407770099642374, 5);
-INSERT INTO `sys_relation` VALUES (5779, 1118409541685571585, 5);
-INSERT INTO `sys_relation` VALUES (5780, 1118409541685571586, 5);
-INSERT INTO `sys_relation` VALUES (5781, 1118409541685571587, 5);
-INSERT INTO `sys_relation` VALUES (5782, 1118409541685571588, 5);
-INSERT INTO `sys_relation` VALUES (5783, 1118409541685571589, 5);
-INSERT INTO `sys_relation` VALUES (5784, 1118409541685571590, 5);
-INSERT INTO `sys_relation` VALUES (5785, 1118409541685571595, 5);
-INSERT INTO `sys_relation` VALUES (5786, 1121613271109173250, 5);
-INSERT INTO `sys_relation` VALUES (5787, 1121613271109173251, 5);
-INSERT INTO `sys_relation` VALUES (5788, 1121613271109173252, 5);
-INSERT INTO `sys_relation` VALUES (5789, 1121613271109173253, 5);
-INSERT INTO `sys_relation` VALUES (5790, 1121613271109173254, 5);
-INSERT INTO `sys_relation` VALUES (5791, 1121613271109173255, 5);
-INSERT INTO `sys_relation` VALUES (5792, 1128273316512018440, 5);
-INSERT INTO `sys_relation` VALUES (5793, 1128273316512018441, 5);
-INSERT INTO `sys_relation` VALUES (5794, 1128273316512018434, 5);
-INSERT INTO `sys_relation` VALUES (5795, 1128273316512018435, 5);
-INSERT INTO `sys_relation` VALUES (5796, 1128273316512018436, 5);
-INSERT INTO `sys_relation` VALUES (5797, 1128273316512018437, 5);
-INSERT INTO `sys_relation` VALUES (5798, 1128273316512018438, 5);
-INSERT INTO `sys_relation` VALUES (5799, 1128273316512018439, 5);
-INSERT INTO `sys_relation` VALUES (5800, 1128273316512018442, 5);
-INSERT INTO `sys_relation` VALUES (5801, 1128273316512018443, 5);
-INSERT INTO `sys_relation` VALUES (5802, 1128273316512018444, 5);
-INSERT INTO `sys_relation` VALUES (5803, 1128273316512018445, 5);
+INSERT INTO `sys_relation` VALUES (6114, 145, 5);
+INSERT INTO `sys_relation` VALUES (6115, 1128273316512018442, 5);
+INSERT INTO `sys_relation` VALUES (6116, 1128273316512018443, 5);
+INSERT INTO `sys_relation` VALUES (6117, 1128273316512018444, 5);
+INSERT INTO `sys_relation` VALUES (6118, 1128273316512018445, 5);
+INSERT INTO `sys_relation` VALUES (6119, 1128273316512018446, 5);
+INSERT INTO `sys_relation` VALUES (6120, 1133554521680871425, 5);
+INSERT INTO `sys_relation` VALUES (6121, 1133554521680871426, 5);
+INSERT INTO `sys_relation` VALUES (6122, 1133554521680871427, 5);
+INSERT INTO `sys_relation` VALUES (6123, 1133554521680871428, 5);
+INSERT INTO `sys_relation` VALUES (6124, 1133554521680871429, 5);
+INSERT INTO `sys_relation` VALUES (6125, 1133554521680871430, 5);
+INSERT INTO `sys_relation` VALUES (6126, 1133564088636628994, 5);
+INSERT INTO `sys_relation` VALUES (6128, 1133564088636628996, 5);
+INSERT INTO `sys_relation` VALUES (6129, 1133564088636628997, 5);
+INSERT INTO `sys_relation` VALUES (6130, 1133564088636628998, 5);
+INSERT INTO `sys_relation` VALUES (6131, 1133564088636628999, 5);
+INSERT INTO `sys_relation` VALUES (6132, 1134298626811748354, 5);
+INSERT INTO `sys_relation` VALUES (6133, 1134298626811748355, 5);
+INSERT INTO `sys_relation` VALUES (6134, 1134298626811748356, 5);
+INSERT INTO `sys_relation` VALUES (6135, 1134298626811748357, 5);
+INSERT INTO `sys_relation` VALUES (6136, 1134298626811748358, 5);
+INSERT INTO `sys_relation` VALUES (6137, 1134298626811748359, 5);
+INSERT INTO `sys_relation` VALUES (6138, 1134299915691954178, 5);
+INSERT INTO `sys_relation` VALUES (6139, 1134299915691954179, 5);
+INSERT INTO `sys_relation` VALUES (6140, 1134299915691954180, 5);
+INSERT INTO `sys_relation` VALUES (6141, 1134299915691954181, 5);
+INSERT INTO `sys_relation` VALUES (6142, 1134299915691954182, 5);
+INSERT INTO `sys_relation` VALUES (6143, 1134299915691954183, 5);
+INSERT INTO `sys_relation` VALUES (6144, 1134300952217747457, 5);
+INSERT INTO `sys_relation` VALUES (6145, 1134300952217747458, 5);
+INSERT INTO `sys_relation` VALUES (6146, 1134300952217747459, 5);
+INSERT INTO `sys_relation` VALUES (6147, 1134300952217747460, 5);
+INSERT INTO `sys_relation` VALUES (6148, 1134300952217747461, 5);
+INSERT INTO `sys_relation` VALUES (6149, 1134300952217747462, 5);
+INSERT INTO `sys_relation` VALUES (6150, 1134301147718451201, 5);
+INSERT INTO `sys_relation` VALUES (6152, 1133564088636628996, 5);
+INSERT INTO `sys_relation` VALUES (6153, 1133564088636628997, 5);
+INSERT INTO `sys_relation` VALUES (6154, 1133564088636628998, 5);
+INSERT INTO `sys_relation` VALUES (6155, 1133564088636628999, 5);
+INSERT INTO `sys_relation` VALUES (6156, 1134301147718451202, 5);
+INSERT INTO `sys_relation` VALUES (6157, 1134301147718451203, 5);
+INSERT INTO `sys_relation` VALUES (6158, 1134301147718451204, 5);
+INSERT INTO `sys_relation` VALUES (6159, 1134301147718451205, 5);
+INSERT INTO `sys_relation` VALUES (6160, 1134301147718451206, 5);
+INSERT INTO `sys_relation` VALUES (6161, 1128273316512018442, 6);
+INSERT INTO `sys_relation` VALUES (6162, 1128273316512018443, 6);
+INSERT INTO `sys_relation` VALUES (6163, 1128273316512018444, 6);
+INSERT INTO `sys_relation` VALUES (6164, 1128273316512018445, 6);
+INSERT INTO `sys_relation` VALUES (6165, 1128273316512018446, 6);
+INSERT INTO `sys_relation` VALUES (6166, 1133554521680871425, 6);
+INSERT INTO `sys_relation` VALUES (6167, 1133554521680871426, 6);
+INSERT INTO `sys_relation` VALUES (6168, 1133554521680871427, 6);
+INSERT INTO `sys_relation` VALUES (6169, 1133554521680871428, 6);
+INSERT INTO `sys_relation` VALUES (6170, 1133554521680871429, 6);
+INSERT INTO `sys_relation` VALUES (6171, 1133554521680871430, 6);
+INSERT INTO `sys_relation` VALUES (6172, 1133564088636628994, 6);
+INSERT INTO `sys_relation` VALUES (6174, 1133564088636628996, 6);
+INSERT INTO `sys_relation` VALUES (6175, 1133564088636628997, 6);
+INSERT INTO `sys_relation` VALUES (6176, 1133564088636628998, 6);
+INSERT INTO `sys_relation` VALUES (6177, 1133564088636628999, 6);
+INSERT INTO `sys_relation` VALUES (6178, 1134298626811748354, 6);
+INSERT INTO `sys_relation` VALUES (6179, 1134298626811748355, 6);
+INSERT INTO `sys_relation` VALUES (6180, 1134298626811748356, 6);
+INSERT INTO `sys_relation` VALUES (6181, 1134298626811748357, 6);
+INSERT INTO `sys_relation` VALUES (6182, 1134298626811748358, 6);
+INSERT INTO `sys_relation` VALUES (6183, 1134298626811748359, 6);
+INSERT INTO `sys_relation` VALUES (6184, 1134299915691954178, 6);
+INSERT INTO `sys_relation` VALUES (6185, 1134299915691954179, 6);
+INSERT INTO `sys_relation` VALUES (6186, 1134299915691954180, 6);
+INSERT INTO `sys_relation` VALUES (6187, 1134299915691954181, 6);
+INSERT INTO `sys_relation` VALUES (6188, 1134299915691954182, 6);
+INSERT INTO `sys_relation` VALUES (6189, 1134299915691954183, 6);
+INSERT INTO `sys_relation` VALUES (6190, 1134300952217747457, 6);
+INSERT INTO `sys_relation` VALUES (6191, 1134300952217747458, 6);
+INSERT INTO `sys_relation` VALUES (6192, 1134300952217747459, 6);
+INSERT INTO `sys_relation` VALUES (6193, 1134300952217747460, 6);
+INSERT INTO `sys_relation` VALUES (6194, 1134300952217747461, 6);
+INSERT INTO `sys_relation` VALUES (6195, 1134300952217747462, 6);
+INSERT INTO `sys_relation` VALUES (6196, 1134301147718451201, 6);
+INSERT INTO `sys_relation` VALUES (6198, 1133564088636628996, 6);
+INSERT INTO `sys_relation` VALUES (6199, 1133564088636628997, 6);
+INSERT INTO `sys_relation` VALUES (6200, 1133564088636628998, 6);
+INSERT INTO `sys_relation` VALUES (6201, 1133564088636628999, 6);
+INSERT INTO `sys_relation` VALUES (6202, 1134301147718451202, 6);
+INSERT INTO `sys_relation` VALUES (6203, 1134301147718451203, 6);
+INSERT INTO `sys_relation` VALUES (6204, 1134301147718451204, 6);
+INSERT INTO `sys_relation` VALUES (6205, 1134301147718451205, 6);
+INSERT INTO `sys_relation` VALUES (6206, 1134301147718451206, 6);
+INSERT INTO `sys_relation` VALUES (6207, 105, 1);
+INSERT INTO `sys_relation` VALUES (6208, 106, 1);
+INSERT INTO `sys_relation` VALUES (6209, 107, 1);
+INSERT INTO `sys_relation` VALUES (6210, 108, 1);
+INSERT INTO `sys_relation` VALUES (6211, 109, 1);
+INSERT INTO `sys_relation` VALUES (6212, 110, 1);
+INSERT INTO `sys_relation` VALUES (6213, 111, 1);
+INSERT INTO `sys_relation` VALUES (6214, 112, 1);
+INSERT INTO `sys_relation` VALUES (6215, 113, 1);
+INSERT INTO `sys_relation` VALUES (6216, 165, 1);
+INSERT INTO `sys_relation` VALUES (6217, 166, 1);
+INSERT INTO `sys_relation` VALUES (6218, 167, 1);
+INSERT INTO `sys_relation` VALUES (6219, 114, 1);
+INSERT INTO `sys_relation` VALUES (6220, 115, 1);
+INSERT INTO `sys_relation` VALUES (6221, 116, 1);
+INSERT INTO `sys_relation` VALUES (6222, 117, 1);
+INSERT INTO `sys_relation` VALUES (6223, 118, 1);
+INSERT INTO `sys_relation` VALUES (6224, 162, 1);
+INSERT INTO `sys_relation` VALUES (6225, 163, 1);
+INSERT INTO `sys_relation` VALUES (6226, 164, 1);
+INSERT INTO `sys_relation` VALUES (6227, 119, 1);
+INSERT INTO `sys_relation` VALUES (6228, 120, 1);
+INSERT INTO `sys_relation` VALUES (6229, 121, 1);
+INSERT INTO `sys_relation` VALUES (6230, 122, 1);
+INSERT INTO `sys_relation` VALUES (6231, 150, 1);
+INSERT INTO `sys_relation` VALUES (6232, 151, 1);
+INSERT INTO `sys_relation` VALUES (6233, 131, 1);
+INSERT INTO `sys_relation` VALUES (6234, 135, 1);
+INSERT INTO `sys_relation` VALUES (6235, 136, 1);
+INSERT INTO `sys_relation` VALUES (6236, 137, 1);
+INSERT INTO `sys_relation` VALUES (6237, 152, 1);
+INSERT INTO `sys_relation` VALUES (6238, 153, 1);
+INSERT INTO `sys_relation` VALUES (6239, 154, 1);
+INSERT INTO `sys_relation` VALUES (6240, 132, 1);
+INSERT INTO `sys_relation` VALUES (6241, 138, 1);
+INSERT INTO `sys_relation` VALUES (6242, 139, 1);
+INSERT INTO `sys_relation` VALUES (6243, 140, 1);
+INSERT INTO `sys_relation` VALUES (6244, 155, 1);
+INSERT INTO `sys_relation` VALUES (6245, 156, 1);
+INSERT INTO `sys_relation` VALUES (6246, 157, 1);
+INSERT INTO `sys_relation` VALUES (6247, 148, 1);
+INSERT INTO `sys_relation` VALUES (6248, 1118407770099642369, 1);
+INSERT INTO `sys_relation` VALUES (6249, 1118407770099642370, 1);
+INSERT INTO `sys_relation` VALUES (6250, 1118407770099642371, 1);
+INSERT INTO `sys_relation` VALUES (6251, 1118407770099642372, 1);
+INSERT INTO `sys_relation` VALUES (6252, 1118407770099642373, 1);
+INSERT INTO `sys_relation` VALUES (6253, 1118407770099642374, 1);
+INSERT INTO `sys_relation` VALUES (6254, 1128273316512018442, 1);
+INSERT INTO `sys_relation` VALUES (6255, 1128273316512018443, 1);
+INSERT INTO `sys_relation` VALUES (6256, 1128273316512018444, 1);
+INSERT INTO `sys_relation` VALUES (6257, 1128273316512018445, 1);
+INSERT INTO `sys_relation` VALUES (6258, 1128273316512018446, 1);
+INSERT INTO `sys_relation` VALUES (6259, 1133554521680871425, 1);
+INSERT INTO `sys_relation` VALUES (6260, 1133554521680871426, 1);
+INSERT INTO `sys_relation` VALUES (6261, 1133554521680871427, 1);
+INSERT INTO `sys_relation` VALUES (6262, 1133554521680871428, 1);
+INSERT INTO `sys_relation` VALUES (6263, 1133554521680871429, 1);
+INSERT INTO `sys_relation` VALUES (6264, 1133554521680871430, 1);
+INSERT INTO `sys_relation` VALUES (6265, 1134298626811748354, 1);
+INSERT INTO `sys_relation` VALUES (6266, 1134298626811748355, 1);
+INSERT INTO `sys_relation` VALUES (6267, 1134298626811748356, 1);
+INSERT INTO `sys_relation` VALUES (6268, 1134298626811748357, 1);
+INSERT INTO `sys_relation` VALUES (6269, 1134298626811748358, 1);
+INSERT INTO `sys_relation` VALUES (6270, 1134298626811748359, 1);
+INSERT INTO `sys_relation` VALUES (6271, 1134299915691954178, 1);
+INSERT INTO `sys_relation` VALUES (6272, 1134299915691954179, 1);
+INSERT INTO `sys_relation` VALUES (6273, 1134299915691954180, 1);
+INSERT INTO `sys_relation` VALUES (6274, 1134299915691954181, 1);
+INSERT INTO `sys_relation` VALUES (6275, 1134299915691954182, 1);
+INSERT INTO `sys_relation` VALUES (6276, 1134299915691954183, 1);
+INSERT INTO `sys_relation` VALUES (6277, 1134300952217747457, 1);
+INSERT INTO `sys_relation` VALUES (6278, 1134300952217747458, 1);
+INSERT INTO `sys_relation` VALUES (6279, 1134300952217747459, 1);
+INSERT INTO `sys_relation` VALUES (6280, 1134300952217747460, 1);
+INSERT INTO `sys_relation` VALUES (6281, 1134300952217747461, 1);
+INSERT INTO `sys_relation` VALUES (6282, 1134300952217747462, 1);
+INSERT INTO `sys_relation` VALUES (6283, 1134301147718451201, 1);
+INSERT INTO `sys_relation` VALUES (6284, 1134301147718451202, 1);
+INSERT INTO `sys_relation` VALUES (6285, 1134301147718451203, 1);
+INSERT INTO `sys_relation` VALUES (6286, 1134301147718451204, 1);
+INSERT INTO `sys_relation` VALUES (6287, 1134301147718451205, 1);
+INSERT INTO `sys_relation` VALUES (6288, 1134301147718451206, 1);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -1404,9 +1746,9 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'b864a8e3-77d9-4869-b1ce-9a3d1d8885ad.png', 'admin', '6c0359f2fc2565ebf1ba7934a5004bfb', '8pgby', '管理员', '2017-05-05 00:00:00', 1, 'sn93@qq.com', '18200000000', '1', 24, 1, '2016-01-29 08:49:53', 25);
+INSERT INTO `sys_user` VALUES (1, '8fa4f57d319c47c88e0e8e17793e5332.jpg', 'admin', '6c0359f2fc2565ebf1ba7934a5004bfb', '8pgby', '管理员', '2017-05-05 00:00:00', 1, 'sn93@qq.com', '18200000000', '1', 0, 1, '2016-01-29 08:49:53', 25);
 INSERT INTO `sys_user` VALUES (44, NULL, 'test', '6c0359f2fc2565ebf1ba7934a5004bfb', '8pgby', 'test', '2017-05-01 00:00:00', 1, 'abc@123.com', '', '5', 26, 1, '2017-05-16 20:33:37', NULL);
-INSERT INTO `sys_user` VALUES (45, NULL, 'opt', '6c0359f2fc2565ebf1ba7934a5004bfb', '8pgby', '操作员1', '2017-12-04 00:00:00', 1, '', '', '6', 24, 1, '2017-12-04 22:24:02', NULL);
+INSERT INTO `sys_user` VALUES (45, 'fad02b95-2517-464c-87ff-8c86be8bae24.png', 'opt', '6c0359f2fc2565ebf1ba7934a5004bfb', '8pgby', '操作员2', '2017-12-04 00:00:00', 1, '', '', '6', 25, 1, '2017-12-04 22:24:02', NULL);
 INSERT INTO `sys_user` VALUES (46, NULL, 'opt2', '6c0359f2fc2565ebf1ba7934a5004bfb', '8pgby', '操作员2', '2017-12-04 00:00:00', 1, '', '', '5', 24, 1, '2017-12-04 22:24:24', NULL);
 INSERT INTO `sys_user` VALUES (47, '99c7a3d6-0694-49dd-b19f-73c1971e87d1.png', 'opt3', '6c0359f2fc2565ebf1ba7934a5004bfb', '8pgby', '操作员3', '2018-12-29 00:00:00', 1, '', '', '5', 25, 1, '2018-12-29 14:40:12', NULL);
 INSERT INTO `sys_user` VALUES (48, 'd4efe70d-9f79-4627-b126-b2a259513f26.jpg', 'opt4', '6c0359f2fc2565ebf1ba7934a5004bfb', '8pgby', '操作员4', NULL, 1, '', '', '6', 26, 1, '2018-12-29 15:06:33', NULL);
