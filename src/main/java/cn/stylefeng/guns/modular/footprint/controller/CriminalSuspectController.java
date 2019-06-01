@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.CriminalSuspect;
+import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.guns.modular.footprint.service.ICriminalSuspectService;
 
 /**
@@ -26,7 +27,8 @@ public class CriminalSuspectController extends BaseController {
 
     @Autowired
     private ICriminalSuspectService criminalSuspectService;
-
+    @Autowired
+    private INoService noService ;
     /**
      * 跳转到嫌疑人信息首页
      */
@@ -47,7 +49,7 @@ public class CriminalSuspectController extends BaseController {
      * 跳转到修改嫌疑人信息
      */
     @RequestMapping("/criminalSuspect_update/{criminalSuspectId}")
-    public String criminalSuspectUpdate(@PathVariable Integer criminalSuspectId, Model model) {
+    public String criminalSuspectUpdate(@PathVariable String criminalSuspectId, Model model) {
         CriminalSuspect criminalSuspect = criminalSuspectService.selectById(criminalSuspectId);
         model.addAttribute("item",criminalSuspect);
         LogObjectHolder.me().set(criminalSuspect);
@@ -78,7 +80,7 @@ public class CriminalSuspectController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete(@RequestParam Integer criminalSuspectId) {
+    public Object delete(@RequestParam String criminalSuspectId) {
         criminalSuspectService.deleteById(criminalSuspectId);
         return SUCCESS_TIP;
     }
@@ -98,7 +100,7 @@ public class CriminalSuspectController extends BaseController {
      */
     @RequestMapping(value = "/detail/{criminalSuspectId}")
     @ResponseBody
-    public Object detail(@PathVariable("criminalSuspectId") Integer criminalSuspectId) {
+    public Object detail(@PathVariable("criminalSuspectId") String criminalSuspectId) {
         return criminalSuspectService.selectById(criminalSuspectId);
     }
 }

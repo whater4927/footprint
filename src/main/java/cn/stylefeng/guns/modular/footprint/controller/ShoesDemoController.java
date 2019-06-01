@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.ShoesDemo;
+import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.guns.modular.footprint.service.IShoesDemoService;
 
 /**
@@ -26,7 +27,8 @@ public class ShoesDemoController extends BaseController {
 
     @Autowired
     private IShoesDemoService shoesDemoService;
-
+    @Autowired
+    private INoService noService ;
     /**
      * 跳转到鞋厂鞋样首页
      */
@@ -47,7 +49,7 @@ public class ShoesDemoController extends BaseController {
      * 跳转到修改鞋厂鞋样
      */
     @RequestMapping("/shoesDemo_update/{shoesDemoId}")
-    public String shoesDemoUpdate(@PathVariable Integer shoesDemoId, Model model) {
+    public String shoesDemoUpdate(@PathVariable String shoesDemoId, Model model) {
         ShoesDemo shoesDemo = shoesDemoService.selectById(shoesDemoId);
         model.addAttribute("item",shoesDemo);
         LogObjectHolder.me().set(shoesDemo);
@@ -78,7 +80,7 @@ public class ShoesDemoController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete(@RequestParam Integer shoesDemoId) {
+    public Object delete(@RequestParam String shoesDemoId) {
         shoesDemoService.deleteById(shoesDemoId);
         return SUCCESS_TIP;
     }
@@ -98,7 +100,7 @@ public class ShoesDemoController extends BaseController {
      */
     @RequestMapping(value = "/detail/{shoesDemoId}")
     @ResponseBody
-    public Object detail(@PathVariable("shoesDemoId") Integer shoesDemoId) {
+    public Object detail(@PathVariable("shoesDemoId") String shoesDemoId) {
         return shoesDemoService.selectById(shoesDemoId);
     }
 }

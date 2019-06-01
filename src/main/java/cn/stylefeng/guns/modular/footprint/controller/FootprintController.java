@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.Footprint;
+import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
 
 /**
@@ -26,7 +27,8 @@ public class FootprintController extends BaseController {
 
     @Autowired
     private IFootprintService footprintService;
-
+    @Autowired
+    private INoService noService ;
     /**
      * 跳转到足迹信息首页
      */
@@ -47,7 +49,7 @@ public class FootprintController extends BaseController {
      * 跳转到修改足迹信息
      */
     @RequestMapping("/footprint_update/{footprintId}")
-    public String footprintUpdate(@PathVariable Integer footprintId, Model model) {
+    public String footprintUpdate(@PathVariable String footprintId, Model model) {
         Footprint footprint = footprintService.selectById(footprintId);
         model.addAttribute("item",footprint);
         LogObjectHolder.me().set(footprint);
@@ -78,7 +80,7 @@ public class FootprintController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete(@RequestParam Integer footprintId) {
+    public Object delete(@RequestParam String footprintId) {
         footprintService.deleteById(footprintId);
         return SUCCESS_TIP;
     }
@@ -98,7 +100,7 @@ public class FootprintController extends BaseController {
      */
     @RequestMapping(value = "/detail/{footprintId}")
     @ResponseBody
-    public Object detail(@PathVariable("footprintId") Integer footprintId) {
+    public Object detail(@PathVariable("footprintId") String footprintId) {
         return footprintService.selectById(footprintId);
     }
 }

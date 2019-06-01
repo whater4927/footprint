@@ -11,7 +11,6 @@ let img;
 window.onload = function () {
     myImage = document.getElementById("myCanvas");
     ctx = myImage.getContext("2d");
-
     img = new Image();
     img.src = "/static/footprint-img/1/K2301020000222015040081.jpg";
     img.onload = function () {
@@ -20,7 +19,8 @@ window.onload = function () {
 
     let degree = 0;
     $("#rotateBtn").click(function () {
-        let rotateInput = $("#rotateDegree").val();
+        //let rotateInput = $("#rotateDegree").val();
+        let rotateInput = 90;
         degree += parseInt(rotateInput);
         degree %= 360;
 

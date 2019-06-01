@@ -5,30 +5,32 @@
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="caseNo" name="案件编号" underline="true"/>
-                            <#input id="caseState" name="案件状态" underline="true"/>
-                            <#input id="caseTm" name="案发时间" underline="true"/>
-                            <#input id="caseAddress" name="案发地点" underline="true"/>
-                            <#input id="unit" name="所属单位" underline="true"/>
-                            <#input id="caseDesc" name="简要案情" underline="true"/>
-                            <#input id="caseType" name="案件类别" underline="true"/>
-                            <#input id="intrusionMode" name="侵入方式" underline="true"/>
+                            <!-- <#input id="caseNo" name="案件编号" /> -->
+                            <#input id="crimesPersonNum" name="作案人数" />
+                            <#input id="caseAddress" name="案发地点" />
+                            <#input id="citySel" name="所属单位" readonly="readonly" hidden="unit" 
+								clickFun="CaseInfoInfoDlg.showDeptSelectTree(); return false;"
+								style="background-color: #ffffff !important;"/>
                             <#input id="stolenGoods" name="被盗物品"/>
+                            <#input id="caseDesc" name="简要案情" />
                 </div>
 
                 <div class="col-sm-6">
-                            <#input id="crimesPersonNum" name="作案人数" underline="true"/>
-                            <#input id="status" name="状态" underline="true"/>
-                            <#input id="delStatus" name="是否删除" underline="true"/>
-                            <#input id="updUserId" name="最后修改人" underline="true"/>
-                            <#input id="updOrgId" name="最后修改机构" underline="true"/>
-                            <#input id="updTm" name="最后修改时间" underline="true"/>
-                            <#input id="crtUserId" name="创建人" underline="true"/>
-                            <#input id="crtOrgId" name="创建机构id" underline="true"/>
-                            <#input id="crtTm" name="创建时间" underline="true"/>
+                			<#input id="caseTm" name="案发时间" />
+                            <#dictSelector id="caseType" label="案件类别" code="case_type"/>
+                            <#dictSelector id="intrusionMode" label="侵入方式" code="intrusion_mode" />
+                            <#dictSelector id="caseState" label="案件状态" code="case_status" />
+                           
                 </div>
             </div>
-
+            
+            
+            <!-- 这是部门选择的下拉框 -->
+			<div id="menuContent" class="menuContent"
+				 style="display: none; position: absolute; z-index: 200;">
+				<ul id="treeDemo" class="ztree tree-box" style="width: 249px !important;"></ul>
+			</div>
+            
             <div class="row btn-group-m-t">
                 <div class="col-sm-10">
                     <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CaseInfoInfoDlg.addSubmit()"/>
@@ -39,5 +41,19 @@
 
     </div>
 </div>
+<!-- <script type="text/javascript" src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+<script type="text/javascript">
+//初始化编辑器
+var E = window.wangEditor;
+var editor = new E('#caseDesc');
+editor.create();
+</script>
+ -->
 <script src="${ctxPath}/static/modular/footprint/caseInfo/caseInfo_info.js"></script>
+<script type="text/javascript">
+laydate.render({
+    elem: '#caseTm',
+    type: 'datetime'
+});
+</script>
 @}

@@ -11,25 +11,11 @@
                 </div>
 				<div class="col-sm-6 b-r">
 					<div id="uploader-demo">
-					    <!--用来存放item-->
 					    <div id="fileList" class="uploader-list"></div>
 					    <div id="filePicker">选择图片</div>
 					</div>
-				</div>
-            </div>
-            <div class="row">
-            	<div class="col-sm-12 b-r">
-		            <a href="#" class="thumbnail">
-			            <img id="show1" src="/kaptcha/ccde85e9-41d8-4e07-ba17-2e1d3f94d00a.png"
-			                 alt="通用的占位符缩略图" width="200px" height="200px" class="img-thumbnail" width="200" height="200">
-			            <img id="show2" src="/kaptcha/ccde85e9-41d8-4e07-ba17-2e1d3f94d00a.png"
-			                 alt="通用的占位符缩略图" width="200px" height="200px" class="img-thumbnail" width="200" height="200">
-			        </a>
-		        </div>
-            </div>
-			<div class="progress progress-striped" id="progressTipArea" style="margin-top: 20px;">
-                <div id="progressBar" style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" role="progressbar" class="progress-bar progress-bar-info">
-                </div>
+					<div class="col-sm-12 b-r" id="images"/>
+				</div> 
             </div>
                                 
                                 
@@ -45,6 +31,7 @@
 </div>
 <script src="${ctxPath}/static/modular/footprint/footprint/footprint_info.js"></script>
 <script type="text/javascript">
+var image = "" ;
 var uploader = WebUploader.create({
     // 选完文件后，是否自动上传。
     auto: true,
@@ -63,12 +50,82 @@ var uploader = WebUploader.create({
     }
 });
 uploader.on( 'uploadSuccess', function( file ,response) {
-	//debugger;
-   // $( '#'+file.id ).find('p.state').text('已上传');
-   //ccde85e9-41d8-4e07-ba17-2e1d3f94d00a.png
    console.log(file.name);
-   $("#show").attr("src","/kaptcha/"+response);
+   $("#images").empty();
+   image = response ;
+   $("#images").append("<img onclick='openImage()' src='/kaptcha/"+response+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>")
 });
-
+let myImage;
+let ctx;
+let img;
+let degree = 0;
+var scaleInput = 1;
+function openImage() {
+	//var imageHtml = "<img onclick='openImage()' src='/kaptcha/"+image+"' alt='通用的占位符缩略图' />" ;
+	var canvas = '<canvas id="myCanvas" width="800" height="600" style="background-color: white"></canvas>';
+	var content = '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff;">'+canvas+'</div>'; 
+	layer.open({
+			type : 1,
+			title : false,
+			closeBtn : true,
+			area: ['100%', '100%'],
+			shade : 0.8,
+			id : 'LAY_layuipro' ,
+			resize : false,
+			btn : [ '放大', '缩小', '旋转','关闭' ],
+			btnAlign : 'c',
+			moveType : 1 ,
+			content : content,
+			btn1: function(index, layero){//放大
+				if(scaleInput >=3){
+			 		return false;
+			 	}
+		    	scaleInput = scaleInput + 0.5 ;
+		        ctx.clearRect(0, 0, myImage.width, myImage.height);
+		        ctx.save();
+		        ctx.translate(myImage.width / 2 - img.width / 2 * scaleInput, myImage.height / 2 - img.height / 2 * scaleInput);
+		        ctx.scale(scaleInput, scaleInput);
+		        ctx.drawImage(img, 0, 0);
+		        ctx.restore();
+			    return false
+			},
+			btn2: function(index, layero){//缩小
+				if(scaleInput <= 0.5){
+		   	 		return false;
+		   	 	}
+		   	 	scaleInput = scaleInput - 0.5 ;
+		        ctx.clearRect(0, 0, myImage.width, myImage.height);
+		        ctx.save();
+		        ctx.translate(myImage.width / 2 - img.width / 2 * scaleInput, myImage.height / 2 - img.height / 2 * scaleInput);
+		        ctx.scale(scaleInput, scaleInput);
+		        ctx.drawImage(img, 0, 0);
+		        ctx.restore();
+			    return false
+			},
+			btn3: function(index, layero){//旋转
+				 let rotateInput = 90;
+			     degree += parseInt(rotateInput);
+			     degree %= 360;
+			     ctx.save();
+			     ctx.clearRect(0, 0, myImage.width, myImage.height);
+			     ctx.translate(myImage.width / 2, myImage.height / 2);
+			     ctx.rotate(degree / 180 * Math.PI);
+			     ctx.translate(-myImage.width / 2, -myImage.height / 2);
+			     ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
+			     ctx.restore();
+			     return false;
+			},
+			success : function(layero) {
+				 myImage = document.getElementById("myCanvas");
+				 ctx = myImage.getContext("2d");
+				 img = new Image();
+				 img.src = '/kaptcha/'+image;
+				 img.onload = function () {
+				      ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
+				 };
+			}
+	});
+	
+}
 </script>
 @}

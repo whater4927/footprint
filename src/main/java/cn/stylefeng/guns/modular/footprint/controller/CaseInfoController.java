@@ -1,16 +1,25 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
-import cn.stylefeng.roses.core.base.controller.BaseController;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
-import cn.stylefeng.guns.core.log.LogObjectHolder;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import cn.stylefeng.guns.modular.system.model.CaseInfo;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.util.CommonUtil;
+import cn.stylefeng.guns.core.util.EntityUtils;
+import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.footprint.service.ICaseInfoService;
+import cn.stylefeng.guns.modular.footprint.vo.CaseInfoVO;
+import cn.stylefeng.guns.modular.system.model.CaseInfo;
+import cn.stylefeng.guns.modular.system.service.INoService;
+import cn.stylefeng.roses.core.base.controller.BaseController;
 
 /**
  * 案件基本信息控制器
@@ -26,7 +35,9 @@ public class CaseInfoController extends BaseController {
 
     @Autowired
     private ICaseInfoService caseInfoService;
-
+    @Autowired
+    private INoService noService ;
+    
     /**
      * 跳转到案件基本信息首页
      */
@@ -47,7 +58,7 @@ public class CaseInfoController extends BaseController {
      * 跳转到修改案件基本信息
      */
     @RequestMapping("/caseInfo_update/{caseInfoId}")
-    public String caseInfoUpdate(@PathVariable Integer caseInfoId, Model model) {
+    public String caseInfoUpdate(@PathVariable String caseInfoId, Model model) {
         CaseInfo caseInfo = caseInfoService.selectById(caseInfoId);
         model.addAttribute("item",caseInfo);
         LogObjectHolder.me().set(caseInfo);
@@ -60,7 +71,23 @@ public class CaseInfoController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return caseInfoService.selectList(null);
+    	List<CaseInfo> list =  caseInfoService.selectList(null);
+        List<CaseInfoVO> listVo = CommonUtil.listPo2VO(list, CaseInfoVO.class);
+        listVo.forEach((vo)->{
+        	vo.setCaseStateName(ConstantFactory.me().getDictsByName("case_status", vo.getCaseState()));
+        	if(StringUtil.isNotEmpty(vo.getUnit())) 
+        		vo.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getUnit())));
+        	vo.setCaseTypeName(ConstantFactory.me().getDictsByName("case_type", vo.getCaseType()));
+        	vo.setIntrusionModeName(ConstantFactory.me().getDictsByName("intrusion_mode", vo.getIntrusionMode()));
+        	
+        	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+    			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+    		}
+    		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+    			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+    		}
+        });
+        return listVo;
     }
 
     /**
@@ -69,6 +96,8 @@ public class CaseInfoController extends BaseController {
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(CaseInfo caseInfo) {
+    	caseInfo.setCaseNo(noService.busiNo("A"));
+    	EntityUtils.setCreateInfo(caseInfo);
         caseInfoService.insert(caseInfo);
         return SUCCESS_TIP;
     }
@@ -78,7 +107,7 @@ public class CaseInfoController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete(@RequestParam Integer caseInfoId) {
+    public Object delete(@RequestParam String caseInfoId) {
         caseInfoService.deleteById(caseInfoId);
         return SUCCESS_TIP;
     }
@@ -98,7 +127,7 @@ public class CaseInfoController extends BaseController {
      */
     @RequestMapping(value = "/detail/{caseInfoId}")
     @ResponseBody
-    public Object detail(@PathVariable("caseInfoId") Integer caseInfoId) {
+    public Object detail(@PathVariable("caseInfoId") String caseInfoId) {
         return caseInfoService.selectById(caseInfoId);
     }
 }

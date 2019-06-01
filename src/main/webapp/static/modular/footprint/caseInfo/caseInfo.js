@@ -15,22 +15,17 @@ CaseInfo.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
             {title: '案件编号', field: 'caseNo', visible: true, align: 'center', valign: 'middle'},
-            {title: '案件状态', field: 'caseState', visible: true, align: 'center', valign: 'middle'},
+            {title: '案件状态', field: 'caseStateName', visible: true, align: 'center', valign: 'middle'},
             {title: '案发时间', field: 'caseTm', visible: true, align: 'center', valign: 'middle'},
             {title: '案发地点', field: 'caseAddress', visible: true, align: 'center', valign: 'middle'},
-            {title: '所属单位', field: 'unit', visible: true, align: 'center', valign: 'middle'},
+            {title: '所属单位', field: 'unitName', visible: true, align: 'center', valign: 'middle'},
             {title: '简要案情', field: 'caseDesc', visible: true, align: 'center', valign: 'middle'},
-            {title: '案件类别', field: 'caseType', visible: true, align: 'center', valign: 'middle'},
-            {title: '侵入方式', field: 'intrusionMode', visible: true, align: 'center', valign: 'middle'},
+            {title: '案件类别', field: 'caseTypeName', visible: true, align: 'center', valign: 'middle'},
+            {title: '侵入方式', field: 'intrusionModeName', visible: true, align: 'center', valign: 'middle'},
             {title: '被盗物品', field: 'stolenGoods', visible: true, align: 'center', valign: 'middle'},
             {title: '作案人数', field: 'crimesPersonNum', visible: true, align: 'center', valign: 'middle'},
-            {title: '状态', field: 'status', visible: true, align: 'center', valign: 'middle'},
-            {title: '是否删除', field: 'delStatus', visible: true, align: 'center', valign: 'middle'},
-            {title: '最后修改人', field: 'updUserId', visible: true, align: 'center', valign: 'middle'},
-            {title: '最后修改机构', field: 'updOrgId', visible: true, align: 'center', valign: 'middle'},
-            {title: '最后修改时间', field: 'updTm', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建人', field: 'crtUserId', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建机构id', field: 'crtOrgId', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建人', field: 'createUserName', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建机构', field: 'createOrgName', visible: true, align: 'center', valign: 'middle'},
             {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'}
     ];
 };
@@ -75,7 +70,7 @@ CaseInfo.openCaseInfoDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/caseInfo/caseInfo_update/' + CaseInfo.seItem.id
+            content: Feng.ctxPath + '/caseInfo/caseInfo_update/' + CaseInfo.seItem.caseNo
         });
         this.layerIndex = index;
     }

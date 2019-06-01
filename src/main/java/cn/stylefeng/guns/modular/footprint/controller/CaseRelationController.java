@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.CaseRelation;
+import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.guns.modular.footprint.service.ICaseRelationService;
 
 /**
@@ -26,7 +27,8 @@ public class CaseRelationController extends BaseController {
 
     @Autowired
     private ICaseRelationService caseRelationService;
-
+    @Autowired
+    private INoService noService ;
     /**
      * 跳转到串并案件首页
      */
@@ -47,7 +49,7 @@ public class CaseRelationController extends BaseController {
      * 跳转到修改串并案件
      */
     @RequestMapping("/caseRelation_update/{caseRelationId}")
-    public String caseRelationUpdate(@PathVariable Integer caseRelationId, Model model) {
+    public String caseRelationUpdate(@PathVariable String caseRelationId, Model model) {
         CaseRelation caseRelation = caseRelationService.selectById(caseRelationId);
         model.addAttribute("item",caseRelation);
         LogObjectHolder.me().set(caseRelation);
@@ -78,7 +80,7 @@ public class CaseRelationController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete(@RequestParam Integer caseRelationId) {
+    public Object delete(@RequestParam String caseRelationId) {
         caseRelationService.deleteById(caseRelationId);
         return SUCCESS_TIP;
     }
@@ -98,7 +100,7 @@ public class CaseRelationController extends BaseController {
      */
     @RequestMapping(value = "/detail/{caseRelationId}")
     @ResponseBody
-    public Object detail(@PathVariable("caseRelationId") Integer caseRelationId) {
+    public Object detail(@PathVariable("caseRelationId") String caseRelationId) {
         return caseRelationService.selectById(caseRelationId);
     }
 }

@@ -1,31 +1,58 @@
 @layout("/common/_container.html"){
 <canvas id="myCanvas" width="800" height="600" style="background-color: white"></canvas>
 <div class="rangeContainer">
-    <input type="range" id="scale-range" min="0.5" max="3.0" step="0.01" value="1.0" style="display: block;">
+   <!--<input type="range" id="scale-range" min="0.5" max="3.0" step="0.01" value="1.0" style="display: block;"/> -->
+    <input type="button" id="btnbig" value="放大"/>
+    <input type="button" id="btnsmall" value="缩小"/>
 </div>
 <script type="text/javascript">
 let myImage;
 let ctx;
 let img;
+var scaleInput = 1;
 window.onload = function () {
     myImage = document.getElementById("myCanvas");
     ctx = myImage.getContext("2d");
-
     img = new Image();
     img.src = "/static/footprint-img/1/K2301020000222015040081.jpg";
     img.onload = function () {
         ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
     };
 
-    $("#scale-range").mousemove(function () {
-        let scaleInput = $("#scale-range").val();
+    /* $("#scale-range").mousemove(function () {
+        scaleInput = $("#scale-range").val();
         ctx.clearRect(0, 0, myImage.width, myImage.height);
         ctx.save();
         ctx.translate(myImage.width / 2 - img.width / 2 * scaleInput, myImage.height / 2 - img.height / 2 * scaleInput);
         ctx.scale(scaleInput, scaleInput);
         ctx.drawImage(img, 0, 0);
         ctx.restore();
+    }); */
+    $("#btnbig").click(function () {
+    	debugger;
+    	 if(scaleInput >=3){
+	 		return ;
+	 	 }
+    	 scaleInput = scaleInput + 0.5 ;
+         ctx.clearRect(0, 0, myImage.width, myImage.height);
+         ctx.save();
+         ctx.translate(myImage.width / 2 - img.width / 2 * scaleInput, myImage.height / 2 - img.height / 2 * scaleInput);
+         ctx.scale(scaleInput, scaleInput);
+         ctx.drawImage(img, 0, 0);
+         ctx.restore();
     });
+    $("#btnsmall").click(function () {
+    	if(scaleInput <= 0.5){
+   	 		return ;
+   	 	}
+   	 	scaleInput = scaleInput - 0.5 ;
+        ctx.clearRect(0, 0, myImage.width, myImage.height);
+        ctx.save();
+        ctx.translate(myImage.width / 2 - img.width / 2 * scaleInput, myImage.height / 2 - img.height / 2 * scaleInput);
+        ctx.scale(scaleInput, scaleInput);
+        ctx.drawImage(img, 0, 0);
+        ctx.restore();
+   });
 };
 </script>
 @}

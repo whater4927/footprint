@@ -4,7 +4,12 @@
 var CaseInfoInfoDlg = {
     caseInfoInfoData : {}
 };
-
+function onBodyDown(event) {
+    if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(
+            event.target).parents("#menuContent").length > 0)) {
+    	CaseInfoInfoDlg.hideDeptSelectTree();
+    }
+}
 /**
  * 清除数据
  */
@@ -105,6 +110,63 @@ CaseInfoInfoDlg.editSubmit = function() {
     ajax.start();
 }
 
-$(function() {
 
+/**
+ * 点击部门input框时
+ *
+ * @param e
+ * @param treeId
+ * @param treeNode
+ * @returns
+ */
+CaseInfoInfoDlg.onClickDept = function (e, treeId, treeNode) {
+    $("#citySel").attr("value", instance.getSelectedVal());
+    $("#unit").attr("value", treeNode.id);
+};
+
+/**
+ * 显示部门选择的树
+ *
+ * @returns
+ */
+CaseInfoInfoDlg.showDeptSelectTree = function () {
+    var cityObj = $("#citySel");
+    var cityOffset = $("#citySel").offset();
+    $("#menuContent").css({
+        left: cityOffset.left + "px",
+        top: cityOffset.top + cityObj.outerHeight() + "px"
+    }).slideDown("fast");
+
+    $("body").bind("mousedown", onBodyDown);
+};
+
+/**
+ * 显示用户详情部门选择的树
+ *
+ * @returns
+ */
+CaseInfoInfoDlg.showInfoDeptSelectTree = function () {
+    var cityObj = $("#citySel");
+    var cityPosition = $("#citySel").position();
+    $("#menuContent").css({
+        left: cityPosition.left + "px",
+        top: cityPosition.top + cityObj.outerHeight() + "px"
+    }).slideDown("fast");
+
+    $("body").bind("mousedown", onBodyDown);
+};
+
+/**
+ * 隐藏部门选择的树
+ */
+CaseInfoInfoDlg.hideDeptSelectTree = function () {
+    $("#menuContent").fadeOut("fast");
+    $("body").unbind("mousedown", onBodyDown);// mousedown当鼠标按下就可以触发，不用弹起
+};
+
+$(function() {
+	var ztree = new $ZTree("treeDemo", "/dept/tree");
+    ztree.bindOnClick(CaseInfoInfoDlg.onClickDept);
+    ztree.init();
+    instance = ztree;
 });

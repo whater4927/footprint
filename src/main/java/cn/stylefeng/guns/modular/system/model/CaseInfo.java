@@ -1,6 +1,9 @@
 package cn.stylefeng.guns.modular.system.model;
 
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
@@ -33,6 +36,7 @@ public class CaseInfo extends Model<CaseInfo> {
     /**
      * 案发时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("case_tm")
     private Date caseTm;
     /**
