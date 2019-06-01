@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.util.EntityUtils;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.CriminalSuspect;
 import cn.stylefeng.guns.modular.system.service.INoService;
@@ -71,6 +73,8 @@ public class CriminalSuspectController extends BaseController {
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(CriminalSuspect criminalSuspect) {
+    	criminalSuspect.setCsNo(noService.busiNo("P"));
+    	EntityUtils.setCreateInfo(criminalSuspect);
         criminalSuspectService.insert(criminalSuspect);
         return SUCCESS_TIP;
     }

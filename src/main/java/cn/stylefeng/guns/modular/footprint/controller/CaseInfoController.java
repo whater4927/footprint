@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,12 @@ public class CaseInfoController extends BaseController {
     @RequestMapping("/caseInfo_update/{caseInfoId}")
     public String caseInfoUpdate(@PathVariable String caseInfoId, Model model) {
         CaseInfo caseInfo = caseInfoService.selectById(caseInfoId);
-        model.addAttribute("item",caseInfo);
-        LogObjectHolder.me().set(caseInfo);
+        CaseInfoVO vo = CommonUtil.po2VO(caseInfo, CaseInfoVO.class);
+        if(StringUtil.isNotEmpty(vo.getUnit())) 
+    		vo.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getUnit())));
+        model.addAttribute("item",vo);
+        model.addAttribute("caseTm",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(vo.getCaseTm()));
+        LogObjectHolder.me().set(vo);
         return PREFIX + "caseInfo_edit.html";
     }
 

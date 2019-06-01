@@ -87,7 +87,7 @@ CaseInfo.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("caseInfoId",this.seItem.id);
+        ajax.set("caseInfoId",this.seItem.caseNo);
         ajax.start();
     }
 };

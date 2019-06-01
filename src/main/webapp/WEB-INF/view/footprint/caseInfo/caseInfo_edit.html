@@ -3,7 +3,7 @@
     <div class="ibox-content">
         <div class="form-horizontal">
 
-           <!--  <div class="row">
+           <!-- <div class="row">
                 <div class="col-sm-6 b-r">
                             <#input id="caseNo" name="案件编号" value="${item.caseNo}" underline="true"/>
                             <#input id="caseState" name="案件状态" value="${item.caseState}" underline="true"/>
@@ -34,23 +34,28 @@
                             <#input id="caseNo" name="案件编号" value="${item.caseNo}"/>
                             <#input id="crimesPersonNum" name="作案人数" value="${item.crimesPersonNum}"/>
                             <#input id="caseAddress" name="案发地点" value="${item.caseAddress}"/>
-                            <#input id="citySel" name="所属单位" readonly="readonly" hidden="unit" value="${item.unit}"
+                            <#input id="citySel" name="所属单位" readonly="readonly" hidden="unit" hiddenValue="${item.unit}" value="${item.unitName}" 
 								clickFun="CaseInfoInfoDlg.showDeptSelectTree(); return false;"
 								style="background-color: #ffffff !important;"/>
                             <#input id="stolenGoods" name="被盗物品" value="${item.stolenGoods}"/>
-                            <#input id="caseDesc" name="简要案情" value="${item.caseDesc}" />
+                            
                 </div>
 
                 <div class="col-sm-6">
-                			<#input id="caseTm" name="案发时间" value="${item.caseTm}" />
+                			<#input id="caseTm" name="案发时间" value="${caseTm}" />
                             <#dictSelector id="caseType" label="案件类别" code="case_type"  value="${item.caseType}"/>
                             <#dictSelector id="intrusionMode" label="侵入方式" code="intrusion_mode" value="${item.intrusionMode}"/>
                             <#dictSelector id="caseState" label="案件状态" code="case_status"  value="${item.caseState}"/>
+                            <#input id="caseDesc" name="简要案情" value="${item.caseDesc}" />
                 </div>
                 
             </div>
             
-
+ 			<!-- 这是部门选择的下拉框 -->
+			<div id="menuContent" class="menuContent"
+				 style="display: none; position: absolute; z-index: 200;">
+				<ul id="treeDemo" class="ztree tree-box" style="width: 249px !important;"></ul>
+			</div>
             <div class="row btn-group-m-t">
                 <div class="col-sm-10">
                     <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CaseInfoInfoDlg.editSubmit()"/>
@@ -65,7 +70,8 @@
 <script type="text/javascript">
 laydate.render({
     elem: '#caseTm',
-    type: 'datetime'
+    type: 'datetime',
+    format: 'yyyy-MM-dd HH:mm:ss'
 });
 </script>
 @}

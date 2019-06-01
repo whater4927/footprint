@@ -1,6 +1,9 @@
 package cn.stylefeng.guns.modular.system.model;
 
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
@@ -49,6 +52,7 @@ public class CriminalSuspect extends Model<CriminalSuspect> {
     /**
      * 出生日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     /**
      * 居住地
@@ -62,6 +66,7 @@ public class CriminalSuspect extends Model<CriminalSuspect> {
     /**
      * 抓获日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @TableField("grasp_date")
     private Date graspDate;
     /**

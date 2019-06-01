@@ -5,32 +5,33 @@
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="csNo" name="嫌疑人编号" underline="true"/>
-                            <#input id="name" name="姓名" underline="true"/>
-                            <#input id="sex" name="性别" underline="true"/>
-                            <#input id="heigh" name="身高" underline="true"/>
-                            <#input id="nation" name="籍贯" underline="true"/>
-                            <#input id="idNo" name="身份证号" underline="true"/>
-                            <#input id="birthday" name="出生日期" underline="true"/>
-                            <#input id="address" name="居住地" underline="true"/>
-                            <#input id="csType" name="涉案类别" underline="true"/>
-                            <#input id="graspDate" name="抓获日期" underline="true"/>
-                            <#input id="graspUnit" name="抓获单位"/>
+                            <#input id="name" name="姓名" />
+                            <#dictSelector id="sex" label="性别" code="sys_sex"/>
+                            <#input id="heigh" name="身高" />
+                            <#input id="nation" name="籍贯" />
+                            <#input id="idNo" name="身份证号" />
+                            <#input id="remark" name="备注" />
                 </div>
 
                 <div class="col-sm-6">
-                            <#input id="inputUser" name="录入人" underline="true"/>
-                            <#input id="remark" name="备注" underline="true"/>
-                            <#input id="status" name="状态" underline="true"/>
-                            <#input id="delStatus" name="是否删除" underline="true"/>
-                            <#input id="updUserId" name="最后修改人" underline="true"/>
-                            <#input id="updOrgId" name="最后修改机构" underline="true"/>
-                            <#input id="updTm" name="最后修改时间" underline="true"/>
-                            <#input id="crtUserId" name="创建人" underline="true"/>
-                            <#input id="crtOrgId" name="创建机构id" underline="true"/>
-                            <#input id="crtTm" name="创建时间" underline="true"/>
+               				<#input id="address" name="居住地" />
+                            <#dictSelector id="csType" label="涉案类别" code="case_type"/>
+                            <#input id="graspDate" name="抓获日期" />
+                           <!--  <#input id="graspUnit" name="抓获单位"/> -->
+                             <#input id="citySel" name="抓获单位" readonly="readonly" hidden="graspUnit" 
+								clickFun="CriminalSuspectInfoDlg.showDeptSelectTree(); return false;"
+								style="background-color: #ffffff !important;"/>
+                             <#input id="birthday" name="出生日期" />
+                           
                 </div>
             </div>
+
+			 <!-- 这是部门选择的下拉框 -->
+			<div id="menuContent" class="menuContent"
+				 style="display: none; position: absolute; z-index: 200;">
+				<ul id="treeDemo" class="ztree tree-box" style="width: 249px !important;"></ul>
+			</div>
+
 
             <div class="row btn-group-m-t">
                 <div class="col-sm-10">
@@ -43,4 +44,12 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/footprint/criminalSuspect/criminalSuspect_info.js"></script>
+<script>
+	laydate.render({
+	    elem: '#birthday'
+	});
+    laydate.render({
+        elem: '#graspDate'
+    });
+</script>
 @}

@@ -27,13 +27,8 @@ CriminalSuspect.initColumn = function () {
             {title: '抓获单位', field: 'graspUnit', visible: true, align: 'center', valign: 'middle'},
             {title: '录入人', field: 'inputUser', visible: true, align: 'center', valign: 'middle'},
             {title: '备注', field: 'remark', visible: true, align: 'center', valign: 'middle'},
-            {title: '状态', field: 'status', visible: true, align: 'center', valign: 'middle'},
-            {title: '是否删除', field: 'delStatus', visible: true, align: 'center', valign: 'middle'},
-            {title: '最后修改人', field: 'updUserId', visible: true, align: 'center', valign: 'middle'},
-            {title: '最后修改机构', field: 'updOrgId', visible: true, align: 'center', valign: 'middle'},
-            {title: '最后修改时间', field: 'updTm', visible: true, align: 'center', valign: 'middle'},
             {title: '创建人', field: 'crtUserId', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建机构id', field: 'crtOrgId', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建机构', field: 'crtOrgId', visible: true, align: 'center', valign: 'middle'},
             {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'}
     ];
 };
