@@ -5,26 +5,33 @@
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#dictSelector id="position" label="足迹遗留部位"  code="acc_type" />
-                            <#input id="legacyMode" name="足迹遗留方式" />
-                            <#input id="extractionMethod" name="足迹提取方式" />
+                            <#input id="position" name="足迹遗留部位" style="width: 250px;"/>
+                            <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode"/>
+                            <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method"/>
+                            
+                             <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.addSubmit()"/>
+                   			 <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FootprintInfoDlg.close()"/>
+                   			 
+                   			  <input type="hidden" id="originalImg" >
+                   			 <!-- <div id="uploader-demo">
+							    <div id="fileList" class="uploader-list"></div>
+							    <div id="filePicker">选择图片</div>
+							 </div> 
+							<div class="col-sm-12 b-r" id="images"/>-->
                 </div>
 				<div class="col-sm-6 b-r">
-					<div id="uploader-demo">
-					    <div id="fileList" class="uploader-list"></div>
-					    <div id="filePicker">选择图片</div>
-					</div>
+					<div id="filePicker">选择图片</div>
 					<div class="col-sm-12 b-r" id="images"/>
 				</div> 
             </div>
                                 
                                 
-            <div class="row btn-group-m-t">
+           <!--  <div class="row btn-group-m-t">
                 <div class="col-sm-10">
                     <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.addSubmit()"/>
                     <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FootprintInfoDlg.close()"/>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -53,6 +60,7 @@ uploader.on( 'uploadSuccess', function( file ,response) {
    console.log(file.name);
    $("#images").empty();
    image = response ;
+   $("#originalImg").val(response);
    $("#images").append("<img onclick='openImage()' src='/kaptcha/"+response+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>")
 });
 let myImage;

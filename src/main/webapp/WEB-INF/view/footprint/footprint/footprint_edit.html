@@ -2,8 +2,7 @@
 <div class="ibox float-e-margins">
     <div class="ibox-content">
         <div class="form-horizontal">
-
-            <div class="row">
+			<!-- <div class="row">
                 <div class="col-sm-6 b-r">
                             <#input id="fpNo" name="足迹编号" value="${item.fpNo}" underline="true"/>
                             <#input id="caseNo" name="案件编号" value="${item.caseNo}" underline="true"/>
@@ -27,17 +26,139 @@
                             <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
                             <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
                 </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="position" name="足迹遗留部位" style="width: 250px;" value="${item.position}"/>
+                            <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode" value="${item.legacyMode}" />
+                            <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" value="${item.extractionMethod}"/>
+                            
+                             <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.editSubmit()"/>
+                   			 <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FootprintInfoDlg.close()"/>
+                   			 
+                   			 <input type="hidden"  id="fpNo" value="${item.fpNo}" />
+                   			 <input type="hidden" id="originalImg" value="${item.originalImg}">
+                   			 
+                </div>
+				<div class="col-sm-6 b-r">
+					<div id="filePicker">选择图片</div>
+					<div class="col-sm-12 b-r" id="images"/>
+				</div> 
             </div>
-
-            <div class="row btn-group-m-t">
+                                
+                                
+           <!--  <div class="row btn-group-m-t">
                 <div class="col-sm-10">
-                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.editSubmit()"/>
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.addSubmit()"/>
                     <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FootprintInfoDlg.close()"/>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </div>
 </div>
 <script src="${ctxPath}/static/modular/footprint/footprint/footprint_info.js"></script>
+<script type="text/javascript">
+var uploader = WebUploader.create({
+    // 选完文件后，是否自动上传。
+    auto: true,
+    // swf文件路径
+    swf: '/static/js/plugins/webuploader/Uploader.swf',
+    // 文件接收服务端。
+    server: '/mgr/upload',
+    // 选择文件的按钮。可选。
+    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+    pick: '#filePicker',
+    // 只允许选择图片文件。
+    accept: {
+        title: 'Images',
+        extensions: 'gif,jpg,jpeg,bmp,png',
+        mimeTypes: 'image/*'
+    }
+});
+uploader.on( 'uploadSuccess', function( file ,response) {
+   console.log(file.name);
+   $("#images").empty();
+   setImage(response);
+});
+let myImage;
+let ctx;
+let img;
+let degree = 0;
+var scaleInput = 1;
+function openImage() {
+	//var imageHtml = "<img onclick='openImage()' src='/kaptcha/"+image+"' alt='通用的占位符缩略图' />" ;
+	var canvas = '<canvas id="myCanvas" width="800" height="600" style="background-color: white"></canvas>';
+	var content = '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff;">'+canvas+'</div>'; 
+	layer.open({
+			type : 1,
+			title : false,
+			closeBtn : true,
+			area: ['100%', '100%'],
+			shade : 0.8,
+			id : 'LAY_layuipro' ,
+			resize : false,
+			btn : [ '放大', '缩小', '旋转','关闭' ],
+			btnAlign : 'c',
+			moveType : 1 ,
+			content : content,
+			btn1: function(index, layero){//放大
+				if(scaleInput >=3){
+			 		return false;
+			 	}
+		    	scaleInput = scaleInput + 0.5 ;
+		        ctx.clearRect(0, 0, myImage.width, myImage.height);
+		        ctx.save();
+		        ctx.translate(myImage.width / 2 - img.width / 2 * scaleInput, myImage.height / 2 - img.height / 2 * scaleInput);
+		        ctx.scale(scaleInput, scaleInput);
+		        ctx.drawImage(img, 0, 0);
+		        ctx.restore();
+			    return false
+			},
+			btn2: function(index, layero){//缩小
+				if(scaleInput <= 0.5){
+		   	 		return false;
+		   	 	}
+		   	 	scaleInput = scaleInput - 0.5 ;
+		        ctx.clearRect(0, 0, myImage.width, myImage.height);
+		        ctx.save();
+		        ctx.translate(myImage.width / 2 - img.width / 2 * scaleInput, myImage.height / 2 - img.height / 2 * scaleInput);
+		        ctx.scale(scaleInput, scaleInput);
+		        ctx.drawImage(img, 0, 0);
+		        ctx.restore();
+			    return false
+			},
+			btn3: function(index, layero){//旋转
+				 let rotateInput = 90;
+			     degree += parseInt(rotateInput);
+			     degree %= 360;
+			     ctx.save();
+			     ctx.clearRect(0, 0, myImage.width, myImage.height);
+			     ctx.translate(myImage.width / 2, myImage.height / 2);
+			     ctx.rotate(degree / 180 * Math.PI);
+			     ctx.translate(-myImage.width / 2, -myImage.height / 2);
+			     ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
+			     ctx.restore();
+			     return false;
+			},
+			success : function(layero) {
+				 myImage = document.getElementById("myCanvas");
+				 ctx = myImage.getContext("2d");
+				 img = new Image();
+				 img.src = '/kaptcha/'+$("#originalImg").val();
+				 img.onload = function () {
+				      ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
+				 };
+			}
+	});
+	
+}
+function setImage(response){
+	$("#originalImg").val(response);
+	$("#images").append("<img onclick='openImage()' src='/kaptcha/"+response+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>")
+}
+$(function() {
+	setImage('${item.originalImg}');
+});
+</script>
 @}
