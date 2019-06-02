@@ -2,8 +2,7 @@
 <div class="ibox float-e-margins">
     <div class="ibox-content">
         <div class="form-horizontal">
-
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-6 b-r">
                             <#input id="csNo" name="嫌疑人编号" value="${item.csNo}" underline="true"/>
                             <#input id="name" name="姓名" value="${item.name}" underline="true"/>
@@ -30,8 +29,36 @@
                             <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
                             <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
                 </div>
+            </div> -->
+ 			<div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="name" name="姓名" value="${item.name}"/>
+                            <#dictSelector id="sex" label="性别" code="sys_sex" value="${item.sex}"/>
+                            <#input id="heigh" name="身高" value="${item.heigh}"/>
+                            <#input id="nation" name="籍贯" value="${item.nation}"/>
+                            <#input id="idNo" name="身份证号" value="${item.idNo}"/>
+                            <#input id="remark" name="备注" value="${item.status}"/>
+                </div>
+                <div class="col-sm-6">
+               				<#input id="address" name="居住地" value="${item.address}"/>
+                            <#dictSelector id="csType" label="涉案类别" code="case_type"/>
+                            <#input id="graspDate" name="抓获日期" value="${item.graspDate}"/>
+                           <!--  <#input id="graspUnit" name="抓获单位"/> -->
+                            <#input id="citySel" name="抓获单位" readonly="readonly" hidden="graspUnit" hiddenValue="${item.graspUnit}" value="${item.graspUnitName}"
+								clickFun="CriminalSuspectInfoDlg.showDeptSelectTree(); return false;"
+								style="background-color: #ffffff !important;"/>
+                            <#input id="birthday" name="出生日期" value="${item.birthday}"/>
+                           
+                </div>
             </div>
-
+            
+             <!-- 这是部门选择的下拉框 -->
+			<div id="menuContent" class="menuContent"
+				 style="display: none; position: absolute; z-index: 200;">
+				<ul id="treeDemo" class="ztree tree-box" style="width: 249px !important;"></ul>
+			</div>
+            
+            
             <div class="row btn-group-m-t">
                 <div class="col-sm-10">
                     <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CriminalSuspectInfoDlg.editSubmit()"/>
@@ -43,4 +70,12 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/footprint/criminalSuspect/criminalSuspect_info.js"></script>
+<script>
+	laydate.render({
+	    elem: '#birthday'
+	});
+    laydate.render({
+        elem: '#graspDate'
+    });
+</script>
 @}

@@ -75,7 +75,7 @@ Footprint.openFootprintDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/footprint/footprint_update/' + Footprint.seItem.id
+            content: Feng.ctxPath + '/footprint/footprint_update/' + Footprint.seItem.fpNo
         });
         this.layerIndex = index;
     }
@@ -92,7 +92,7 @@ Footprint.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("footprintId",this.seItem.id);
+        ajax.set("footprintId",this.seItem.fpNo);
         ajax.start();
     }
 };

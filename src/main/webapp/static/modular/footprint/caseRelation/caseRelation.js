@@ -69,7 +69,7 @@ CaseRelation.openCaseRelationDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/caseRelation/caseRelation_update/' + CaseRelation.seItem.id
+            content: Feng.ctxPath + '/caseRelation/caseRelation_update/' + CaseRelation.seItem.relationNo
         });
         this.layerIndex = index;
     }
@@ -86,7 +86,7 @@ CaseRelation.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("caseRelationId",this.seItem.id);
+        ajax.set("caseRelationId",this.seItem.relationNo);
         ajax.start();
     }
 };

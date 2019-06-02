@@ -1,19 +1,26 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
-import cn.stylefeng.roses.core.base.controller.BaseController;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
-import cn.stylefeng.guns.core.log.LogObjectHolder;
-import cn.stylefeng.guns.core.util.EntityUtils;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
+import cn.stylefeng.guns.core.util.CommonUtil;
+import cn.stylefeng.guns.core.util.EntityUtils;
+import cn.stylefeng.guns.core.util.StringUtil;
+import cn.stylefeng.guns.modular.footprint.service.ICriminalSuspectService;
+import cn.stylefeng.guns.modular.footprint.vo.CriminalSuspectVO;
 import cn.stylefeng.guns.modular.system.model.CriminalSuspect;
 import cn.stylefeng.guns.modular.system.service.INoService;
-import cn.stylefeng.guns.modular.footprint.service.ICriminalSuspectService;
+import cn.stylefeng.roses.core.base.controller.BaseController;
 
 /**
  * 嫌疑人信息控制器
@@ -53,7 +60,19 @@ public class CriminalSuspectController extends BaseController {
     @RequestMapping("/criminalSuspect_update/{criminalSuspectId}")
     public String criminalSuspectUpdate(@PathVariable String criminalSuspectId, Model model) {
         CriminalSuspect criminalSuspect = criminalSuspectService.selectById(criminalSuspectId);
-        model.addAttribute("item",criminalSuspect);
+        CriminalSuspectVO vo = CommonUtil.po2VO(criminalSuspect, CriminalSuspectVO.class);
+        vo.setSexName(ConstantFactory.me().getDictsByName("sys_sex", vo.getSex()));
+     	if(StringUtil.isNotEmpty(vo.getGraspUnit())) 
+     		vo.setGraspUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getGraspUnit())));
+     	vo.setCsTypeName(ConstantFactory.me().getDictsByName("case_type", vo.getCsType()));
+     	vo.setInputUserName(ConstantFactory.me().getUserNameById(vo.getInputUser()));
+     	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+ 			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+ 		}
+ 		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+ 			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+ 		}
+        model.addAttribute("item",vo);
         LogObjectHolder.me().set(criminalSuspect);
         return PREFIX + "criminalSuspect_edit.html";
     }
@@ -64,7 +83,22 @@ public class CriminalSuspectController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return criminalSuspectService.selectList(null);
+    	List<CriminalSuspectVO> listVo = CommonUtil.listPo2VO(criminalSuspectService.selectList(null), CriminalSuspectVO.class);
+    	
+    	 listVo.forEach((vo)->{
+         	vo.setSexName(ConstantFactory.me().getDictsByName("sys_sex", vo.getSex()));
+         	if(StringUtil.isNotEmpty(vo.getGraspUnit())) 
+         		vo.setGraspUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getGraspUnit())));
+         	vo.setCsTypeName(ConstantFactory.me().getDictsByName("case_type", vo.getCsType()));
+         	vo.setInputUserName(ConstantFactory.me().getUserNameById(vo.getInputUser()));
+         	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+     			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+     		}
+     		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+     			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+     		}
+         });
+        return listVo;
     }
 
     /**
@@ -74,6 +108,7 @@ public class CriminalSuspectController extends BaseController {
     @ResponseBody
     public Object add(CriminalSuspect criminalSuspect) {
     	criminalSuspect.setCsNo(noService.busiNo("P"));
+    	criminalSuspect.setInputUser(ShiroKit.getUser().getId());
     	EntityUtils.setCreateInfo(criminalSuspect);
         criminalSuspectService.insert(criminalSuspect);
         return SUCCESS_TIP;

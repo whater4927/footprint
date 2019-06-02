@@ -16,19 +16,15 @@ CriminalSuspect.initColumn = function () {
         {field: 'selectItem', radio: true},
             {title: '嫌疑人编号', field: 'csNo', visible: true, align: 'center', valign: 'middle'},
             {title: '姓名', field: 'name', visible: true, align: 'center', valign: 'middle'},
-            {title: '性别', field: 'sex', visible: true, align: 'center', valign: 'middle'},
-            {title: '身高', field: 'heigh', visible: true, align: 'center', valign: 'middle'},
+            {title: '性别', field: 'sexName', visible: true, align: 'center', valign: 'middle'},
             {title: '籍贯', field: 'nation', visible: true, align: 'center', valign: 'middle'},
             {title: '身份证号', field: 'idNo', visible: true, align: 'center', valign: 'middle'},
             {title: '出生日期', field: 'birthday', visible: true, align: 'center', valign: 'middle'},
-            {title: '居住地', field: 'address', visible: true, align: 'center', valign: 'middle'},
-            {title: '涉案类别', field: 'csType', visible: true, align: 'center', valign: 'middle'},
+            {title: '涉案类别', field: 'csTypeName', visible: true, align: 'center', valign: 'middle'},
             {title: '抓获日期', field: 'graspDate', visible: true, align: 'center', valign: 'middle'},
-            {title: '抓获单位', field: 'graspUnit', visible: true, align: 'center', valign: 'middle'},
-            {title: '录入人', field: 'inputUser', visible: true, align: 'center', valign: 'middle'},
-            {title: '备注', field: 'remark', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建人', field: 'crtUserId', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建机构', field: 'crtOrgId', visible: true, align: 'center', valign: 'middle'},
+            {title: '抓获单位', field: 'graspUnitName', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建人', field: 'createUserName', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建机构', field: 'createOrgName', visible: true, align: 'center', valign: 'middle'},
             {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'}
     ];
 };
@@ -73,7 +69,7 @@ CriminalSuspect.openCriminalSuspectDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/criminalSuspect/criminalSuspect_update/' + CriminalSuspect.seItem.id
+            content: Feng.ctxPath + '/criminalSuspect/criminalSuspect_update/' + CriminalSuspect.seItem.csNo
         });
         this.layerIndex = index;
     }
@@ -90,7 +86,7 @@ CriminalSuspect.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("criminalSuspectId",this.seItem.id);
+        ajax.set("criminalSuspectId",this.seItem.csNo);
         ajax.start();
     }
 };
