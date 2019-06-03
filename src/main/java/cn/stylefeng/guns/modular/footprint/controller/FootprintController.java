@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -116,7 +117,7 @@ public class FootprintController extends BaseController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public Object update(Footprint footprint) {
+    public Object update(@RequestBody Footprint footprint) {
     	EntityUtils.setUpdateInfo(footprint);
         footprintService.updateById(footprint);
         return SUCCESS_TIP;

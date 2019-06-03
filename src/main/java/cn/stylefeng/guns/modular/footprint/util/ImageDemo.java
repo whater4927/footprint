@@ -8,16 +8,6 @@
 */
 
 package cn.stylefeng.guns.modular.footprint.util;
-/**
- * ClassName:ImageDemo <br/>
- * Function: TODO ADD FUNCTION. <br/>
- * Reason:	 TODO ADD REASON. <br/>
- * Date:     2019年5月24日 下午1:41:16 <br/>
- * @author   whater
- * @version  
- * @since    JDK 1.8
- * @see 	 
- */
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,10 +15,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import cn.stylefeng.guns.core.util.CommonUtil;
+import cn.stylefeng.roses.core.util.ToolUtil;
+/**
+ * ClassName:ImageDemo <br/>
+ * Function: 二值化. <br/>
+ * Reason:	 二值化. <br/>
+ * Date:     2019年5月24日 下午1:41:16 <br/>
+ * @author   whater
+ * @version  
+ * @since    JDK 1.8
+ * @see 	 
+ */
 public class ImageDemo {
 
-	public void binaryImage() throws IOException {
-		File file = new File(System.getProperty("user.dir") + "/src/main/java/1.jpg");
+	public static String binaryImage(String path,String imagePath) throws IOException {
+		File file = new File(path+imagePath);
 		BufferedImage image = ImageIO.read(file);
 		int width = image.getWidth();
 		int height = image.getHeight();
@@ -39,11 +41,13 @@ public class ImageDemo {
 				grayImage.setRGB(i, j, rgb);
 			}
 		}
-		File newFile = new File(System.getProperty("user.dir") + "/src/main/java/2.jpg");
+		String pictureName = CommonUtil.UUID() + "." + ToolUtil.getFileSuffix(imagePath);
+		File newFile = new File(path + pictureName);
 		ImageIO.write(grayImage, "jpg", newFile);
+		return pictureName ;
 	}
 
-	public void grayImage() throws IOException {
+	public static String grayImage(String imagePath) throws IOException {
 		File file = new File(System.getProperty("user.dir") + "/src/main/java/3.jpg");
 		BufferedImage image = ImageIO.read(file);
 
@@ -60,13 +64,14 @@ public class ImageDemo {
 
 		File newFile = new File(System.getProperty("user.dir") + "/src/main/java/4.jpg");
 		ImageIO.write(grayImage, "jpg", newFile);
+		return "" ;
 	}
 
 	public static void main(String[] args) throws IOException {
 		System.out.println(System.getProperty("user.dir"));
 		ImageDemo demo = new ImageDemo();
-		demo.binaryImage();
-		demo.grayImage();
+		/*demo.binaryImage();
+		demo.grayImage();*/
 	}
 
 }

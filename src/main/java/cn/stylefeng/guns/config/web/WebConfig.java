@@ -36,6 +36,8 @@ import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -166,7 +168,12 @@ public class WebConfig implements WebMvcConfigurer {
     public ServletListenerRegistrationBean<RequestContextListener> requestContextListenerRegistration() {
         return new ServletListenerRegistrationBean<>(new RequestContextListener());
     }
-
+    @Bean
+	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM));
+		return converter;
+	}
     /**
      * ConfigListener注册
      */

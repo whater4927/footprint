@@ -64,7 +64,11 @@ FootprintInfoDlg.collectData = function() {
     .set('crtOrgId')
     .set('crtTm');
 }
-
+FootprintInfoDlg.validate = function () {
+    $('#form').data("bootstrapValidator").resetForm();
+    $('#form').bootstrapValidator('validate');
+    return $("#form").data('bootstrapValidator').isValid();
+};
 /**
  * 提交添加
  */
@@ -72,7 +76,9 @@ FootprintInfoDlg.addSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/footprint/add", function(data){
         Feng.success("添加成功!");
@@ -92,9 +98,11 @@ FootprintInfoDlg.editSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
-    var ajax = new $ax(Feng.ctxPath + "/footprint/update", function(data){
+    var ajax = new $ax1(Feng.ctxPath + "/footprint/update", function(data){
         Feng.success("修改成功!");
         window.parent.Footprint.table.refresh();
         FootprintInfoDlg.close();
@@ -106,5 +114,5 @@ FootprintInfoDlg.editSubmit = function() {
 }
 
 $(function() {
-
+	Feng.initValidator("form", FootprintInfoDlg.validateFields);
 });

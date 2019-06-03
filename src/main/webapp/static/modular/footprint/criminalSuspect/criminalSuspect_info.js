@@ -10,6 +10,11 @@ function onBodyDown(event) {
     	CriminalSuspectInfoDlg.hideDeptSelectTree();
     }
 }
+CriminalSuspectInfoDlg.validate = function () {
+    $('#form').data("bootstrapValidator").resetForm();
+    $('#form').bootstrapValidator('validate');
+    return $("#form").data('bootstrapValidator').isValid();
+};
 /**
  * 清除数据
  */
@@ -80,7 +85,9 @@ CriminalSuspectInfoDlg.addSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/criminalSuspect/add", function(data){
         Feng.success("添加成功!");
@@ -100,7 +107,9 @@ CriminalSuspectInfoDlg.editSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/criminalSuspect/update", function(data){
         Feng.success("修改成功!");
@@ -170,4 +179,5 @@ $(function() {
     ztree.bindOnClick(CriminalSuspectInfoDlg.onClickDept);
     ztree.init();
     instance = ztree;
+    Feng.initValidator("form", CriminalSuspectInfoDlg.validateFields);
 });

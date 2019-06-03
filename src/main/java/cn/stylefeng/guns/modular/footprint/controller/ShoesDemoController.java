@@ -1,17 +1,27 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
-import cn.stylefeng.roses.core.base.controller.BaseController;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
-import cn.stylefeng.guns.core.log.LogObjectHolder;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+
+import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.util.CommonUtil;
+import cn.stylefeng.guns.core.util.EntityUtils;
+import cn.stylefeng.guns.core.util.StringUtil;
+import cn.stylefeng.guns.modular.footprint.service.IShoesDemoService;
+import cn.stylefeng.guns.modular.footprint.vo.ShoesDemoVO;
 import cn.stylefeng.guns.modular.system.model.ShoesDemo;
 import cn.stylefeng.guns.modular.system.service.INoService;
-import cn.stylefeng.guns.modular.footprint.service.IShoesDemoService;
+import cn.stylefeng.roses.core.base.controller.BaseController;
 
 /**
  * 鞋厂鞋样控制器
@@ -62,7 +72,17 @@ public class ShoesDemoController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return shoesDemoService.selectList(null);
+//        return shoesDemoService.selectList(null);
+        List<ShoesDemoVO> listVo = CommonUtil.listPo2VO(shoesDemoService.selectList(new EntityWrapper<ShoesDemo>().orderBy("crt_tm desc")), ShoesDemoVO.class);
+    	listVo.forEach((vo)->{
+         	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+     			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+     		}
+     		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+     			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+     		}
+        });
+        return listVo;
     }
 
     /**
@@ -71,6 +91,8 @@ public class ShoesDemoController extends BaseController {
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(ShoesDemo shoesDemo) {
+    	shoesDemo.setId(noService.busiNo("D"));
+    	EntityUtils.setCreateInfo(shoesDemo);
         shoesDemoService.insert(shoesDemo);
         return SUCCESS_TIP;
     }
@@ -91,6 +113,7 @@ public class ShoesDemoController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public Object update(ShoesDemo shoesDemo) {
+    	EntityUtils.setUpdateInfo(shoesDemo);
         shoesDemoService.updateById(shoesDemo);
         return SUCCESS_TIP;
     }

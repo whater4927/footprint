@@ -106,7 +106,10 @@ public class ImageUtils {
             throw new Exception(e);
         }
     }
-
+    public static void main(String[] args) throws FileNotFoundException, Exception {
+    	int[] in = getSizeInfo(new FileInputStream(new File("C:\\Users\\whater\\Desktop\\img\\2.jpg"))) ;
+		System.out.println("w:"+ in[0]+",h:"+in[1]);
+	}
     /**
      * 重调图片尺寸
      * 

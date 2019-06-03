@@ -3,7 +3,7 @@
     <div class="ibox-content">
         <div class="form-horizontal">
 
-            <div class="row">
+			<!--<div class="row">
                 <div class="col-sm-6 b-r">
                             <#input id="id" name="" value="${item.id}" underline="true"/>
                             <#input id="brand" name="品牌" value="${item.brand}" underline="true"/>
@@ -24,6 +24,19 @@
                             <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
                             <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
                 </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-4 b-r">
+                			<#input id="id" name="鞋样编号" value="${item.id}" style="width: 250px;" readonly="readonly"/>
+                            <#input id="brand" name="品牌" value="${item.brand}" style="width: 250px;"/>
+                            <#input id="remark" name="备注" value="${item.remark}" style="width: 250px;"/>
+                </div>
+
+                <div class="col-sm-6">
+                			<div id="filePicker">选择图片</div>
+							<div class="col-sm-12 b-r" id="images"/>
+                </div>
+                <input type="hidden" id="url" >
             </div>
 
             <div class="row btn-group-m-t">
@@ -37,4 +50,14 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/footprint/shoesDemo/shoesDemo_info.js"></script>
+<script src="${ctxPath}/static/modular/footprint/shoesDemo/common_image.js"></script>
+<script type="text/javascript">
+	uploader.on( 'uploadSuccess', function( file ,response) {
+	   $("#images").empty();
+	   setImage("#url",response);
+	});
+	$(function() {
+		setImage("#url",'${item.url}');
+	});
+</script>
 @}

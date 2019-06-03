@@ -11,7 +11,11 @@ var ShoesDemoInfoDlg = {
 ShoesDemoInfoDlg.clearData = function() {
     this.shoesDemoInfoData = {};
 }
-
+ShoesDemoInfoDlg.validate = function () {
+    $('#form').data("bootstrapValidator").resetForm();
+    $('#form').bootstrapValidator('validate');
+    return $("#form").data('bootstrapValidator').isValid();
+};
 /**
  * 设置对话框中的数据
  *
@@ -69,7 +73,9 @@ ShoesDemoInfoDlg.addSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/shoesDemo/add", function(data){
         Feng.success("添加成功!");
@@ -89,7 +95,9 @@ ShoesDemoInfoDlg.editSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/shoesDemo/update", function(data){
         Feng.success("修改成功!");
@@ -103,5 +111,5 @@ ShoesDemoInfoDlg.editSubmit = function() {
 }
 
 $(function() {
-
+	Feng.initValidator("form", ShoesDemoInfoDlg.validateFields);
 });

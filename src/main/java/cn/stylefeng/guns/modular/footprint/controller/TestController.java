@@ -21,9 +21,14 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import cn.stylefeng.guns.config.properties.GunsProperties;
+import cn.stylefeng.guns.modular.footprint.util.ImageDemo;
 import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 
@@ -38,13 +43,14 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
  * @since JDK 1.8
  * @see
  */
-@Controller
+@RestController
 @RequestMapping("/test")
 public class TestController extends BaseController {
 	private String PREFIX = "/footprint/test/";
 	@Autowired
 	private INoService noService ;
-	
+	@Autowired
+    private GunsProperties gunsProperties;
 	@GetMapping("/test1")
 	public String test1() {
 		return PREFIX + "test1.html";
@@ -82,9 +88,9 @@ public class TestController extends BaseController {
 	}
 	
 	
-	@GetMapping(value = "/get3",produces = MediaType.IMAGE_JPEG_VALUE)
+	@RequestMapping(value = "/get3",produces = MediaType.IMAGE_JPEG_VALUE)
 	@ResponseBody
-	public byte[] getImage3() throws IOException {
+	public byte[] getImage3(@RequestBody String url) throws IOException {
 	    File file = new File("C:\\Users\\mayn\\git\\footprint\\src\\main\\webapp\\static\\footprint-img\\4\\K2301020000222015050082.jpg");
 	    FileInputStream inputStream = new FileInputStream(file);
 	    byte[] bytes = new byte[inputStream.available()];
@@ -101,4 +107,10 @@ public class TestController extends BaseController {
 	    return bytes;
 	}
 
+	@PostMapping(value = "/binaryImage")
+	public String binaryImage(@RequestParam("url") String url) throws IOException {
+//		ImageDemo.binaryImage(url);
+	    return ImageDemo.binaryImage(gunsProperties.getFileUploadPath(),url);
+	}
+	
 }

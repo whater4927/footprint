@@ -58,8 +58,18 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/footprint/footprint/footprint_info.js"></script>
+<script src="${ctxPath}/static/modular/footprint/shoesDemo/common_image.js"></script>
 <script type="text/javascript">
-var uploader = WebUploader.create({
+	uploader.on( 'uploadSuccess', function( file ,response) {
+	   $("#images").empty();
+	   setImage("#originalImg",response);
+	});
+	$(function() {
+		setImage("#originalImg",'${item.originalImg}');
+	});
+</script>
+<!-- <script type="text/javascript"> 
+/* var uploader = WebUploader.create({
     // 选完文件后，是否自动上传。
     auto: true,
     // swf文件路径
@@ -159,6 +169,6 @@ function setImage(response){
 }
 $(function() {
 	setImage('${item.originalImg}');
-});
-</script>
+}); */
+</script> -->
 @}

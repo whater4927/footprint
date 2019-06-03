@@ -37,9 +37,15 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/footprint/footprint/footprint_info.js"></script>
+<script src="${ctxPath}/static/modular/footprint/shoesDemo/common_image.js"></script>
 <script type="text/javascript">
-var image = "" ;
-var uploader = WebUploader.create({
+	uploader.on( 'uploadSuccess', function( file ,response) {
+	   $("#images").empty();
+	   setImage("#originalImg",response);
+	});
+</script>
+<script type="text/javascript">
+/* var uploader = WebUploader.create({
     // 选完文件后，是否自动上传。
     auto: true,
     // swf文件路径
@@ -59,7 +65,6 @@ var uploader = WebUploader.create({
 uploader.on( 'uploadSuccess', function( file ,response) {
    console.log(file.name);
    $("#images").empty();
-   image = response ;
    $("#originalImg").val(response);
    $("#images").append("<img onclick='openImage()' src='/kaptcha/"+response+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>")
 });
@@ -134,6 +139,6 @@ function openImage() {
 			}
 	});
 	
-}
+} */
 </script>
 @}
