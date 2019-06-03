@@ -2,7 +2,95 @@
  * 初始化嫌疑人信息详情对话框
  */
 var CriminalSuspectInfoDlg = {
-    criminalSuspectInfoData : {}
+    criminalSuspectInfoData : {},
+    validateFields:{
+    	name:{
+    		validators: {
+                notEmpty: {
+                    message: '姓名不能为空'
+                }
+            }
+    	},
+    	sex:{
+    		validators: {
+                notEmpty: {
+                    message: '性别不能为空'
+                }
+            }
+    	},
+    	heigh:{
+    		validators: {
+                notEmpty: {
+                    message: '身高不能为空'
+                },
+                between:{
+                	min:0,
+                	max:300
+                },
+                numeric:{}
+            }
+    	},
+    	nation:{
+    		validators: {
+                notEmpty: {
+                    message: '籍贯不能为空'
+                }
+            }
+    	},
+    	idNo:{
+    		validators: {
+                notEmpty: {
+                    message: '身份证号不能为空'
+                },
+                regexp: {
+                    regexp: /(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+                  	message: '身份证号格式有误'
+                }
+            }
+    	},
+    	remark:{
+    		validators: {
+                notEmpty: {
+                    message: '备注不能为空'
+                }
+            }
+    	},
+    	address:{
+    		validators: {
+                notEmpty: {
+                    message: '居住地不能为空'
+                }
+            }
+    	},
+    	csType:{
+    		validators: {
+                notEmpty: {
+                    message: '涉案类别不能为空'
+                }
+            }
+    	},
+    	graspDate:{
+    		validators: {
+                notEmpty: {
+                    message: '抓获日期不能为空'
+                }
+            }
+    	},
+    	citySel:{
+    		validators: {
+                notEmpty: {
+                    message: '抓获单位不能为空'
+                }
+            }
+    	},
+    	birthday:{
+    		validators: {
+                notEmpty: {
+                    message: '出生日期不能为空'
+                }
+            }
+    	}
+    }
 };
 function onBodyDown(event) {
     if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(

@@ -2,7 +2,65 @@
  * 初始化案件基本信息详情对话框
  */
 var CaseInfoInfoDlg = {
-    caseInfoInfoData : {}
+    caseInfoInfoData : {},
+    validateFields:{
+    	crimesPersonNum:{
+    		validators: {
+                notEmpty: {
+                    message: '作案人数不能为空'
+                }
+            }
+    	},
+    	caseAddress:{
+    		validators: {
+                notEmpty: {
+                    message: '案发地点不能为空'
+                }
+            }
+    	},
+    	citySel:{
+    		validators: {
+                notEmpty: {
+                    message: '所属单位不能为空'
+                }
+            }
+    	},
+    	stolenGoods:{
+    		validators: {
+                notEmpty: {
+                    message: '被盗物品不能为空'
+                }
+            }
+    	},
+    	caseDesc:{
+    		validators: {
+                notEmpty: {
+                    message: '简要案情不能为空'
+                }
+            }
+    	},
+    	caseTm:{
+    		validators: {
+                notEmpty: {
+                    message: '案发时间不能为空'
+                }
+            }
+    	},
+    	intrusionMode:{
+    		validators: {
+                notEmpty: {
+                    message: '侵入方式不能为空'
+                }
+            }
+    	},
+    	caseState:{
+    		validators: {
+                notEmpty: {
+                    message: '案件状态不能为空'
+                }
+            }
+    	}
+    }
 };
 function onBodyDown(event) {
     if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(

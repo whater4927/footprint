@@ -2,7 +2,30 @@
  * 初始化足迹信息详情对话框
  */
 var FootprintInfoDlg = {
-    footprintInfoData : {}
+    footprintInfoData : {},
+    validateFields:{
+    	position:{
+    		validators: {
+                notEmpty: {
+                    message: '足迹遗留部位不能为空'
+                }
+            }
+    	},
+    	legacyMode:{
+    		validators: {
+                notEmpty: {
+                    message: '足迹遗留方式不能为空'
+                }
+            }
+    	},
+    	extractionMethod:{
+    		validators: {
+                notEmpty: {
+                    message: '足迹提取方式不能为空'
+                }
+            }
+    	}
+    }
 };
 
 /**
