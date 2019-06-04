@@ -18,7 +18,6 @@ import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,9 +27,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.stylefeng.guns.config.properties.GunsProperties;
+import cn.stylefeng.guns.core.util.CommonUtil;
+import cn.stylefeng.guns.core.util.EntityUtils;
+import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
+import cn.stylefeng.guns.modular.footprint.util.FileUtil;
 import cn.stylefeng.guns.modular.footprint.util.ImageDemo;
+import cn.stylefeng.guns.modular.system.model.Footprint;
 import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.util.ToolUtil;
 
 /**
  * ClassName:QueryController <br/>
@@ -65,9 +70,33 @@ public class TestController extends BaseController {
 	public String test3() {
 		return PREFIX + "test3.html";
 	}
-	
+	@Autowired
+    private IFootprintService footprintService;
 	@GetMapping("/test4")
 	public String test4() {
+		/*File file = new File("C:\\Users\\mayn\\git\\footprint\\doc\\足迹照片");
+		String targetPatn = "D:/tmp/" ; 
+		
+		File[] files = file.listFiles();
+		for (File file2 : files) {
+			File[] images = file2.listFiles() ;
+			for (File image : images) {
+				
+				String pictureName = CommonUtil.UUID() + "." + ToolUtil.getFileSuffix(image.getName());
+				try {
+					FileUtil.copy(image, new File(targetPatn+pictureName));
+					Footprint footprint = new Footprint();
+					footprint.setFpNo(noService.busiNo("F"));
+					footprint.setOriginalImg(pictureName);
+			    	EntityUtils.setCreateInfo(footprint);
+			        footprintService.insert(footprint);
+			        System.out.println(image.getName());
+				} catch (Exception e) {
+					System.err.println(image.getName());
+					e.printStackTrace();
+				}
+			}
+		}*/
 		return PREFIX + "test4.html";
 	}
 	

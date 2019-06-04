@@ -52,7 +52,10 @@ ShoesDemoInfoDlg.get = function(key) {
 ShoesDemoInfoDlg.close = function() {
     parent.layer.close(window.parent.ShoesDemo.layerIndex);
 }
-
+function formatterImage(value,row,index){ 
+	var html = "<img src='/kaptcha/"+value+"' width='200px' height='200px' class='img-thumbnail' onclick='openImage(\""+value+"\")'>";
+	return html;
+}
 /**
  * 收集数据
  */

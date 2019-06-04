@@ -19,10 +19,14 @@ ShoesDemo.initColumn = function () {
             {title: '备注', field: 'remark', visible: true, align: 'center', valign: 'middle'},
             {title: '创建人', field: 'createUserName', visible: true, align: 'center', valign: 'middle'},
             {title: '创建机构', field: 'createOrgName', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'}
+            {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'},
+            {title: '图片', field: 'url', visible: true, align: 'center', valign: 'middle',formatter:formatterImage}
     ];
 };
-
+function formatterImage(value,row,index){ 
+	var html = "<img src='/kaptcha/"+value+"' width='200px' height='200px' class='img-thumbnail' onclick='openImage(\""+value+"\")'>";
+	return html;
+}
 /**
  * 检查是否选中
  */

@@ -50,6 +50,13 @@ public class FootprintController extends BaseController {
     public String index() {
         return PREFIX + "footprint.html";
     }
+    /**
+     * 跳转到足迹信息首页
+     */
+    @RequestMapping("query")
+    public String index_query() {
+        return PREFIX + "footprint_query.html";
+    }
 
     /**
      * 跳转到添加足迹信息
