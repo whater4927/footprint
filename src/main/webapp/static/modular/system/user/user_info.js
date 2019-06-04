@@ -7,7 +7,7 @@ var UserInfoDlg = {
         account: {
             validators: {
                 notEmpty: {
-                    message: '账户不能为空'
+                    message: '警号不能为空'
                 }
             }
         },

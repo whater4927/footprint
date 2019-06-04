@@ -6,20 +6,20 @@
             <div class="row">
                 <div class="col-sm-6 b-r">
                             <!-- <#input id="caseNo" name="案件编号" /> -->
-                            <#input id="crimesPersonNum" name="作案人数" />
-                            <#input id="caseAddress" name="案发地点" />
+                            <#input id="crimesPersonNum" name="作案人数" required="required"/>
+                            <#input id="caseAddress" name="案发地点" required="required"/>
                             <#input id="citySel" name="所属单位" readonly="readonly" hidden="unit" 
 								clickFun="CaseInfoInfoDlg.showDeptSelectTree(); return false;"
-								style="background-color: #ffffff !important;"/>
-                            <#input id="stolenGoods" name="被盗物品"/>
-                            <#input id="caseDesc" name="简要案情" />
+								style="background-color: #ffffff !important;" required="required"/>
+                            <#input id="stolenGoods" name="被盗物品" required="required"/>
+                            <#input id="caseDesc" name="简要案情" required="required"/>
                 </div>
 
                 <div class="col-sm-6">
-                			<#input id="caseTm" name="案发时间" />
-                            <#dictSelector id="caseType" label="案件类别" code="case_type"/>
-                            <#dictSelector id="intrusionMode" label="侵入方式" code="intrusion_mode" />
-                            <#dictSelector id="caseState" label="案件状态" code="case_status" />
+                			<#input id="caseTm" name="案发时间" required="required"/>
+                            <#dictSelector id="caseType" label="案件类别" code="case_type" required="required"/>
+                            <#dictSelector id="intrusionMode" label="侵入方式" code="intrusion_mode" required="required"/>
+                            <#dictSelector id="caseState" label="案件状态" code="case_status" required="required"/>
                            
                 </div>
             </div>

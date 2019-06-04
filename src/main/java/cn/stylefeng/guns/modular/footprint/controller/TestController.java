@@ -51,9 +51,10 @@ public class TestController extends BaseController {
 	private INoService noService ;
 	@Autowired
     private GunsProperties gunsProperties;
-	@GetMapping("/test1")
+	
+	@RequestMapping("/test1")
 	public String test1() {
-		return PREFIX + "test1.html";
+		return "/footprint/caseRelation/caseRelationMgr.html";
 	}
 
 	@GetMapping("/test2")

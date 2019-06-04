@@ -1,27 +1,27 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
     <div class="ibox-content">
-        <div class="form-horizontal">
+        <div class="form-horizontal" id="form">
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="relationNo" name="串并案件编号" underline="true"/>
-                            <#input id="relationName" name="串案名称" underline="true"/>
-                            <#input id="relationReason" name="串案依据" underline="true"/>
-                            <#input id="remark" name="备注" underline="true"/>
-                            <#input id="status" name="状态" underline="true"/>
-                            <#input id="delStatus" name="是否删除"/>
+                            <#input id="relationName" name="串案名称" required="required"/>
+                           	<#input id="remark" name="备注" />
                 </div>
 
                 <div class="col-sm-6">
-                            <#input id="updUserId" name="最后修改人" underline="true"/>
-                            <#input id="updOrgId" name="最后修改机构" underline="true"/>
-                            <#input id="updTm" name="最后修改时间" underline="true"/>
-                            <#input id="crtUserId" name="创建人" underline="true"/>
-                            <#input id="crtOrgId" name="创建机构id" underline="true"/>
-                            <#input id="crtTm" name="创建时间" underline="true"/>
+                			 <#input id="relationReason" name="串案依据" required="required"/>
+                			 <button type="button" class="btn btn-primary" onclick="alert(1)">
+							    <i class="fa fa-plus"></i>
+							</button>
                 </div>
             </div>
+
+ 			<!-- <div class="row">
+ 					<button type="button" class="btn btn-primary">
+					    <i class="fa fa-plus"></i>
+					</button>
+			</div> -->
 
             <div class="row btn-group-m-t">
                 <div class="col-sm-10">
@@ -34,4 +34,9 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/footprint/caseRelation/caseRelation_info.js"></script>
+<script type="text/javascript">
+	
+	
+	
+</script>
 @}

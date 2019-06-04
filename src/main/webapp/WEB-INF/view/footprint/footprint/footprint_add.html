@@ -5,9 +5,9 @@
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="position" name="足迹遗留部位" style="width: 250px;"/>
-                            <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode"/>
-                            <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method"/>
+                            <#input id="position" name="足迹遗留部位" style="width: 250px;" required="required"/>
+                            <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode" required="required"/>
+                            <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" required="required"/>
                             
                              <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.addSubmit()"/>
                    			 <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FootprintInfoDlg.close()"/>

@@ -76,6 +76,7 @@ public class DictSelectorTag extends Tag {
         String readonly = ToolUtil.isNotEmpty(attrs.get("readonly")) ? attrs.get("readonly").toString() : "";
         //disabled属性
         String disabled = ToolUtil.isNotEmpty(attrs.get("disabled")) ? attrs.get("disabled").toString() : "";
+        String required = ToolUtil.isNotEmpty(attrs.get("required")) ? attrs.get("required").toString() : "";
         //searchnum 下拉选项数量达到多少启用搜索,默认10
         int searchnum = ToolUtil.isNum(attrs.get("searchnum")) ? Integer.parseInt(attrs.get("searchnum").toString()) : 10;
         //根据code查询字典数据
@@ -83,7 +84,11 @@ public class DictSelectorTag extends Tag {
 
         StringBuffer html = new StringBuffer();
         html.append("<div class=\"form-group\">\r\n");
-        html.append("<label class=\"col-sm-3 control-label\">" + label + "</label>\r\n");
+        if(ToolUtil.isOneEmpty(required)) {
+        	html.append("<label class=\"col-sm-3 control-label\">" + label + "</label>\r\n");
+        }else {
+        	html.append("<label class=\"col-sm-3 control-label\">" + label + "<font color='red'>*</font></label>\r\n");
+        }
         html.append("<div class=\"col-sm-9\">\r\n");
 
         //单选按钮

@@ -2,7 +2,23 @@
  * 初始化串并案件详情对话框
  */
 var CaseRelationInfoDlg = {
-    caseRelationInfoData : {}
+    caseRelationInfoData : {},
+    validateFields:{
+    	relationName:{
+    		validators: {
+                notEmpty: {
+                    message: '串案名称不能为空'
+                }
+            }
+    	},
+    	relationReason:{
+    		validators: {
+                notEmpty: {
+                    message: '串案依据不能为空'
+                }
+            }
+    	}
+    }
 };
 
 /**
@@ -22,7 +38,11 @@ CaseRelationInfoDlg.set = function(key, val) {
     this.caseRelationInfoData[key] = (typeof val == "undefined") ? $("#" + key).val() : val;
     return this;
 }
-
+CaseRelationInfoDlg.validate = function () {
+    $('#form').data("bootstrapValidator").resetForm();
+    $('#form').bootstrapValidator('validate');
+    return $("#form").data('bootstrapValidator').isValid();
+};
 /**
  * 设置对话框中的数据
  *
@@ -66,7 +86,9 @@ CaseRelationInfoDlg.addSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/caseRelation/add", function(data){
         Feng.success("添加成功!");
@@ -86,7 +108,9 @@ CaseRelationInfoDlg.editSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/caseRelation/update", function(data){
         Feng.success("修改成功!");
@@ -100,5 +124,5 @@ CaseRelationInfoDlg.editSubmit = function() {
 }
 
 $(function() {
-
+	 Feng.initValidator("form", CaseRelationInfoDlg.validateFields);
 });

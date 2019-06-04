@@ -7,9 +7,14 @@
     readonly : readonly属性
     clickFun : 点击事件的方法名
     style : 附加的css属性
+    required :必填
 @*/
 <div class="form-group">
-    <label class="col-sm-3 control-label">${name}</label>
+    <label class="col-sm-3 control-label">${name}
+    @if(isNotEmpty(required)){
+        <font color="red">*</font>
+    @}
+    </label>
     <div class="col-sm-9">
         <input class="form-control" id="${id}" name="${id}"
                @if(isNotEmpty(value)){

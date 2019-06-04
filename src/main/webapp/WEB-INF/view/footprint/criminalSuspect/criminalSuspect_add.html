@@ -5,23 +5,23 @@
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="name" name="姓名" />
-                            <#dictSelector id="sex" label="性别" code="sys_sex"/>
-                            <#input id="heigh" name="身高" />
-                            <#input id="nation" name="籍贯" />
-                            <#input id="idNo" name="身份证号" />
-                            <#input id="remark" name="备注" />
+                            <#input id="name" name="姓名" required="required"/>
+                            <#dictSelector id="sex" label="性别" code="sys_sex" required="required"/>
+                            <#input id="heigh" name="身高" required="required"/>
+                            <#input id="nation" name="籍贯" required="required"/>
+                            <#input id="idNo" name="身份证号" required="required"/>
+                            <#input id="remark" name="备注" required="required"/>
                 </div>
 
                 <div class="col-sm-6">
-               				<#input id="address" name="居住地" />
-                            <#dictSelector id="csType" label="涉案类别" code="case_type"/>
-                            <#input id="graspDate" name="抓获日期" />
+               				<#input id="address" name="居住地" required="required"/>
+                            <#dictSelector id="csType" label="涉案类别" code="case_type" required="required"/>
+                            <#input id="graspDate" name="抓获日期" required="required"/>
                            <!--  <#input id="graspUnit" name="抓获单位"/> -->
                              <#input id="citySel" name="抓获单位" readonly="readonly" hidden="graspUnit" 
 								clickFun="CriminalSuspectInfoDlg.showDeptSelectTree(); return false;"
-								style="background-color: #ffffff !important;"/>
-                             <#input id="birthday" name="出生日期" />
+								style="background-color: #ffffff !important;" required="required"/>
+                             <#input id="birthday" name="出生日期" required="required"/>
                            
                 </div>
             </div>

@@ -1,9 +1,9 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
     <div class="ibox-content">
-        <div class="form-horizontal">
+        <div class="form-horizontal" id="form">
 
-            <div class="row">
+			<!--  <div class="row">
                 <div class="col-sm-6 b-r">
                             <#input id="relationNo" name="串并案件编号" value="${item.relationNo}" underline="true"/>
                             <#input id="relationName" name="串案名称" value="${item.relationName}" underline="true"/>
@@ -21,11 +21,34 @@
                             <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
                             <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
                 </div>
+            </div> -->
+			
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                			<#input id="relationNo" name="串并案件编号" value="${item.relationNo}" readonly="readonly"/>
+                           	<#input id="remark" name="备注" value="${item.remark}"/>
+                </div>
+
+                <div class="col-sm-6">
+                			<#input id="relationName" name="串案名称" value="${item.relationName}" required="required"/>
+                			<#input id="relationReason" name="串案依据" value="${item.relationReason}" required="required"/>
+                			<button type="button" class="btn btn-primary">
+							    <i class="fa fa-plus"></i>
+							</button>
+                </div>
             </div>
+
+ 			<!-- <div class="row">
+ 					
+ 					<button type="button" class="btn btn-primary">
+					    <i class="fa fa-plus"></i>
+					</button>
+			</div> -->
 
             <div class="row btn-group-m-t">
                 <div class="col-sm-10">
-                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CaseRelationInfoDlg.editSubmit()"/>
+                   <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CaseRelationInfoDlg.editSubmit()"/>
                     <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CaseRelationInfoDlg.close()"/>
                 </div>
             </div>

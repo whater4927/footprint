@@ -1,17 +1,27 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
-import cn.stylefeng.roses.core.base.controller.BaseController;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
-import cn.stylefeng.guns.core.log.LogObjectHolder;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+
+import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.util.CommonUtil;
+import cn.stylefeng.guns.core.util.EntityUtils;
+import cn.stylefeng.guns.core.util.StringUtil;
+import cn.stylefeng.guns.modular.footprint.service.ICaseRelationService;
+import cn.stylefeng.guns.modular.footprint.vo.CaseRelationVO;
 import cn.stylefeng.guns.modular.system.model.CaseRelation;
 import cn.stylefeng.guns.modular.system.service.INoService;
-import cn.stylefeng.guns.modular.footprint.service.ICaseRelationService;
+import cn.stylefeng.roses.core.base.controller.BaseController;
 
 /**
  * 串并案件控制器
@@ -36,7 +46,11 @@ public class CaseRelationController extends BaseController {
     public String index() {
         return PREFIX + "caseRelation.html";
     }
-
+    
+    @RequestMapping("/mgr")
+    public String indexMgr() {
+        return PREFIX + "caseRelationMgr.html";
+    }
     /**
      * 跳转到添加串并案件
      */
@@ -62,7 +76,17 @@ public class CaseRelationController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return caseRelationService.selectList(null);
+//        return caseRelationService.selectList(null);
+        List<CaseRelationVO> listVo = CommonUtil.listPo2VO(caseRelationService.selectList(new EntityWrapper<CaseRelation>().orderBy("crt_tm desc")), CaseRelationVO.class);
+    	listVo.forEach((vo)->{
+         	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+     			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+     		}
+     		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+     			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+     		}
+        });
+        return listVo;
     }
 
     /**
@@ -71,6 +95,8 @@ public class CaseRelationController extends BaseController {
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(CaseRelation caseRelation) {
+    	caseRelation.setRelationNo(noService.busiNo("R"));
+    	EntityUtils.setCreateInfo(caseRelation);
         caseRelationService.insert(caseRelation);
         return SUCCESS_TIP;
     }
@@ -91,6 +117,7 @@ public class CaseRelationController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public Object update(CaseRelation caseRelation) {
+    	EntityUtils.setUpdateInfo(caseRelation);
         caseRelationService.updateById(caseRelation);
         return SUCCESS_TIP;
     }

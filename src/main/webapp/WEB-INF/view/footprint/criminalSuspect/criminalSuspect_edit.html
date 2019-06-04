@@ -32,25 +32,27 @@
             </div> -->
  			<div class="row">
                 <div class="col-sm-6 b-r">
+                			 <#input id="csNo" name="嫌疑人编号" value="${item.csNo}" readonly="readonly" required="required"/>
                             <#input id="name" name="姓名" value="${item.name}"/>
-                            <#dictSelector id="sex" label="性别" code="sys_sex" value="${item.sex}"/>
-                            <#input id="heigh" name="身高" value="${item.heigh}"/>
-                            <#input id="nation" name="籍贯" value="${item.nation}"/>
-                            <#input id="idNo" name="身份证号" value="${item.idNo}"/>
-                            <#input id="remark" name="备注" value="${item.status}"/>
+                            <#dictSelector id="sex" label="性别" code="sys_sex" value="${item.sex}" required="required"/>
+                            <#input id="heigh" name="身高" value="${item.heigh}" required="required"/>
+                            <#input id="nation" name="籍贯" value="${item.nation}" required="required"/>
+                            <#input id="idNo" name="身份证号" value="${item.idNo}" required="required"/>
                 </div>
                 <div class="col-sm-6">
-               				<#input id="address" name="居住地" value="${item.address}"/>
-                            <#dictSelector id="csType" label="涉案类别" code="case_type"/>
-                            <#input id="graspDate" name="抓获日期" value="${item.graspDate}"/>
+               				<#input id="address" name="居住地" value="${item.address}" required="required"/>
+                            <#dictSelector id="csType" label="涉案类别" code="case_type" value="${item.csType}" required="required"/>
+                            <#input id="graspDate" name="抓获日期" value="${item.graspDate}" required="required"/>
                            <!--  <#input id="graspUnit" name="抓获单位"/> -->
                             <#input id="citySel" name="抓获单位" readonly="readonly" hidden="graspUnit" hiddenValue="${item.graspUnit}" value="${item.graspUnitName}"
 								clickFun="CriminalSuspectInfoDlg.showDeptSelectTree(); return false;"
-								style="background-color: #ffffff !important;"/>
-                            <#input id="birthday" name="出生日期" value="${item.birthday}"/>
+								style="background-color: #ffffff !important;" required="required"/>
+                            <#input id="birthday" name="出生日期" value="${item.birthday}" required="required"/>
+                             <#input id="remark" name="备注" value="${item.remark}" required="required"/>
                            
                 </div>
             </div>
+            
             
              <!-- 这是部门选择的下拉框 -->
 			<div id="menuContent" class="menuContent"

@@ -2,7 +2,16 @@
  * 初始化鞋厂鞋样详情对话框
  */
 var ShoesDemoInfoDlg = {
-    shoesDemoInfoData : {}
+    shoesDemoInfoData : {},
+    validateFields:{
+    	brand:{
+    		validators: {
+                notEmpty: {
+                    message: '品牌不能为空'
+                }
+            }
+    	}
+    }
 };
 
 /**

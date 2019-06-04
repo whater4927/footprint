@@ -28,15 +28,15 @@
                 </div>
             </div> -->
             <div class="row">
-                <div class="col-sm-6 b-r">
-                            <#input id="position" name="足迹遗留部位" style="width: 250px;" value="${item.position}"/>
-                            <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode" value="${item.legacyMode}" />
-                            <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" value="${item.extractionMethod}"/>
+                <div class="col-sm-4 b-r">
+                			<#input id="fpNo" name="足迹编号" value="${item.fpNo}" style="width: 250px;" readonly="readonly"/>
+                            <#input id="position" name="足迹遗留部位" style="width: 250px;" value="${item.position}" required="required"/>
+                            <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode" value="${item.legacyMode}" required="required"/>
+                            <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" value="${item.extractionMethod}" required="required"/>
                             
                              <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.editSubmit()"/>
                    			 <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FootprintInfoDlg.close()"/>
                    			 
-                   			 <input type="hidden"  id="fpNo" value="${item.fpNo}" />
                    			 <input type="hidden" id="originalImg" value="${item.originalImg}">
                    			 
                 </div>
