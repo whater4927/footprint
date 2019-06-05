@@ -45,7 +45,7 @@ CaseRelation.openAddCaseRelation = function () {
     var index = layer.open({
         type: 2,
         title: '添加串并案件',
-        area: ['800px', '420px'], //宽高
+        area: ['100%', '100%'], //宽高
         fix: false, //不固定
         maxmin: true,
         content: Feng.ctxPath + '/caseRelation/caseRelation_add'
@@ -61,7 +61,7 @@ CaseRelation.openCaseRelationDetail = function () {
         var index = layer.open({
             type: 2,
             title: '串并案件详情',
-            area: ['800px', '420px'], //宽高
+            area: ['100%', '100%'], //宽高
             fix: false, //不固定
             maxmin: true,
             content: Feng.ctxPath + '/caseRelation/caseRelation_update/' + CaseRelation.seItem.relationNo

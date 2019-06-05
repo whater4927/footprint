@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,8 +83,18 @@ public class FootprintController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(String condition) {
-    	List<FootprintVO> listVo = CommonUtil.listPo2VO(footprintService.selectList(new EntityWrapper<Footprint>().orderBy("crt_tm desc")), FootprintVO.class);
+    public Object list(String condition,String fpNo,String position,String legacyMode,String extractionMethod) {
+    	Wrapper<Footprint> entityWrapper = new EntityWrapper<Footprint>().orderBy("crt_tm desc") ;
+    	if(StringUtil.isNotEmpty(fpNo))
+    		entityWrapper.eq("fp_no", fpNo);
+    	if(StringUtil.isNotEmpty(position))
+    		entityWrapper.like("position", position);
+    	if(StringUtil.isNotEmpty(legacyMode))
+    		entityWrapper.eq("legacy_mode", legacyMode);
+    	if(StringUtil.isNotEmpty(extractionMethod))
+    		entityWrapper.eq("extraction_method", extractionMethod);
+    	
+    	List<FootprintVO> listVo = CommonUtil.listPo2VO(footprintService.selectList(entityWrapper), FootprintVO.class);
     	listVo.forEach((vo)->{
          	vo.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", vo.getExtractionMethod()));
          	vo.setLegacyModeName(ConstantFactory.me().getDictsByName("legacy_mode", vo.getLegacyMode()));

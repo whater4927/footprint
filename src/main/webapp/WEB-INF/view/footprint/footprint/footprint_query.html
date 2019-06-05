@@ -7,13 +7,25 @@
             </div>
             <div class="ibox-content">
                 <div class="row row-lg">
-                    <div class="col-sm-12">
+                    <div class="form-horizontal" id="form">
                         <div class="row">
-                            <div class="col-sm-3">
-                                <#NameCon id="condition" name="名称" />
+                            <div class="col-sm-4" >
+                                <#input id="fpNo" name="足迹编号" style="width: 250px;" />
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4" >
+                               <#input id="position" name="足迹遗留部位" style="width: 250px;"  />
+                            </div>
+                            <div class="col-sm-2">
                                 <#button name="搜索" icon="fa-search" clickFun="Footprint.search()"/>
+                                <#button name="重置" icon="fa-repeat" clickFun="Footprint.clearData()"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                        	<div class="col-sm-4" >
+                               <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode"  />
+                            </div>
+                            <div class="col-sm-4" >
+                                <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" /> 
                             </div>
                         </div>
                         <#table id="FootprintTable"/>
@@ -122,8 +134,19 @@ Footprint.delete = function () {
 Footprint.search = function () {
     var queryData = {};
     queryData['condition'] = $("#condition").val();
+    queryData['fpNo'] = $("#fpNo").val();
+    queryData['position'] = $("#position").val();
+    queryData['legacyMode'] = $("#legacyMode").val();
+    queryData['extractionMethod'] = $("#extractionMethod").val();
     Footprint.table.refresh({query: queryData});
 };
+
+Footprint.clearData = function (){
+	$("#condition").val("");
+	$("#fpNo").val("");
+	$("#position").val("");
+	$("#legacyMode").val("");
+}
 
 $(function () {
     var defaultColunms = Footprint.initColumn();

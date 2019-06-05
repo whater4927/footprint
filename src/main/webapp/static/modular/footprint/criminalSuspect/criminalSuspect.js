@@ -50,7 +50,7 @@ CriminalSuspect.openAddCriminalSuspect = function () {
     var index = layer.open({
         type: 2,
         title: '添加嫌疑人信息',
-        area: ['800px', '420px'], //宽高
+        area: ['100%', '100%'], //宽高
         fix: false, //不固定
         maxmin: true,
         content: Feng.ctxPath + '/criminalSuspect/criminalSuspect_add'
@@ -66,7 +66,7 @@ CriminalSuspect.openCriminalSuspectDetail = function () {
         var index = layer.open({
             type: 2,
             title: '嫌疑人信息详情',
-            area: ['800px', '420px'], //宽高
+            area: ['100%', '100%'], //宽高
             fix: false, //不固定
             maxmin: true,
             content: Feng.ctxPath + '/criminalSuspect/criminalSuspect_update/' + CriminalSuspect.seItem.csNo
