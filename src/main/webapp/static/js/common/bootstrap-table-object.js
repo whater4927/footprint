@@ -6,7 +6,7 @@
  * @author fengshuonan
  */
 (function () {
-    var BSTable = function (bstableId, url, columns) {
+    var BSTable = function (bstableId, url, columns,onClickCellMethod) {
         this.btInstance = null;					//jquery和BootStrapTable绑定的对象
         this.bstableId = bstableId;
         this.url = Feng.ctxPath + url;
@@ -16,6 +16,7 @@
         this.columns = columns;
         this.height = 665;						//默认表格高度665
         this.data = {};
+        this.onClickCell = onClickCellMethod ;
         this.queryParams = {}; // 向后台传递的自定义参数
     };
 
@@ -57,6 +58,7 @@
                     columns: this.columns,		//列数组
                     pagination: true,			//是否显示分页条
                     height: this.height,
+                    onClickCell: this.onClickCell,
                     icons: {
                         refresh: 'glyphicon-repeat',
                         toggle: 'glyphicon-list-alt',
@@ -95,7 +97,6 @@
             }
             return this;
         },
-
         /**
          * 设置ajax post请求时候附带的参数
          */

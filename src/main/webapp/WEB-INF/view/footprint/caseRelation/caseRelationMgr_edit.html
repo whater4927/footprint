@@ -1,0 +1,137 @@
+@layout("/common/_container.html"){
+<style>
+.highlight {
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 4px;
+}
+</style>
+<div class="ibox float-e-margins">
+    <!-- <div class="ibox-content"> -->
+        <div class="form-horizontal" id="form">
+			<!--  <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="relationNo" name="串并案件编号" value="${item.relationNo}" underline="true"/>
+                            <#input id="relationName" name="串案名称" value="${item.relationName}" underline="true"/>
+                            <#input id="relationReason" name="串案依据" value="${item.relationReason}" underline="true"/>
+                            <#input id="remark" name="备注" value="${item.remark}" underline="true"/>
+                            <#input id="status" name="状态" value="${item.status}" underline="true"/>
+                            <#input id="delStatus" name="是否删除" value="${item.delStatus}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="updUserId" name="最后修改人" value="${item.updUserId}" underline="true"/>
+                            <#input id="updOrgId" name="最后修改机构" value="${item.updOrgId}" underline="true"/>
+                            <#input id="updTm" name="最后修改时间" value="${item.updTm}" underline="true"/>
+                            <#input id="crtUserId" name="创建人" value="${item.crtUserId}" underline="true"/>
+                            <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
+                            <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
+                </div>
+            </div> -->
+			
+
+            <!-- <div class="row">
+                <div class="col-sm-3">
+                	<#input id="relationNo" name="串并案件编号" value="${item.relationNo}" readonly="readonly" />
+                </div>
+                <div class="col-sm-3">
+                	<#input id="relationName" name="串案名称" value="${item.relationName}" readonly="readonly"/>
+                </div>
+                <div class="col-sm-3">
+                     <#input id="remark" name="备注" value="${item.remark}" readonly="readonly"/>
+                </div>
+                <div class="col-sm-3">
+                	<#input id="relationReason" name="串案依据" value="${item.relationReason}" readonly="readonly"/>
+                </div>
+            </div> -->
+
+			<div class="row">
+                <div class="col-sm-8">
+                	<label class="col-sm-3 control-label">串并案件编号:</label><h3>${item.relationNo}</h3>
+                	<label class="col-sm-3 control-label">串案名称:</label><h3>${item.relationName}</h3>
+                	<label class="col-sm-3 control-label">串案依据:</label><h3>${item.relationReason}</h3>
+                	<label class="col-sm-3 control-label">备注:</label><h3>${item.remark}</h3>
+                </div>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CaseRelationInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CaseRelationInfoDlg.close()"/>
+                    <button type="button" class="btn btn-primary" onclick="CaseRelationInfoDlg.selectCaseInfoPage()">
+					   <i class="fa fa-plus">添加案件</i>
+					</button>
+                </div>
+            </div>
+            <div class="container">
+            	<!-- <div class='card'>
+				  <div class='card-header'>头部</div>
+				  <div class='card-body'>内容</div> 
+				  <div class='card-footer'>底部</div>
+				</div> -->
+				
+				<figure class='highlight'>
+				   <div class='row container'>
+				       <div class='col-sm-4 b-r'>
+				         <p>asdqwd</p>
+				        <h6>作者: 时间：</h6>
+				    </div>
+				   </div>
+				</figure>
+				
+				<figure class='highlight'>
+				   <div class='row container'>
+				       <div class='col-sm-4 b-r'>
+				        <p>案件编号:asddqwd</p>
+				        <p>案件编号:asddqwd</p>
+				         <p>案件编号:asddqwd</p>
+				          <p>案件编号:asddqwd</p>
+				           <p>案件编号:asddqwd</p>
+				        <h6>作者: 时间：</h6>
+				    </div>
+				   </div>
+				</figure>
+            </div>
+        </div>
+
+   <!--  </div> -->
+</div>
+<script type="text/javascript">
+var CaseRelationInfoDlg = {
+	 caseRelationInfoData : {}
+};
+/**
+ * 关闭此对话框
+ */
+CaseRelationInfoDlg.close = function() {
+    parent.layer.close(window.parent.CaseRelation.layerIndex);
+}
+CaseRelationInfoDlg.selectCaseInfoPage = function() {
+	var index = layer.open({
+	    type: 2,
+	    title: '案件信息选择',
+	    area: ['100%', '100%'], //宽高
+	    fix: false, //不固定
+	    maxmin: true,
+	    content: Feng.ctxPath + '/caseInfo/selectPage',
+	    success:function(layero, index){
+	    	//debugger;
+	    }
+	});
+	this.layerIndex = index;
+}
+CaseRelationInfoDlg.addCaseInfo = function(caseInfo){
+	//debugger;
+	var cardHtml = "<div class='card'>"+
+					"  <div class='card-header'>头部</div>"+
+					"  <div class='card-body'>内容</div> "+
+					"  <div class='card-footer'>底部</div>"+
+					"</div>";
+	
+}
+
+$(function() {
+});
+</script>
+@}

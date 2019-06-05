@@ -50,9 +50,11 @@ CaseRelation.initColumn = function () {
             {title: '操作', field: 'crtTm', visible: true, align: 'center', valign: 'middle',formatter:formatter}
     ];
 };
+
 function formatter(value,row,index){
-	return  "<a>【维护】</a>"+"<a>【详情】</a>";
+	return  "<a onclick='CaseRelation.openCaseRelationMgrDetail(\""+row.relationNo+"\")'>【维护】</a>"+"<a>【详情】</a>";
 }
+
 /**
  * 检查是否选中
  */
@@ -85,7 +87,7 @@ CaseRelation.openAddCaseRelation = function () {
 /**
  * 打开查看串并案件详情
  */
-CaseRelation.openCaseRelationDetail = function () {
+CaseRelation.openCaseRelationDetail = function (relationNo) {
     if (this.check()) {
         var index = layer.open({
             type: 2,
@@ -97,6 +99,20 @@ CaseRelation.openCaseRelationDetail = function () {
         });
         this.layerIndex = index;
     }
+};
+/**
+ * 打开查看串并案件详情
+ */
+CaseRelation.openCaseRelationMgrDetail = function (relationNo) {
+    var index = layer.open({
+           type: 2,
+           title: '串并案件详情',
+           area: ['100%', '100%'], //宽高
+           fix: false, //不固定
+           maxmin: true,
+           content: Feng.ctxPath + '/caseRelation/caseRelationMgr_update/' + relationNo
+    });
+    this.layerIndex = index;
 };
 
 /**

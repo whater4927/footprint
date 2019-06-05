@@ -176,6 +176,7 @@ function openImage(image) {
 				 img.src = '/kaptcha/'+image+"?t="+new Date().getTime();
 				 img.onload = function () {
 				      //ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
+					  $("#myCanvas").attr({ width: img.width, height: img.height });
 				      ctx.drawImage(img, 0, 0);
 				      orignWidth = img.naturalWidth;
 				      orignHeight = img.naturalHeight;

@@ -94,6 +94,37 @@ public class CaseInfoController extends BaseController {
         });
         return listVo;
     }
+    
+    @RequestMapping(value = "/list_select")
+    @ResponseBody
+    public Object listSelect(String condition) {
+    	List<CaseInfo> list =  caseInfoService.selectList(null);
+        List<CaseInfoVO> listVo = CommonUtil.listPo2VO(list, CaseInfoVO.class);
+        listVo.forEach((vo)->{
+        	vo.setCaseStateName(ConstantFactory.me().getDictsByName("case_status", vo.getCaseState()));
+        	if(StringUtil.isNotEmpty(vo.getUnit())) 
+        		vo.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getUnit())));
+        	vo.setCaseTypeName(ConstantFactory.me().getDictsByName("case_type", vo.getCaseType()));
+        	vo.setIntrusionModeName(ConstantFactory.me().getDictsByName("intrusion_mode", vo.getIntrusionMode()));
+        	
+        	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+    			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+    		}
+    		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+    			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+    		}
+        });
+        return listVo;
+    }
+    
+    
+    /**
+     * 跳转到添加案件基本信息
+     */
+    @RequestMapping("/selectPage")
+    public String selectPage() {
+        return PREFIX + "caseInfo_select.html";
+    }
 
     /**
      * 新增案件基本信息

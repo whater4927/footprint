@@ -69,7 +69,16 @@ public class CaseRelationController extends BaseController {
         LogObjectHolder.me().set(caseRelation);
         return PREFIX + "caseRelation_edit.html";
     }
-
+    /**
+     * 跳转到修改串并案件
+     */
+    @RequestMapping("/caseRelationMgr_update/{caseRelationId}")
+    public String caseRelationMgrUpdate(@PathVariable String caseRelationId, Model model) {
+        CaseRelation caseRelation = caseRelationService.selectById(caseRelationId);
+        model.addAttribute("item",caseRelation);
+        LogObjectHolder.me().set(caseRelation);
+        return PREFIX + "caseRelationMgr_edit.html";
+    }
     /**
      * 获取串并案件列表
      */
