@@ -13,26 +13,29 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.core.util.CommonUtil;
-import cn.stylefeng.guns.core.util.EntityUtils;
 import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
-import cn.stylefeng.guns.modular.footprint.util.FileUtil;
 import cn.stylefeng.guns.modular.footprint.util.ImageDemo;
-import cn.stylefeng.guns.modular.system.model.Footprint;
 import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
@@ -142,5 +145,52 @@ public class TestController extends BaseController {
 //		ImageDemo.binaryImage(url);
 	    return ImageDemo.binaryImage(gunsProperties.getFileUploadPath(),url);
 	}
+	
+	@PostMapping("/imageshangchuan")
+	public String imageshangchuan(@RequestPart("xxx") MultipartFile multipartFile, Model model, HttpServletRequest request) {
+		String url = request.getParameter("url");
+        if (!multipartFile.getContentType().contains("image/")) {
+            model.addAttribute("err", "只能是图片文件！");
+            return "/inputfile";
+        }
+        if (multipartFile.getSize() > 1024 * 1024 * 5) {
+            model.addAttribute("err", "只能是5M以下！");
+            return "/inputfile";
+        }
+        //取得相对路径
+        String path = gunsProperties.getFileUploadPath();
+//        String pictureName = CommonUtil.UUID() + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
+        try {
+//            String rekativePath = makeImagePath(path, multipartFile.getOriginalFilename());
+            File file = new File(path+url);
+            file.delete();
+//          file.getParentFile().mkdir();
+            multipartFile.transferTo(file);
+        } catch (IOException e) {
+            model.addAttribute("err", "上传失败，请重试");
+            return "/inputfile";
+        }
+        return "success";
+     }
+        private String makeImagePath (String basePath, String fileName){
+            Date date = new Date();
+            //String[] filename = simpleFile(fileName);
+            return String.format("%s%s%s%supload_%s_%s.%s",
+                    basePath,
+                    File.separator,
+                    new SimpleDateFormat("yyyyMMdd").format(date),
+                    File.separator,
+                    "11",
+                    new SimpleDateFormat("hhmmss").format(date),
+                    "jpg"
+            );
+        }
+        private String[] simpleFile (String file){
+            int sum = file.lastIndexOf(".");
+            return new String[]{
+                    file.substring(0, sum),
+                    file.substring(sum + 1)
+            };
+        }
 	
 }

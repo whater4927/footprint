@@ -50,7 +50,7 @@ Footprint.initColumn = function () {
 };
 
 function formatterImage(value,row,index){ 
-	var html = "<img src='/kaptcha/"+value+"' width='200px' height='200px' class='img-thumbnail' onclick='openImage(\""+value+"\")'>";
+	var html = "<img src='/kaptcha/"+value+"?t="+new Date().getTime()+"' width='200px' height='200px' class='img-thumbnail' onclick='openImage(\""+value+"\")'>";
 	return html;
 }
 

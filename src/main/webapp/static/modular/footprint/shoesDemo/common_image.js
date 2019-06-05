@@ -60,7 +60,7 @@ function openImage(image) {
 			shade : 0.8,
 			id : 'LAY_layuipro' ,
 			resize : false,
-			btn : [ '放大', '缩小', '旋转', '二值化','裁剪','裁剪完成','对比度','关闭' ],
+			btn : [ '放大', '缩小', '旋转', '二值化','裁剪','裁剪完成','对比度','提交','关闭' ],
 			btnAlign : 'c',
 			moveType : 1 ,
 			content : content,
@@ -104,11 +104,26 @@ function openImage(image) {
 			     return false;
 			},
 			btn4: function(index, layero){//二值化
-				 var data = $(image).val();
+				 /*var data = $(image).val();
 				 ajaxUtil("/test/binaryImage?url="+data,null,function(data){
 					 $(image).val(data);
 					 img.src = '/kaptcha/' + data;
-				 }).start();
+				 }).start();*/
+				
+				var w = img.width, h = img.height;
+				var vidData = ctx.getImageData(0, 0, w, h);
+				var data = vidData.data;
+                for(var i =0;i<data.length;i+=4){
+                    var myRed = data[i];
+                    var myGreen = data[i + 1];
+                    var myBlue = data[i + 2];
+                    myGray = parseInt((myRed + myGreen + myBlue) / 3);
+                    //取平均值，替代原来的颜色值.
+                    data[i] = myGray;
+                    data[i + 1] = myGray;
+                    data[i + 2] = myGray;
+                }
+                ctx.putImageData(vidData,0,0);
 			     return false;
 			},
 			btn5: function(index, layero){//裁剪
@@ -120,7 +135,58 @@ function openImage(image) {
 			     return false;
 			},
 			btn7: function(index, layero){//对比度
-			     return false;
+				/*var w = img.width, h = img.height;
+				var vidData = ctx.getImageData(0, 0, w, h);
+				var data = vidData.data;
+                for(var i =0;i<data.length;i+=4){
+                    var myRed = data[i];
+                    var myGreen = data[i + 1];
+                    var myBlue = data[i + 2];
+                    myGray = parseInt((myRed + myGreen + myBlue) / 3);
+                    //取平均值，替代原来的颜色值.
+                    data[i] = myGray;
+                    data[i + 1] = myGray;
+                    data[i + 2] = myGray;
+                }
+                ctx.putImageData(vidData,0,0);*/
+				/*var light = prompt("请输入对比度");
+				if(!light)return false;*/
+				
+				layer.prompt({
+					  formType: 0,
+					  value: 1.5,
+					  title: '请输入值'
+					}, function(value, index, elem){
+						var light = value;
+						 var x = 0 , y = 0 ;
+						// 绘制图片
+				        // ctx.drawImage(image , x , y);
+				        // 获取从x、y开始，宽为image.width、高为image.height的图片数据
+				        // 也就是获取绘制的图片数据
+				        var imgData = ctx.getImageData(x , y , img.width , img.height);  
+				        for (var i = 0 , len = imgData.data.length ; i < len ; i += 4 )  
+				        {  
+				            // 改变每个像素的R、G、B值
+				            imgData.data[i + 0] = imgData.data[i + 0] * light;  
+				            imgData.data[i + 1] = imgData.data[i + 1] * light;  
+				            imgData.data[i + 2] = imgData.data[i + 2] * light;  
+				        }  
+				        // 将获取的图片数据放回去。
+				        ctx.putImageData(imgData , x , y);
+						layer.close(index);
+				});
+			    return false;
+			},
+			btn8:function(index, layero){//提交
+				//debugger;
+				myCanvas.toBlob(function (result) {
+					//debugger;
+		            var form=new FormData();
+		            form.append("xxx",result);
+		            form.append("url",$(image).val());
+		            ajax(form);
+		        })
+		        return false;
 			},
 			end:function(){
 				setImage(image,$(image).val());
@@ -129,9 +195,10 @@ function openImage(image) {
 				 myImage = document.getElementById("myCanvas");
 				 ctx = myImage.getContext("2d");
 				 img = new Image();
-				 img.src = '/kaptcha/'+$(image).val();
+				 img.src = '/kaptcha/'+$(image).val()+"?t="+new Date().getTime();
 				 img.onload = function () {
-				      ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
+					 //ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
+				      ctx.drawImage(img, 0, 0);
 				      orignWidth = img.naturalWidth;
 				      orignHeight = img.naturalHeight;
 				 };
@@ -139,6 +206,35 @@ function openImage(image) {
 	});
 	
 }
+
+
+function ajax(formData) {
+    $.ajax({
+        url:"/test/imageshangchuan",
+        type:"post",
+        Accept:"html/text;chatset=utf-8",
+        contentType:false,
+        data:formData,
+        processData:false/*,
+        xhr: function () {
+            var myXhr = $.ajaxSettings.xhr();
+            myXhr.upload.onprogress=function (ev) {
+                pen.clearRect(0,0,200,250);
+                createURLImg(myfile.files[0],function () {
+                    biafenb(ev.loaded/ev.total);
+                })
+            }
+            return myXhr;
+        }*/, success: function (data) {
+        	layer.alert('上传成功!!!!');    
+            console.log("上传成功!!!!");
+        }, error: function () {
+        	layer.alert("上传失败！");
+            console.log("上传失败！");
+        }
+    })
+}
+
 function cropImage(img, cropPosX, cropPosY, width, height) {
     var cropContainer = ID("cropContainer");
     cropContainer.parentNode.removeChild(cropContainer);
@@ -337,7 +433,8 @@ function cropFun() {
     };
 };
 function setImage(image,response){
+	debugger;
 	$("#images").empty();
 	$(image).val(response);
-	$("#images").append("<img onclick='openImage(\""+image+"\")' src='/kaptcha/"+response+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>")
+	$("#images").append("<img onclick='openImage(\""+image+"\")' src='/kaptcha/"+response+"?t="+new Date().getTime()+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>")
 }
