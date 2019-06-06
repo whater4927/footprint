@@ -9,6 +9,8 @@
 
 package cn.stylefeng.guns.modular.footprint.vo;
 
+import java.util.List;
+
 import cn.stylefeng.guns.modular.system.model.CaseRelation;
 import lombok.Data;
 
@@ -24,6 +26,7 @@ import lombok.Data;
  */
 @Data
 public class CaseRelationVO extends CaseRelation {
+	private List<CaseInfoVO> caseInfos ;
 	private String createUserName ;
 	private String createOrgName ;
 }

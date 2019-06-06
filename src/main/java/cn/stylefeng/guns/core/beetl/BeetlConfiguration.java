@@ -26,6 +26,7 @@ import org.springframework.core.env.Environment;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 
 /**
  * beetl拓展配置,绑定一些工具类,方便在模板中直接调用
@@ -46,6 +47,7 @@ public class BeetlConfiguration extends BeetlGroupUtilConfiguration {
         groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
         groupTemplate.registerFunctionPackage("tool", new ToolUtil());
         groupTemplate.registerFunctionPackage("kaptcha", new KaptchaUtil());
+        groupTemplate.registerFunctionPackage("sdf", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         groupTemplate.registerTagFactory("dictSelector", () -> dictSelectorTag);
 
         groupTemplate.registerFunction("env", new Function() {

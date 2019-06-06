@@ -1,25 +1,33 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 
 import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.util.CommonUtil;
 import cn.stylefeng.guns.core.util.EntityUtils;
 import cn.stylefeng.guns.core.util.StringUtil;
+import cn.stylefeng.guns.modular.footprint.service.ICaseInfoService;
+import cn.stylefeng.guns.modular.footprint.service.ICaseRelationDetailService;
 import cn.stylefeng.guns.modular.footprint.service.ICaseRelationService;
+import cn.stylefeng.guns.modular.footprint.vo.CaseInfoVO;
 import cn.stylefeng.guns.modular.footprint.vo.CaseRelationVO;
+import cn.stylefeng.guns.modular.system.model.CaseInfo;
 import cn.stylefeng.guns.modular.system.model.CaseRelation;
+import cn.stylefeng.guns.modular.system.model.CaseRelationDetail;
 import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 
@@ -38,7 +46,13 @@ public class CaseRelationController extends BaseController {
     @Autowired
     private ICaseRelationService caseRelationService;
     @Autowired
+    private ICaseInfoService caseInfoService;
+    @Autowired
     private INoService noService ;
+    
+    @Autowired
+    private ICaseRelationDetailService caseRelationDetailService ;
+    
     /**
      * 跳转到串并案件首页
      */
@@ -75,6 +89,31 @@ public class CaseRelationController extends BaseController {
     @RequestMapping("/caseRelationMgr_update/{caseRelationId}")
     public String caseRelationMgrUpdate(@PathVariable String caseRelationId, Model model) {
         CaseRelation caseRelation = caseRelationService.selectById(caseRelationId);
+        Wrapper<CaseRelationDetail> entityWrapper = new EntityWrapper<CaseRelationDetail>() ;
+        entityWrapper.eq("relation_no", caseRelation.getRelationNo());
+        List<CaseRelationDetail> listCaseRelationDetail = caseRelationDetailService.selectList(entityWrapper);
+        List<String> ids = new ArrayList<>();
+        listCaseRelationDetail.forEach((e)->ids.add(e.getCaseNo()));
+        List<CaseInfoVO> listVo =  new ArrayList<>();
+        if(CommonUtil.isNotEmpty(ids)) {
+        	List<CaseInfo> list = caseInfoService.selectList(new EntityWrapper<CaseInfo>().in("case_no", ids));
+            listVo = CommonUtil.listPo2VO(list, CaseInfoVO.class);
+            listVo.forEach((vo)->{
+            	vo.setCaseStateName(ConstantFactory.me().getDictsByName("case_status", vo.getCaseState()));
+            	if(StringUtil.isNotEmpty(vo.getUnit())) 
+            		vo.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getUnit())));
+            	vo.setCaseTypeName(ConstantFactory.me().getDictsByName("case_type", vo.getCaseType()));
+            	vo.setIntrusionModeName(ConstantFactory.me().getDictsByName("intrusion_mode", vo.getIntrusionMode()));
+            	
+            	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+        			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+        		}
+        		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+        			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+        		}
+            });
+        }
+        model.addAttribute("caseInfos",listVo);
         model.addAttribute("item",caseRelation);
         LogObjectHolder.me().set(caseRelation);
         return PREFIX + "caseRelationMgr_edit.html";
@@ -85,7 +124,6 @@ public class CaseRelationController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-//        return caseRelationService.selectList(null);
         List<CaseRelationVO> listVo = CommonUtil.listPo2VO(caseRelationService.selectList(new EntityWrapper<CaseRelation>().orderBy("crt_tm desc")), CaseRelationVO.class);
     	listVo.forEach((vo)->{
          	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
@@ -110,6 +148,26 @@ public class CaseRelationController extends BaseController {
         return SUCCESS_TIP;
     }
 
+    
+    /**
+     * 新增串并案件
+     */
+    @RequestMapping(value = "/addRel")
+    @ResponseBody
+    public Object addRel(@RequestBody CaseRelationVO caseRelation) {
+    	caseRelationDetailService.delete(new EntityWrapper<CaseRelationDetail>().eq("relation_no", caseRelation.getRelationNo()));
+    	if(CommonUtil.isNotEmpty(caseRelation.getCaseInfos())) {
+    		caseRelation.getCaseInfos().forEach((caseInfos)->{
+    			CaseRelationDetail caseRelationDetail = new CaseRelationDetail();
+    			caseRelationDetail.setCaseNo(caseInfos.getCaseNo());
+    			caseRelationDetail.setId(CommonUtil.UUID());
+    			caseRelationDetail.setRelationNo(caseRelation.getRelationNo());
+    	    	caseRelationDetailService.insert(caseRelationDetail);
+    		});
+    	}
+        return SUCCESS_TIP;
+    }
+    
     /**
      * 删除串并案件
      */

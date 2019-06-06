@@ -7,8 +7,15 @@
   border: 1px solid #e1e1e8;
   border-radius: 4px;
 }
+ul li {
+	float: left;
+	margin: 0px 5px 20px 5px;
+	list-style: none;
+}
+li{
+	margin: 0 0 0 5px;
+}
 </style>
-<div class="ibox float-e-margins">
     <!-- <div class="ibox-content"> -->
         <div class="form-horizontal" id="form">
 			<!--  <div class="row">
@@ -32,74 +39,70 @@
             </div> -->
 			
 
-            <!-- <div class="row">
-                <div class="col-sm-3">
+             <div class="row">
+                <div class="col-sm-6">
                 	<#input id="relationNo" name="串并案件编号" value="${item.relationNo}" readonly="readonly" />
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                 	<#input id="relationName" name="串案名称" value="${item.relationName}" readonly="readonly"/>
                 </div>
-                <div class="col-sm-3">
+                </div>
+                <div class="row">
+                <div class="col-sm-6">
                      <#input id="remark" name="备注" value="${item.remark}" readonly="readonly"/>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                 	<#input id="relationReason" name="串案依据" value="${item.relationReason}" readonly="readonly"/>
                 </div>
-            </div> -->
-
+            </div> 
+<!--
 			<div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-8" >
                 	<label class="col-sm-3 control-label">串并案件编号:</label><h3>${item.relationNo}</h3>
                 	<label class="col-sm-3 control-label">串案名称:</label><h3>${item.relationName}</h3>
                 	<label class="col-sm-3 control-label">串案依据:</label><h3>${item.relationReason}</h3>
                 	<label class="col-sm-3 control-label">备注:</label><h3>${item.remark}</h3>
                 </div>
-            </div>
-            <div class="row btn-group-m-t">
+            </div>-->
+           
+            
+        </div>
+        	<div class="container">
+        		<h3>关联案件
+        			<button type="button" class="btn btn-primary" onclick="CaseRelationInfoDlg.selectCaseInfoPage()">
+						   <i class="fa fa-plus"></i>
+						</button></h3>
+        		<ul id="caseInfos">
+	        		<!-- <li style="width:300px">
+		        		<div class='card highlight' style="width:300px">
+							  <div class='card-body'>案件编号:N241654165</div>
+							  <div class='card-body'>案件状态：已破案</div> 
+							  <div class='card-body'>案发时间：20190812 12：54：524</div>
+						</div>
+					</li>
+					<li style="width:300px">
+						<div class='card highlight' style="width:300px">
+						  <div class='card-body'>案件编号:N241654165</div>
+						  <div class='card-body'>案件状态：已破案</div> 
+						  <div class='card-body'>案发时间：20190812 12：54：524</div>
+						</div>
+					</li> -->
+				</ul>
+        	</div>
+               <div class="row btn-group-m-t">
                 <div class="col-sm-10">
                     <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CaseRelationInfoDlg.editSubmit()"/>
                     <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CaseRelationInfoDlg.close()"/>
-                    <button type="button" class="btn btn-primary" onclick="CaseRelationInfoDlg.selectCaseInfoPage()">
-					   <i class="fa fa-plus">添加案件</i>
-					</button>
                 </div>
-            </div>
-            <div class="container">
-            	<!-- <div class='card'>
-				  <div class='card-header'>头部</div>
-				  <div class='card-body'>内容</div> 
-				  <div class='card-footer'>底部</div>
-				</div> -->
-				
-				<figure class='highlight'>
-				   <div class='row container'>
-				       <div class='col-sm-4 b-r'>
-				         <p>asdqwd</p>
-				        <h6>作者: 时间：</h6>
-				    </div>
-				   </div>
-				</figure>
-				
-				<figure class='highlight'>
-				   <div class='row container'>
-				       <div class='col-sm-4 b-r'>
-				        <p>案件编号:asddqwd</p>
-				        <p>案件编号:asddqwd</p>
-				         <p>案件编号:asddqwd</p>
-				          <p>案件编号:asddqwd</p>
-				           <p>案件编号:asddqwd</p>
-				        <h6>作者: 时间：</h6>
-				    </div>
-				   </div>
-				</figure>
-            </div>
-        </div>
-
+            </div>  
    <!--  </div> -->
-</div>
 <script type="text/javascript">
 var CaseRelationInfoDlg = {
-	 caseRelationInfoData : {}
+	 caseRelationInfoData : {
+		 caseInfos:[
+		 ],
+		 relationNo:'${item.relationNo}'
+	 }
 };
 /**
  * 关闭此对话框
@@ -122,16 +125,99 @@ CaseRelationInfoDlg.selectCaseInfoPage = function() {
 	this.layerIndex = index;
 }
 CaseRelationInfoDlg.addCaseInfo = function(caseInfo){
-	//debugger;
-	var cardHtml = "<div class='card'>"+
-					"  <div class='card-header'>头部</div>"+
-					"  <div class='card-body'>内容</div> "+
-					"  <div class='card-footer'>底部</div>"+
-					"</div>";
-	
+	if(this.addCase(caseInfo)){
+		this.show(caseInfo);
+	}
+}
+CaseRelationInfoDlg.show = function(caseInfo){
+	var cardHtml = '<li style="width:300px" id="card'+caseInfo.caseNo+'"><div class="card highlight" style="width:300px">';
+	cardHtml+='<div class="card-body">案件编号:'+caseInfo.caseNo+' <button type="button" onclick="CaseRelationInfoDlg.remove(\''+caseInfo.caseNo+'\')" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+	cardHtml+='<div class="card-body">案件状态:'+caseInfo.caseStateName+'</div>';
+	cardHtml+='<div class="card-body">案发时间:'+caseInfo.caseTm+'</div>';
+	cardHtml+='<div class="card-body">案发地点:'+caseInfo.caseAddress+'</div>';
+	cardHtml+='<div class="card-body">所属单位:'+caseInfo.unitName+'</div>';
+	cardHtml+='<div class="card-body">简要案情:'+caseInfo.caseDesc+'</div>';
+	cardHtml+='<div class="card-body">案件类别:'+caseInfo.caseTypeName+'</div>';
+	cardHtml+='<div class="card-body">侵入方式:'+caseInfo.intrusionModeName+'</div>';
+	cardHtml+='<div class="card-body">被盗物品:'+caseInfo.stolenGoods+'</div>';
+	cardHtml+='<div class="card-body">作案人数:'+caseInfo.crimesPersonNum+'</div>';
+	cardHtml+="</div></li>" ;
+	$("#caseInfos").append(cardHtml);
+}
+
+
+CaseRelationInfoDlg.isHaveCaseInfo = function(caseInfo){
+	if(this.caseRelationInfoData.caseInfos == 0){
+		return false ;
+	}
+	for(var i = 0 ; i < this.caseRelationInfoData.caseInfos.length ; i++){
+		if(this.caseRelationInfoData.caseInfos[i].caseNo == caseInfo.caseNo){
+			return true ;
+		}
+	}
+	return false ;
+}
+CaseRelationInfoDlg.addCase = function(caseInfo){
+	if(!this.isHaveCaseInfo(caseInfo)){
+		this.caseRelationInfoData.caseInfos.push(caseInfo);
+		return true ;
+	}
+	return false ;
+}
+
+CaseRelationInfoDlg.remove = function(caseNo){
+	var index = this.indexOf(caseNo);
+	if(index != -1){
+		this.caseRelationInfoData.caseInfos.splice(index,1);
+		this.refreshShowCardList();
+	}
+}
+
+CaseRelationInfoDlg.refreshShowCardList = function(){
+	$("#caseInfos").empty();
+	for(var i = 0 ; i < this.caseRelationInfoData.caseInfos.length ; i++){
+		this.show(this.caseRelationInfoData.caseInfos[i]);
+	}
+}
+
+CaseRelationInfoDlg.indexOf = function(caseNo){
+	for(var i = 0 ; i < this.caseRelationInfoData.caseInfos.length ; i++){
+		if(this.caseRelationInfoData.caseInfos[i].caseNo == caseNo){
+			return i ;
+		}
+	}
+	return -1 ;
+}
+
+CaseRelationInfoDlg.editSubmit = function(){
+    //提交信息
+    var ajax = new $ax1(Feng.ctxPath + "/caseRelation/addRel", function(data){
+        Feng.success("添加成功!");
+        window.parent.CaseRelation.table.refresh();
+        CaseRelationInfoDlg.close();
+    },function(data){
+        Feng.error("添加失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.caseRelationInfoData);
+    ajax.start();
 }
 
 $(function() {
+	@for(caseInfo in caseInfos){
+		 var caseInfo = {
+			 caseNo: '${caseInfo.caseNo}',
+			 caseStateName:'${caseInfo.caseStateName}',
+		     caseTm:'${caseInfo.caseTm,"yyyy-MM-dd HH:mm:ss"}',
+		     caseAddress:'${caseInfo.caseAddress}',
+		     unitName:'${caseInfo.unitName}',
+		     caseDesc: '${caseInfo.caseDesc}',
+		     caseTypeName:'${caseInfo.caseTypeName}',
+		     intrusionModeName:'${caseInfo.intrusionModeName}',
+		     stolenGoods:'${caseInfo.stolenGoods}',
+		     crimesPersonNum:'${caseInfo.crimesPersonNum}'
+		 }
+		 CaseRelationInfoDlg.addCaseInfo(caseInfo);
+	 @}
 });
 </script>
 @}

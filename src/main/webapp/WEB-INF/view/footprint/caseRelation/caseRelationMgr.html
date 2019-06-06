@@ -52,7 +52,7 @@ CaseRelation.initColumn = function () {
 };
 
 function formatter(value,row,index){
-	return  "<a onclick='CaseRelation.openCaseRelationMgrDetail(\""+row.relationNo+"\")'>【维护】</a>"+"<a>【详情】</a>";
+	return  "<a onclick='CaseRelation.openCaseRelationMgrDetail(\""+row.relationNo+"\")'>【维护】</a>";
 }
 
 /**
@@ -107,7 +107,7 @@ CaseRelation.openCaseRelationMgrDetail = function (relationNo) {
     var index = layer.open({
            type: 2,
            title: '串并案件详情',
-           area: ['100%', '100%'], //宽高
+           area: ['75%', '100%'], //宽高
            fix: false, //不固定
            maxmin: true,
            content: Feng.ctxPath + '/caseRelation/caseRelationMgr_update/' + relationNo
