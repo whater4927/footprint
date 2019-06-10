@@ -8,6 +8,9 @@ var CaseInfoInfoDlg = {
     		validators: {
                 notEmpty: {
                     message: '作案人数不能为空'
+                },
+                digits: {
+                	message: '作案人数只能输入数字'
                 }
             }
     	},
