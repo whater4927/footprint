@@ -1,7 +1,6 @@
 @layout("/common/_container.html"){
-<div class="ibox float-e-margins">
-    <div class="ibox-content">
-        <div class="form-horizontal" id="form">
+
+       
 
            <!-- <div class="row">
                 <div class="col-sm-6 b-r">
@@ -28,27 +27,44 @@
                             <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
                 </div>
             </div> -->
-            
-             <div class="row">
-                <div class="col-sm-6 b-r">
-                            <#input id="caseNo" name="案件编号" value="${item.caseNo}" readonly="readonly" required="required"/>
-                            <#input id="crimesPersonNum" name="作案人数" value="${item.crimesPersonNum}" required="required"/>
-                            <#input id="caseAddress" name="案发地点" value="${item.caseAddress}" required="required"/>
-                            <#input id="citySel" name="所属单位" readonly="readonly" hidden="unit" hiddenValue="${item.unit}" value="${item.unitName}" 
-								clickFun="CaseInfoInfoDlg.showDeptSelectTree(); return false;"
-								style="background-color: #ffffff !important;" required="required"/>
-                            <#input id="stolenGoods" name="被盗物品" value="${item.stolenGoods}" required="required"/>
-                            
+            <div class="tab-content" id="someTab">
+				  <ul class="nav nav-tabs" role="tablist">
+				    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">案件信息</a></li>
+				    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">案件脚印</a></li>
+				  </ul>
+            	<div role="tabpanel" class="tab-pane fade in active" id="home">
+	            	<div class="ibox float-e-margins">
+		   				 <div class="ibox-content">
+		            		 <div class="form-horizontal" id="form">
+				             	<div class="row">
+					                <div class="col-sm-6 b-r">
+					                            <#input id="caseNo" name="案件编号" value="${item.caseNo}" readonly="readonly" required="required"/>
+					                            <#input id="crimesPersonNum" name="作案人数" value="${item.crimesPersonNum}" required="required"/>
+					                            <#input id="caseAddress" name="案发地点" value="${item.caseAddress}" required="required"/>
+					                            <#input id="citySel" name="所属单位" readonly="readonly" hidden="unit" hiddenValue="${item.unit}" value="${item.unitName}" 
+													clickFun="CaseInfoInfoDlg.showDeptSelectTree(); return false;"
+													style="background-color: #ffffff !important;" required="required"/>
+					                            <#input id="stolenGoods" name="被盗物品" value="${item.stolenGoods}" required="required"/>
+					                            
+					                </div>
+					                <div class="col-sm-6">
+					                			<#input id="caseTm" name="案发时间" value="${caseTm}" required="required"/>
+					                            <#dictSelector id="caseType" label="案件类别" code="case_type"  value="${item.caseType}" required="required"/>
+					                            <#dictSelector id="intrusionMode" label="侵入方式" code="intrusion_mode" value="${item.intrusionMode}" required="required"/>
+					                            <#dictSelector id="caseState" label="案件状态" code="case_status"  value="${item.caseState}" required="required"/>
+					                            <#input id="caseDesc" name="简要案情" value="${item.caseDesc}" required="required"/>
+					                </div>
+				                
+				                </div>
+			                </div>
+		                </div>
+               	 	</div>
                 </div>
-
-                <div class="col-sm-6">
-                			<#input id="caseTm" name="案发时间" value="${caseTm}" required="required"/>
-                            <#dictSelector id="caseType" label="案件类别" code="case_type"  value="${item.caseType}" required="required"/>
-                            <#dictSelector id="intrusionMode" label="侵入方式" code="intrusion_mode" value="${item.intrusionMode}" required="required"/>
-                            <#dictSelector id="caseState" label="案件状态" code="case_status"  value="${item.caseState}" required="required"/>
-                            <#input id="caseDesc" name="简要案情" value="${item.caseDesc}" required="required"/>
+                <div role="tabpanel" class="tab-pane fade" id="profile">
+                	<button type="button" class="btn btn-primary" onclick="#">
+					   <i class="fa fa-plus"></i>
+					</button>
                 </div>
-                
             </div>
             
  			<!-- 这是部门选择的下拉框 -->
@@ -62,12 +78,10 @@
                     <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CaseInfoInfoDlg.close()"/>
                 </div>
             </div>
-        </div>
 
-    </div>
-</div>
 <script src="${ctxPath}/static/modular/footprint/caseInfo/caseInfo_info.js"></script>
 <script type="text/javascript">
+//$('#someTab').tab('show')
 laydate.render({
     elem: '#caseTm',
     type: 'datetime',

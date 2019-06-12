@@ -46,7 +46,13 @@ public class CaseInfoController extends BaseController {
     public String index() {
         return PREFIX + "caseInfo.html";
     }
-
+    /**
+     * 跳转到案件基本信息首页
+     */
+    @RequestMapping("/caseInfoFootprintAdd")
+    public String caseInfoFootprintAdd() {
+        return PREFIX + "caseInfo_footprint_add.html";
+    }
     /**
      * 跳转到添加案件基本信息
      */

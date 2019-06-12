@@ -2,41 +2,22 @@
 <div class="ibox float-e-margins">
     <div class="ibox-content">
         <div class="form-horizontal" id="form">
-			<!-- <div class="row">
-                <div class="col-sm-6 b-r">
-                            <#input id="fpNo" name="足迹编号" value="${item.fpNo}" underline="true"/>
-                            <#input id="caseNo" name="案件编号" value="${item.caseNo}" underline="true"/>
-                            <#input id="csNo" name="嫌疑人编号" value="${item.csNo}" underline="true"/>
-                            <#input id="position" name="足迹遗留部位" value="${item.position}" underline="true"/>
-                            <#input id="legacyMode" name="足迹遗留方式" value="${item.legacyMode}" underline="true"/>
-                            <#input id="extractionMethod" name="足迹提取方式" value="${item.extractionMethod}" underline="true"/>
-                            <#input id="originalImg" name="原始照片" value="${item.originalImg}" underline="true"/>
-                            <#input id="newImg" name="处理后的照片" value="${item.newImg}" underline="true"/>
-                            <#input id="length" name="长" value="${item.length}" />
-                </div>
 
-                <div class="col-sm-6">
-                            <#input id="width" name="宽" value="${item.width}" underline="true"/>
-                            <#input id="status" name="状态" value="${item.status}" underline="true"/>
-                            <#input id="delStatus" name="是否删除" value="${item.delStatus}" underline="true"/>
-                            <#input id="updUserId" name="最后修改人" value="${item.updUserId}" underline="true"/>
-                            <#input id="updOrgId" name="最后修改机构" value="${item.updOrgId}" underline="true"/>
-                            <#input id="updTm" name="最后修改时间" value="${item.updTm}" underline="true"/>
-                            <#input id="crtUserId" name="创建人" value="${item.crtUserId}" underline="true"/>
-                            <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
-                            <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
-                </div>
-            </div> -->
             <div class="row">
-                <div class="col-sm-4 b-r">
-                			<#input id="fpNo" name="足迹编号" value="${item.fpNo}" style="width: 250px;" readonly="readonly"/>
-                            <#input id="position" name="足迹遗留部位" style="width: 250px;" value="${item.position}" required="required"/>
-                            <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode" value="${item.legacyMode}" required="required"/>
-                            <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" value="${item.extractionMethod}" required="required"/>
-                            <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.editSubmit()"/>
-                   			<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FootprintInfoDlg.close()"/>
-                   			<input type="hidden" id="originalImg" value="${item.originalImg}">
+                <div class="col-sm-6 b-r">
+                            <#input id="position" name="足迹遗留部位" style="width: 250px;" required="required"/>
+                            <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode" required="required"/>
+                            <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" required="required"/>
+                            
+                             <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FootprintInfoDlg.addSubmit()"/>
+                   			 <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FootprintInfoDlg.close()"/>
                    			 
+                   			  <input type="hidden" id="originalImg" >
+                   			 <!-- <div id="uploader-demo">
+							    <div id="fileList" class="uploader-list"></div>
+							    <div id="filePicker">选择图片</div>
+							 </div> 
+							<div class="col-sm-12 b-r" id="images"/>-->
                 </div>
 				<div class="col-sm-6 b-r">
 					<div id="filePicker">选择图片</div>
@@ -62,11 +43,8 @@
 	   $("#images").empty();
 	   setImage("#originalImg",response);
 	});
-	$(function() {
-		setImage("#originalImg",'${item.originalImg}');
-	});
 </script>
-<!-- <script type="text/javascript"> 
+<script type="text/javascript">
 /* var uploader = WebUploader.create({
     // 选完文件后，是否自动上传。
     auto: true,
@@ -87,7 +65,8 @@
 uploader.on( 'uploadSuccess', function( file ,response) {
    console.log(file.name);
    $("#images").empty();
-   setImage(response);
+   $("#originalImg").val(response);
+   $("#images").append("<img onclick='openImage()' src='/kaptcha/"+response+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>")
 });
 let myImage;
 let ctx;
@@ -153,20 +132,13 @@ function openImage() {
 				 myImage = document.getElementById("myCanvas");
 				 ctx = myImage.getContext("2d");
 				 img = new Image();
-				 img.src = '/kaptcha/'+$("#originalImg").val();
+				 img.src = '/kaptcha/'+image;
 				 img.onload = function () {
 				      ctx.drawImage(img, myImage.width / 2 - img.width / 2, myImage.height / 2 - img.height / 2);
 				 };
 			}
 	});
 	
-}
-function setImage(response){
-	$("#originalImg").val(response);
-	$("#images").append("<img onclick='openImage()' src='/kaptcha/"+response+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>")
-}
-$(function() {
-	setImage('${item.originalImg}');
-}); */
-</script> -->
+} */
+</script>
 @}
