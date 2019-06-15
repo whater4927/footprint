@@ -10,4 +10,5 @@ public class CriminalSuspectVO extends CriminalSuspect {
 	private String inputUserName;
 	private String createUserName ;
 	private String createOrgName ;
+	private String selectImages ;
 }

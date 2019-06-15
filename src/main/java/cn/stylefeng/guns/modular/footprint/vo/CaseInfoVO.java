@@ -31,5 +31,6 @@ public class CaseInfoVO extends CaseInfo {
 	private String intrusionModeName;
 	private String createUserName ;
 	private String createOrgName ;
+	private String selectImages ;
 }
 

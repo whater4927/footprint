@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.footprint.controller;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -12,8 +13,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Color;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
@@ -93,7 +110,7 @@ public class FootprintController extends BaseController {
     		entityWrapper.eq("legacy_mode", legacyMode);
     	if(StringUtil.isNotEmpty(extractionMethod))
     		entityWrapper.eq("extraction_method", extractionMethod);
-    	
+    	entityWrapper.eq("status", "fp");
     	List<FootprintVO> listVo = CommonUtil.listPo2VO(footprintService.selectList(entityWrapper), FootprintVO.class);
     	listVo.forEach((vo)->{
          	vo.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", vo.getExtractionMethod()));
@@ -116,6 +133,7 @@ public class FootprintController extends BaseController {
     public Object add(Footprint footprint) {
     	footprint.setFpNo(noService.busiNo("F"));
     	EntityUtils.setCreateInfo(footprint);
+    	footprint.setStatus("fp");
         footprintService.insert(footprint);
         return SUCCESS_TIP;
     }
@@ -148,5 +166,54 @@ public class FootprintController extends BaseController {
     @ResponseBody
     public Object detail(@PathVariable("footprintId") String footprintId) {
         return footprintService.selectById(footprintId);
+    }
+    
+    
+    @RequestMapping(value = "UserExcelDownloads", method = RequestMethod.GET)
+    public void downloadAllClassmate(HttpServletResponse response) throws IOException {
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("数据");
+        String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(CommonUtil.getSystemDate()) +"_"+ CommonUtil.UUID()  + ".xls";//设置要导出的文件的名字
+        //新增数据行，并且设置单元格数据
+
+        int rowNum = 1;
+
+        String[] headers = { "足迹编号", "足迹遗留部位", "足迹遗留方式", "足迹提取方式", "地址"};
+        //headers表示excel表中第一行的表头
+
+        HSSFRow row = sheet.createRow(0);
+        //在excel表中添加表头
+
+        for(int i=0;i<headers.length;i++){
+            HSSFCell cell = row.createCell(i);
+            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+            cell.setCellValue(text);
+        }
+        List<FootprintVO> listVo = CommonUtil.listPo2VO(footprintService.selectList(new EntityWrapper<Footprint>().eq("status", "fp")), FootprintVO.class);
+    	listVo.forEach((vo)->{
+         	vo.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", vo.getExtractionMethod()));
+         	vo.setLegacyModeName(ConstantFactory.me().getDictsByName("legacy_mode", vo.getLegacyMode()));
+         	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+     			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+     		}
+     		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+     			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+     		}
+        });
+        //在表中存放查询到的数据放入对应的列
+        for (FootprintVO vo : listVo) {
+            HSSFRow row1 = sheet.createRow(rowNum);
+            row1.createCell(0).setCellValue(vo.getFpNo());
+            row1.createCell(1).setCellValue(vo.getPosition());
+            row1.createCell(2).setCellValue(vo.getLegacyModeName());
+            row1.createCell(3).setCellValue(vo.getExtractionMethodName());
+            row1.createCell(4).setCellValue("http://1b6f311445.imwork.net:18184/kaptcha/"+vo.getOriginalImg());
+            rowNum++;
+        }
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+        response.flushBuffer();
+        workbook.write(response.getOutputStream());
     }
 }

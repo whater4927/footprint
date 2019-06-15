@@ -1,4 +1,21 @@
 @layout("/common/_container.html"){
+<style>
+.highlight {
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 4px;
+}
+ul li {
+	float: left;
+	margin: 0px 5px 20px 5px;
+	list-style: none;
+}
+li{
+	margin: 0 0 0 5px;
+}
+</style>
 <div class="ibox float-e-margins">
     <div class="ibox-content">
         <div class="form-horizontal" id="form">
@@ -52,7 +69,12 @@
                            
                 </div>
             </div>
-            
+            <div class="row">
+                	<div id="filePicker">选择脚印</div>
+					<!-- <div class="col-sm-12 b-r" id="images"></div> -->
+					<ul id="images"></ul>
+					<input type="hidden" id="selectImages" value="${item.selectImages}">
+			</div>
             
              <!-- 这是部门选择的下拉框 -->
 			<div id="menuContent" class="menuContent"
@@ -72,6 +94,7 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/footprint/criminalSuspect/criminalSuspect_info.js"></script>
+<script src="${ctxPath}/static/modular/footprint/caseInfo/common_image.js"></script>
 <script>
 	laydate.render({
 	    elem: '#birthday'
@@ -79,5 +102,29 @@
     laydate.render({
         elem: '#graspDate'
     });
+    var uploader = WebUploader.create({
+        // 选完文件后，是否自动上传。
+        auto: true,
+        // swf文件路径
+        swf: '/static/js/plugins/webuploader/Uploader.swf',
+        // 文件接收服务端。
+        server: '/mgr/upload',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#filePicker',
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+    uploader.on( 'uploadSuccess', function( file ,response) {
+    	$("#selectImages").val($("#selectImages").val()+","+response)
+    	setAddImage(response);
+    });
+    $(function(){
+    	showImages();
+    })
 </script>
 @}

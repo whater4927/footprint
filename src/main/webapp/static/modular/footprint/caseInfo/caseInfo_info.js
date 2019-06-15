@@ -132,6 +132,7 @@ CaseInfoInfoDlg.collectData = function() {
     .set('updTm')
     .set('crtUserId')
     .set('crtOrgId')
+    .set('selectImages')
     .set('crtTm');
 }
 

@@ -11,14 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+
 import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.util.CommonUtil;
 import cn.stylefeng.guns.core.util.EntityUtils;
 import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.footprint.service.ICaseInfoService;
+import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
 import cn.stylefeng.guns.modular.footprint.vo.CaseInfoVO;
 import cn.stylefeng.guns.modular.system.model.CaseInfo;
+import cn.stylefeng.guns.modular.system.model.Footprint;
 import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 
@@ -38,7 +42,8 @@ public class CaseInfoController extends BaseController {
     private ICaseInfoService caseInfoService;
     @Autowired
     private INoService noService ;
-    
+    @Autowired
+    private IFootprintService footprintService;
     /**
      * 跳转到案件基本信息首页
      */
@@ -70,6 +75,13 @@ public class CaseInfoController extends BaseController {
         CaseInfoVO vo = CommonUtil.po2VO(caseInfo, CaseInfoVO.class);
         if(StringUtil.isNotEmpty(vo.getUnit())) 
     		vo.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getUnit())));
+        
+        List<Footprint> list = footprintService.selectList(new EntityWrapper<Footprint>().eq("case_no", caseInfo.getCaseNo()));
+        String images = "" ;
+        for (Footprint footprint : list) {
+        	images += footprint.getOriginalImg()+",";
+		}
+        vo.setSelectImages(images);
         model.addAttribute("item",vo);
         model.addAttribute("caseTm",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(vo.getCaseTm()));
         LogObjectHolder.me().set(vo);
@@ -137,10 +149,24 @@ public class CaseInfoController extends BaseController {
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public Object add(CaseInfo caseInfo) {
+    public Object add(CaseInfoVO caseInfo) {
     	caseInfo.setCaseNo(noService.busiNo("A"));
     	EntityUtils.setCreateInfo(caseInfo);
         caseInfoService.insert(caseInfo);
+        String images  = caseInfo.getSelectImages();
+        if(StringUtil.isNotEmpty(images)) {
+        	for (String image : images.split(",")) {
+    			if(StringUtil.isNotEmpty(image)) {
+    				Footprint footprint = new Footprint();
+    				footprint.setFpNo(noService.busiNo("F"));
+    				footprint.setCaseNo(caseInfo.getCaseNo());
+    				footprint.setStatus("caseInfo");
+    				footprint.setOriginalImg(image);
+    				EntityUtils.setCreateInfo(footprint);
+    				footprintService.insert(footprint);
+    			}
+    		}
+        }
         return SUCCESS_TIP;
     }
 
@@ -159,8 +185,23 @@ public class CaseInfoController extends BaseController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public Object update(CaseInfo caseInfo) {
+    public Object update(CaseInfoVO caseInfo) {
         caseInfoService.updateById(caseInfo);
+        footprintService.delete(new EntityWrapper<Footprint>().eq("case_no", caseInfo.getCaseNo()));
+        String images  = caseInfo.getSelectImages();
+        if(StringUtil.isNotEmpty(images)) {
+        	for (String image : images.split(",")) {
+    			if(StringUtil.isNotEmpty(image)) {
+    				Footprint footprint = new Footprint();
+    				footprint.setFpNo(noService.busiNo("F"));
+    				footprint.setCaseNo(caseInfo.getCaseNo());
+    				footprint.setOriginalImg(image);
+    				footprint.setStatus("caseInfo");
+    				EntityUtils.setCreateInfo(footprint);
+    				footprintService.insert(footprint);
+    			}
+    		}
+        }
         return SUCCESS_TIP;
     }
 

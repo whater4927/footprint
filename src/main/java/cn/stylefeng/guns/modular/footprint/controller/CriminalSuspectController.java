@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+
 import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
@@ -17,8 +19,10 @@ import cn.stylefeng.guns.core.util.CommonUtil;
 import cn.stylefeng.guns.core.util.EntityUtils;
 import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.footprint.service.ICriminalSuspectService;
+import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
 import cn.stylefeng.guns.modular.footprint.vo.CriminalSuspectVO;
 import cn.stylefeng.guns.modular.system.model.CriminalSuspect;
+import cn.stylefeng.guns.modular.system.model.Footprint;
 import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 
@@ -38,6 +42,8 @@ public class CriminalSuspectController extends BaseController {
     private ICriminalSuspectService criminalSuspectService;
     @Autowired
     private INoService noService ;
+    @Autowired
+    private IFootprintService footprintService;
     /**
      * 跳转到嫌疑人信息首页
      */
@@ -72,6 +78,14 @@ public class CriminalSuspectController extends BaseController {
  		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
  			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
  		}
+ 		
+ 		 List<Footprint> list = footprintService.selectList(new EntityWrapper<Footprint>().eq("cs_no", criminalSuspectId));
+         String images = "" ;
+         for (Footprint footprint : list) {
+         	images += footprint.getOriginalImg()+",";
+ 		}
+         vo.setSelectImages(images);
+ 		
         model.addAttribute("item",vo);
         LogObjectHolder.me().set(criminalSuspect);
         return PREFIX + "criminalSuspect_edit.html";
@@ -106,11 +120,25 @@ public class CriminalSuspectController extends BaseController {
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public Object add(CriminalSuspect criminalSuspect) {
+    public Object add(CriminalSuspectVO criminalSuspect) {
     	criminalSuspect.setCsNo(noService.busiNo("P"));
     	criminalSuspect.setInputUser(ShiroKit.getUser().getId());
     	EntityUtils.setCreateInfo(criminalSuspect);
         criminalSuspectService.insert(criminalSuspect);
+        String images  = criminalSuspect.getSelectImages();
+        if(StringUtil.isNotEmpty(images)) {
+        	for (String image : images.split(",")) {
+    			if(StringUtil.isNotEmpty(image)) {
+    				Footprint footprint = new Footprint();
+    				footprint.setFpNo(noService.busiNo("F"));
+    				footprint.setCsNo(criminalSuspect.getCsNo());
+    				footprint.setStatus("cs");
+    				footprint.setOriginalImg(image);
+    				EntityUtils.setCreateInfo(footprint);
+    				footprintService.insert(footprint);
+    			}
+    		}
+        }
         return SUCCESS_TIP;
     }
 
@@ -129,8 +157,23 @@ public class CriminalSuspectController extends BaseController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public Object update(CriminalSuspect criminalSuspect) {
+    public Object update(CriminalSuspectVO criminalSuspect) {
         criminalSuspectService.updateById(criminalSuspect);
+        footprintService.delete(new EntityWrapper<Footprint>().eq("cs_no", criminalSuspect.getCsNo()));
+        String images  = criminalSuspect.getSelectImages();
+        if(StringUtil.isNotEmpty(images)) {
+        	for (String image : images.split(",")) {
+    			if(StringUtil.isNotEmpty(image)) {
+    				Footprint footprint = new Footprint();
+    				footprint.setFpNo(noService.busiNo("F"));
+    				footprint.setCsNo(criminalSuspect.getCsNo());
+    				footprint.setOriginalImg(image);
+    				footprint.setStatus("cs");
+    				EntityUtils.setCreateInfo(footprint);
+    				footprintService.insert(footprint);
+    			}
+    		}
+        }
         return SUCCESS_TIP;
     }
 
