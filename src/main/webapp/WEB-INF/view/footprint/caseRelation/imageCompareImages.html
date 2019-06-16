@@ -1,0 +1,57 @@
+@layout("/common/_container.html"){
+<style>
+.highlight {
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 4px;
+}
+ul li {
+	float: left;
+	margin: 0px 5px 20px 5px;
+	list-style: none;
+}
+li{
+	margin: 0 0 0 5px;
+}
+.checked {
+	background: red;
+}
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="form">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                	<div id="image0"></div>
+                </div>
+                <div class="col-sm-6 b-r">
+                	<div id="image1"></div>
+                </div>
+            </div>
+			<input type="hidden" id="selectImages" value="${images}">
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12" align="right">
+                   <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="CaseRelationInfoDlg.closePre()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/footprint/caseRelation/caseRelation_info.js"></script>
+<script src="${ctxPath}/static/modular/footprint/caseRelation/common_image.js"></script>
+<script type="text/javascript">
+$(function(){
+	var imgs = $("#selectImages").val();
+	var images = imgs.split(",");
+	var img0 = "<img  class='img-thumbnail' id='"+images[0]+"' ondblclick='openImage(\""+images[0]+"\")' src='/kaptcha/"+images[0]+"?t="+new Date().getTime()+"' alt='通用的占位符缩略图'  />" ;
+	var img1 = "<img  class='img-thumbnail' id='"+images[0]+"' ondblclick='openImage(\""+images[1]+"\")' src='/kaptcha/"+images[1]+"?t="+new Date().getTime()+"' alt='通用的占位符缩略图' />" ;
+	$("#image0").append(img0);
+	$("#image1").append(img1);
+})
+</script>
+@}

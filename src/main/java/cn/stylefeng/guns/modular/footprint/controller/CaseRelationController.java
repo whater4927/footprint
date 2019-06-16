@@ -1,7 +1,9 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +25,13 @@ import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.footprint.service.ICaseInfoService;
 import cn.stylefeng.guns.modular.footprint.service.ICaseRelationDetailService;
 import cn.stylefeng.guns.modular.footprint.service.ICaseRelationService;
+import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
 import cn.stylefeng.guns.modular.footprint.vo.CaseInfoVO;
 import cn.stylefeng.guns.modular.footprint.vo.CaseRelationVO;
 import cn.stylefeng.guns.modular.system.model.CaseInfo;
 import cn.stylefeng.guns.modular.system.model.CaseRelation;
 import cn.stylefeng.guns.modular.system.model.CaseRelationDetail;
+import cn.stylefeng.guns.modular.system.model.Footprint;
 import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 
@@ -49,7 +53,8 @@ public class CaseRelationController extends BaseController {
     private ICaseInfoService caseInfoService;
     @Autowired
     private INoService noService ;
-    
+    @Autowired
+    private IFootprintService footprintService;
     @Autowired
     private ICaseRelationDetailService caseRelationDetailService ;
     
@@ -64,6 +69,41 @@ public class CaseRelationController extends BaseController {
     @RequestMapping("/mgr")
     public String indexMgr() {
         return PREFIX + "caseRelationMgr.html";
+    }
+    
+    /**
+     * 足迹照片比对
+     * @return
+     */
+    @RequestMapping("/imageCompareImages/{images}")
+    public String imageCompareImages(@PathVariable String images, Model model) {
+    	model.addAttribute("images",images);
+    	return PREFIX + "imageCompareImages.html";
+    }
+    
+    /**
+     * 足迹比对
+     * @return
+     */
+    @RequestMapping("/imageCompare/{caseRelationId}")
+    public String ImageCompare(@PathVariable String caseRelationId, Model model) {
+    	List<CaseRelationDetail> list = caseRelationDetailService.selectList(new EntityWrapper<CaseRelationDetail>().eq("relation_no", caseRelationId));
+    	List<CaseInfo> listCaseInfo = new ArrayList<>();
+    	list.forEach((e)->listCaseInfo.add(caseInfoService.selectById(e.getCaseNo())));
+    	Set<String> images = new HashSet<>();
+    	for (CaseInfo caseInfo : listCaseInfo) {
+    		List<Footprint> listFootprint = footprintService.selectList(new EntityWrapper<Footprint>().eq("case_no", caseInfo.getCaseNo()));
+            for (Footprint footprint : listFootprint) {
+            	images.add(footprint.getOriginalImg());
+     		}
+		}
+    	String imgs = "" ;
+    	for (String image : images) {
+    		imgs += image + ",";
+		}
+    	model.addAttribute("images",imgs);
+    	LogObjectHolder.me().set(caseRelationId);
+        return PREFIX + "imageCompare.html";
     }
     /**
      * 跳转到添加串并案件

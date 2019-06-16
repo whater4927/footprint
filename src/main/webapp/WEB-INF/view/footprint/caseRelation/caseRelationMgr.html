@@ -53,7 +53,7 @@ CaseRelation.initColumn = function () {
 
 function formatter(value,row,index){
 	return  "<a onclick='CaseRelation.openCaseRelationMgrDetail(\""+row.relationNo+"\")'>【维护】</a>" + 
-	"<a onclick='CaseRelation.openCaseRelationMgrDetail(\""+row.relationNo+"\")'>【足迹比对】</a>";
+	"<a onclick='CaseRelation.openImageCompare(\""+row.relationNo+"\")'>【足迹比对】</a>";
 }
 
 /**
@@ -115,14 +115,14 @@ CaseRelation.openCaseRelationMgrDetail = function (relationNo) {
     });
     this.layerIndex = index;
 };
-CaseRelation.openCaseRelationMgrCompare = function (relationNo) {
+CaseRelation.openImageCompare = function (relationNo) {
     var index = layer.open({
            type: 2,
-           title: '串并案件详情',
+           title: '足迹比对',
            area: ['100%', '100%'], //宽高
            fix: false, //不固定
            maxmin: true,
-           content: Feng.ctxPath + '/caseRelation/caseRelationMgr_update/' + relationNo
+           content: Feng.ctxPath + '/caseRelation/imageCompare/' + relationNo
     });
     this.layerIndex = index;
 };
