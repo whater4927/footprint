@@ -423,5 +423,13 @@ function showImages(){
 function setAddImage(response){
 	var removeBtn = '<button type="button" onclick="remove(\''+response+'\')" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
 	var img = "<img onclick='openImage(\""+response+"\")' src='/kaptcha/"+response+"?t="+new Date().getTime()+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>" ;
-	$("#images").append("<li><div class='card highlight'>"+img+removeBtn+"</div></li>");
+	var fpNo = "" ;
+	if((typeof getfootprint) != "undefined"){
+		var fp = getfootprint(response) ;
+		if(fp){
+			fpNo = getfootprint(response).fpNo;
+			fpNo ='<div class="card-body">编号:'+fpNo+'</div>';
+		}
+	}
+	$("#images").append("<li><div class='card highlight'>" + fpNo+img + removeBtn +"</div></li>");
 }

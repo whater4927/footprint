@@ -84,8 +84,8 @@ public class CriminalSuspectController extends BaseController {
          for (Footprint footprint : list) {
          	images += footprint.getOriginalImg()+",";
  		}
-         vo.setSelectImages(images);
- 		
+        vo.setSelectImages(images);
+        model.addAttribute("footprints",list);
         model.addAttribute("item",vo);
         LogObjectHolder.me().set(criminalSuspect);
         return PREFIX + "criminalSuspect_edit.html";

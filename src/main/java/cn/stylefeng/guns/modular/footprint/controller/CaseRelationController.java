@@ -91,16 +91,19 @@ public class CaseRelationController extends BaseController {
     	List<CaseInfo> listCaseInfo = new ArrayList<>();
     	list.forEach((e)->listCaseInfo.add(caseInfoService.selectById(e.getCaseNo())));
     	Set<String> images = new HashSet<>();
+    	Set<Footprint> footprints = new HashSet<>();
     	for (CaseInfo caseInfo : listCaseInfo) {
     		List<Footprint> listFootprint = footprintService.selectList(new EntityWrapper<Footprint>().eq("case_no", caseInfo.getCaseNo()));
             for (Footprint footprint : listFootprint) {
             	images.add(footprint.getOriginalImg());
+            	footprints.add(footprint);
      		}
 		}
     	String imgs = "" ;
     	for (String image : images) {
     		imgs += image + ",";
 		}
+    	model.addAttribute("footprints",footprints);
     	model.addAttribute("images",imgs);
     	LogObjectHolder.me().set(caseRelationId);
         return PREFIX + "imageCompare.html";

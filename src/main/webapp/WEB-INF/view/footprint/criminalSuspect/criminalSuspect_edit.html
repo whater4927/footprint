@@ -96,6 +96,22 @@ li{
 <script src="${ctxPath}/static/modular/footprint/criminalSuspect/criminalSuspect_info.js"></script>
 <script src="${ctxPath}/static/modular/footprint/caseInfo/common_image.js"></script>
 <script>
+	var footprints = [];
+	@for(footprint in footprints){
+		 var footprint = {
+			fpNo: '${footprint.fpNo}',
+			originalImg: '${footprint.originalImg}'
+		 }
+		 footprints.push(footprint);
+	@}
+	function getfootprint(img){
+		for(var i = 0 ; i < footprints.length; i++){
+			if(img == footprints[i].originalImg){
+				return footprints[i];
+			}
+		}
+		return null;
+	}
 	laydate.render({
 	    elem: '#birthday'
 	});

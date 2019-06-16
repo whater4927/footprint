@@ -449,8 +449,26 @@ function selectImg(response){
 
 
 function setAddImage(response){
-	//var removeBtn = '<button type="button" onclick="remove(\''+response+'\')" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+	/*//var removeBtn = '<button type="button" onclick="remove(\''+response+'\')" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
 	var img = "<img  class='img-thumbnail' id='"+response+"' onclick='selectImg(\""+response+"\")'  ondblclick='openImage(\""+response+"\")' src='/kaptcha/"+response+"?t="+new Date().getTime()+"' alt='通用的占位符缩略图' width='200px' height='200px'/>" ;
 	//$("#images").append("<li><div class='card highlight'>"+img+removeBtn+"</div></li>");
-	$("#images").append(img);
+	var fpNo = "" ;
+	if((typeof getfootprint) != "undefined"){
+		var fp = getfootprint(response) ;
+		if(fp){
+			fpNo = getfootprint(response).fpNo;
+			fpNo ='<div class="card-body">'+fpNo+'</div>';
+		}
+	}
+	$("#images").append(img);*/
+	var img = "<img class='img-thumbnail' id='"+response+"' onclick='selectImg(\""+response+"\")'  ondblclick='openImage(\""+response+"\")'  src='/kaptcha/"+response+"?t="+new Date().getTime()+"' alt='通用的占位符缩略图' width='200px' height='200px'/>" ;
+	var fpNo = "" ;
+	if((typeof getfootprint) != "undefined"){
+		var fp = getfootprint(response) ;
+		if(fp){
+			fpNo = getfootprint(response).fpNo;
+			fpNo ='<div class="card-body">编号:'+fpNo+'</div>';
+		}
+	}
+	$("#images").append("<li><div class='card highlight'>" + fpNo+img +"</div></li>");
 }

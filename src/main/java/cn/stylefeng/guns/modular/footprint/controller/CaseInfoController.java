@@ -83,6 +83,7 @@ public class CaseInfoController extends BaseController {
 		}
         vo.setSelectImages(images);
         model.addAttribute("item",vo);
+        model.addAttribute("footprints",list);
         model.addAttribute("caseTm",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(vo.getCaseTm()));
         LogObjectHolder.me().set(vo);
         return PREFIX + "caseInfo_edit.html";
