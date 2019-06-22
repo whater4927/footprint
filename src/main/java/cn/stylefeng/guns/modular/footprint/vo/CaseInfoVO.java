@@ -9,6 +9,8 @@
 
 package cn.stylefeng.guns.modular.footprint.vo;
 
+import java.util.List;
+
 import cn.stylefeng.guns.modular.system.model.CaseInfo;
 import lombok.Data;
 
@@ -32,5 +34,7 @@ public class CaseInfoVO extends CaseInfo {
 	private String createUserName ;
 	private String createOrgName ;
 	private String selectImages ;
+	
+	private List<FootprintVO> imageInfos ;
 }
 

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FootprintVO extends Footprint {
 	
-	
+	private String id ;
 	private String legacyModeName;
 	private String extractionMethodName;
 	

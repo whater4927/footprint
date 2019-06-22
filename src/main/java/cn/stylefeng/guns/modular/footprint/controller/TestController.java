@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +52,7 @@ import cn.stylefeng.roses.core.util.ToolUtil;
  * @since JDK 1.8
  * @see
  */
-@RestController
+@Controller
 @RequestMapping("/test")
 public class TestController extends BaseController {
 	private String PREFIX = "/footprint/test/";
@@ -62,7 +63,8 @@ public class TestController extends BaseController {
 	
 	@RequestMapping("/test1")
 	public String test1() {
-		return "/footprint/caseRelation/caseRelationMgr.html";
+		return PREFIX + "test1.html";
+//		return "/footprint/shoesDemo/shoesDemo.html";
 	}
 
 	@GetMapping("/test2")

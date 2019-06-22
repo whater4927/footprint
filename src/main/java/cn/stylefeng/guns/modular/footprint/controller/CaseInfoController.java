@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +23,7 @@ import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.footprint.service.ICaseInfoService;
 import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
 import cn.stylefeng.guns.modular.footprint.vo.CaseInfoVO;
+import cn.stylefeng.guns.modular.footprint.vo.FootprintVO;
 import cn.stylefeng.guns.modular.system.model.CaseInfo;
 import cn.stylefeng.guns.modular.system.model.Footprint;
 import cn.stylefeng.guns.modular.system.service.INoService;
@@ -65,7 +68,22 @@ public class CaseInfoController extends BaseController {
     public String caseInfoAdd() {
         return PREFIX + "caseInfo_add.html";
     }
-
+    /**
+     * 跳转到添加案件基本信息
+     */
+    @RequestMapping("/caseInfo_add_v2")
+    public String caseInfoAddV2() {
+        return PREFIX + "caseInfo_add_v2.html";
+    }
+    
+    /**
+     * 跳转到添加案件基本信息
+     */
+    @RequestMapping("/imageInfo_v2")
+    public String imageInfo_v2() {
+        return PREFIX + "imageInfo_v2.html";
+    }
+    
     /**
      * 跳转到修改案件基本信息
      */
@@ -170,7 +188,35 @@ public class CaseInfoController extends BaseController {
         }
         return SUCCESS_TIP;
     }
-
+    /**
+     * 新增案件基本信息
+     */
+    @PostMapping(value = "/add_v2")
+    @ResponseBody
+    public Object add_v2(@RequestBody CaseInfoVO caseInfo) {
+    	caseInfo.setCaseNo(noService.busiNo("A"));
+    	EntityUtils.setCreateInfo(caseInfo);
+        caseInfoService.insert(caseInfo);
+        String images  = caseInfo.getSelectImages();
+        if(StringUtil.isNotEmpty(images)) {
+        	for (FootprintVO footprintVO : caseInfo.getImageInfos()) {
+    			Footprint footprint = new Footprint();
+    			footprint.setFpNo(noService.busiNo("F"));
+    			footprint.setCaseNo(caseInfo.getCaseNo());
+    			footprint.setStatus("caseInfo");
+    			
+    			footprint.setPosition(footprintVO.getPosition());
+    			footprint.setExtractionMethod(footprintVO.getExtractionMethod());
+    			footprint.setLegacyMode(footprintVO.getLegacyMode());
+    			
+    			footprint.setOriginalImg(footprintVO.getId());
+    			EntityUtils.setCreateInfo(footprint);
+    			footprintService.insert(footprint);
+    		}
+        }
+    	
+        return SUCCESS_TIP;
+    }
     /**
      * 删除案件基本信息
      */

@@ -58,7 +58,20 @@ CaseInfo.openAddCaseInfo = function () {
     });
     this.layerIndex = index;
 };
-
+/**
+ * 点击添加案件基本信息
+ */
+CaseInfo.openAddCaseInfo_v2 = function () {
+    var index = layer.open({
+        type: 2,
+        title: '添加案件基本信息',
+        area: ['100%', '100%'], //宽高
+        fix: false, //不固定
+        maxmin: true,
+        content: Feng.ctxPath + '/caseInfo/caseInfo_add_v2'
+    });
+    this.layerIndex = index;
+};
 /**
  * 打开查看案件基本信息详情
  */

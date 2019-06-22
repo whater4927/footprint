@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +29,9 @@ import cn.stylefeng.guns.modular.footprint.service.ICaseRelationService;
 import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
 import cn.stylefeng.guns.modular.footprint.vo.CaseInfoVO;
 import cn.stylefeng.guns.modular.footprint.vo.CaseRelationVO;
+import cn.stylefeng.guns.modular.system.dao.CaseInfoFootprintMapper;
 import cn.stylefeng.guns.modular.system.model.CaseInfo;
+import cn.stylefeng.guns.modular.system.model.CaseInfoPrintfoot;
 import cn.stylefeng.guns.modular.system.model.CaseRelation;
 import cn.stylefeng.guns.modular.system.model.CaseRelationDetail;
 import cn.stylefeng.guns.modular.system.model.Footprint;
@@ -58,6 +61,8 @@ public class CaseRelationController extends BaseController {
     @Autowired
     private ICaseRelationDetailService caseRelationDetailService ;
     
+    @Autowired
+    private CaseInfoFootprintMapper caseInfoFootprintMapper ;
     /**
      * 跳转到串并案件首页
      */
@@ -69,6 +74,56 @@ public class CaseRelationController extends BaseController {
     @RequestMapping("/mgr")
     public String indexMgr() {
         return PREFIX + "caseRelationMgr.html";
+    }
+    
+    @RequestMapping("/case_footprint_page")
+    public String case_footprint_page() {
+        return PREFIX + "case_footprint_query.html";
+    }
+    
+    /**
+     * 案件足迹查询
+     * @author whater
+     * @param caseNo	 案件编号
+     * @param caseState	案件状态
+     * @param caseTmStart	案件时间  开始
+     * @param caseTmEnd		案件是假案 结束
+     * @param caseAddress	案件地址
+     * @param unit			所属单位
+     * @param caseDesc		案件描述
+     * @param caseType		案件类型
+     * @param intrusionMode	偷窃方式
+     * @param stolenGoods	盗取物品
+     * @param crimesPersonNum	嫌疑人数量
+     * @param fpNo
+     * @param position
+     * @param legacyMode
+     * @param extractionMethod
+     * @return
+     * @since JDK 1.8
+     */
+    @RequestMapping(value = "/case_footprint_query")
+    @ResponseBody
+    public Object case_footprint_query(
+    		String caseNo,
+    		String caseState,
+    		Date caseTmStart,
+    		Date caseTmEnd,
+    		String caseAddress,
+    		String unit,
+    		String caseDesc,
+    		String caseType,
+    		String intrusionMode,
+    		String stolenGoods,
+    		String crimesPersonNum,
+    		String fpNo,String position,String legacyMode,String extractionMethod) {
+    	CaseInfoPrintfoot caseInfoPrintfoot = new CaseInfoPrintfoot();
+    	
+    	List<CaseInfoPrintfoot> list = caseInfoFootprintMapper.selectAll(caseInfoPrintfoot);
+//    	footprintService
+    	//SELECT *  from fp_footprint a left join fp_case_info b on a.case_no = b.case_no  where b.case_no is not null
+//    	footprintService.sele
+    	return list ;
     }
     
     /**

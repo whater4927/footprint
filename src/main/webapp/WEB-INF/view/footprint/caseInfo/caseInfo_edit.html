@@ -87,7 +87,7 @@ li{
  			
 
 <script src="${ctxPath}/static/modular/footprint/caseInfo/caseInfo_info.js"></script>
-<script src="${ctxPath}/static/modular/footprint/caseInfo/common_image.js"></script>
+<script src="${ctxPath}/static/modular/footprint/caseInfo/common_image_v2.js"></script>
 <script type="text/javascript">
 var footprints = [];
 @for(footprint in footprints){
@@ -134,5 +134,84 @@ uploader.on( 'uploadSuccess', function( file ,response) {
 $(function(){
 	showImages();
 })
+
+var index ;
+function editImageInfo(id){
+	index = layer.open({
+		  type: 2,
+		  title: '足迹信息',
+		  shadeClose: true,
+		  shade: false,
+		  maxmin: true, //开启最大化最小化按钮
+		  area: ['380px', '360px'],
+		  shadeClose: true, //开启遮罩关闭
+		  content: "/caseInfo/imageInfo_v2" ,
+		  btn : [ '提交','关闭' ],
+		  btn1: function(index, layero){
+			  //layero.layerfunction();
+			  var flag = window[layero.find('iframe')[0]['name']].FootprintInfoDlg.validate();
+			  if(flag){
+				  var info = window[layero.find('iframe')[0]['name']].imageInfo();
+				  info.id = id ;
+				  addInfo(image_infos,info);
+				  var infoId = "#info"+id.split(".")[0] ;
+				  $(infoId).empty();
+				  $(infoId).append(getInfoStr('',info.positionName,info.legacyModeName,info.extractionMethodName,id));
+				  layer.close(index);
+				  return true;
+			  }
+			  return false;
+		  },
+		  end:function(){
+			  
+		  }
+	});
+}
+var image_infos = [] ;
+function addInfo(arr,info){
+	var index = -1; 
+	for(var i = 0 ; i < arr.length ; i++ ){
+		if(arr[i].id == info.id){
+			index = i ;
+		}
+	}
+	if(index != -1){
+		arr.splice(index,1,info);
+	}else{
+		arr.push(info);
+	}
+}
+function removeInfo(arr,id){
+	var index = -1;
+	for(var i = 0 ; i < arr.length ; i++ ){
+		if(arr[i].id == id){
+			index = i ;
+		}
+	}
+	if(index != -1){
+		arr.splice(index,1);
+	}
+}
+/**
+ * 提交添加
+ */
+addSubmit_v2 = function() {
+    CaseInfoInfoDlg.clearData();
+    CaseInfoInfoDlg.collectData();
+    var d = CaseInfoInfoDlg.caseInfoInfoData ;
+    d.imageInfos = image_infos ;
+	$.ajax({
+		   type: "POST",
+		   url: "add_v2",
+		   contentType:"application/json",
+		   dataType:"json",
+		   data: JSON.stringify(d),
+		   success: function(msg){
+			   Feng.success("添加成功!");
+			   CaseInfoInfoDlg.close();
+		   }
+	});
+    
+}
 </script>
 @}
