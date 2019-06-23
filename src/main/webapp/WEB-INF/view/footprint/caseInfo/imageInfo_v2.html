@@ -36,21 +36,43 @@
 	    		validators: {
 	                notEmpty: {
 	                    message: '足迹遗留部位不能为空'
-	                }
+	                },
+	                callback: {
+	                	 message: '足迹遗留部位不能为空',
+	                	 callback: function(value, validator) {
+	                		if (value == 0){
+	                			return false;
+	                		} else {
+	                			return true;
+	                		}
+	                	 }
+	               }
 	            }
 	    	},
 	    	legacyMode:{
 	    		validators: {
 	                notEmpty: {
 	                    message: '足迹遗留方式不能为空'
-	                }
+	                },
+	                callback: {
+	                	 message: '足迹遗留方式不能为空',
+	                	 callback: function(value, validator) {
+	                		if (value == 0)return false;else return true;
+	                	 }
+	               }
 	            }
 	    	},
 	    	extractionMethod:{
 	    		validators: {
 	                notEmpty: {
 	                    message: '足迹提取方式不能为空'
-	                }
+	                },
+	                callback: {
+	                	 message: '足迹提取方式不能为空',
+	                	 callback: function(value, validator) {
+	                		if (value == 0)return false;else return true;
+	                	 }
+	               }
 	            }
 	    	}
 	    }

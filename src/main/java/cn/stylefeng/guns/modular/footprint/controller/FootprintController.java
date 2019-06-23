@@ -113,6 +113,7 @@ public class FootprintController extends BaseController {
     	entityWrapper.eq("status", "fp");
     	List<FootprintVO> listVo = CommonUtil.listPo2VO(footprintService.selectList(entityWrapper), FootprintVO.class);
     	listVo.forEach((vo)->{
+    		vo.setPositionName(ConstantFactory.me().getDictsByName("position", vo.getPosition()));
          	vo.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", vo.getExtractionMethod()));
          	vo.setLegacyModeName(ConstantFactory.me().getDictsByName("legacy_mode", vo.getLegacyMode()));
          	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {

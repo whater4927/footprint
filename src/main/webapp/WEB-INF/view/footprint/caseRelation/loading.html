@@ -1,0 +1,32 @@
+@layout("/common/_container.html"){
+	<div class="progress">
+	  <div id="prog" class="progress-bar progress-bar-striped  progress-bar-animated active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+	    <span class="sr-only">0% Complete</span>
+	  </div>
+	</div>
+	 <span id="info">足迹比对中......</span>
+<script type="text/javascript">
+var value = 0;
+function show(value){
+   $("#prog").css("width",value + "%").text(value + "%");
+   if(value == 100){
+	   $("#info").empty();
+	   $("#info").append("足迹比对完成!")
+	   Feng.success("足迹比对完成!");
+	   
+	   setTimeout(function(){ 
+		   parent.layer.close(window.parent.indexPage);
+		}, 5000);
+	   return;
+   }
+   setTimeout(function(){ 
+		value++
+		show(value);
+	}, 100);
+}
+setTimeout(function(){ 
+	value++
+	show(value);
+}, 100);
+</script>
+@}

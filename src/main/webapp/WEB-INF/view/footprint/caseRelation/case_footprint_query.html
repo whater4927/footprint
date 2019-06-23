@@ -3,30 +3,73 @@
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>足迹信息管理</h5>
+                <h5>足迹比对查询</h5>
             </div>
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="form-horizontal" id="form">
                         <div class="row">
-                            <div class="col-sm-4" >
+                            <div class="col-sm-3" >
                                 <#input id="fpNo" name="足迹编号" style="width: 250px;" />
                             </div>
-                            <div class="col-sm-4" >
-                               <#input id="position" name="足迹遗留部位" style="width: 250px;"  />
+                            <div class="col-sm-3" >
+                               <#dictSelector id="position" label="足迹遗留部位" code="position"  />
                             </div>
-                            <div class="col-sm-2">
-                                <#button name="搜索" icon="fa-search" clickFun="Footprint.search()"/>
-                                <#button name="重置" icon="fa-repeat" clickFun="Footprint.clearData()"/>
-                                <#button name="导出" icon="fa-repeat" clickFun="Footprint.exportExcel()"/>
+                        	<div class="col-sm-3" >
+                               <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode"  />
+                            </div>
+                            <div class="col-sm-3" >
+                                <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" /> 
                             </div>
                         </div>
                         <div class="row">
-                        	<div class="col-sm-4" >
-                               <#dictSelector id="legacyMode" label="足迹遗留方式" code="legacy_mode"  />
+                            <div class="col-sm-3" >
+                               <#input id="caseNo" name="案件编号" style="width: 250px;" />
                             </div>
-                            <div class="col-sm-4" >
-                                <#dictSelector id="extractionMethod" label="足迹提取方式" code="extraction_method" /> 
+                            <div class="col-sm-3" >
+                              <#dictSelector id="caseState" label="案件状态" code="case_status" />
+                            </div>
+                        	<div class="col-sm-3" >
+                               <#input id="caseTmStart" name="案发开始时间" style="width: 250px;" />
+                            </div>
+                            <div class="col-sm-3" >
+                                <#input id="caseTmEnd" name="案发开始时间" style="width: 250px;" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3" >
+                                <#input id="caseAddress" name="案发地点" style="width: 250px;" />
+                            </div>
+                            <div class="col-sm-3" >
+                               <#input id="unitName" name="所属单位" style="width: 250px;" />
+                            </div>
+                        	<div class="col-sm-3" >
+                               <#input id="caseDesc" name="简要案情" style="width: 250px;" />
+                            </div>
+                            <div class="col-sm-3" >
+                                <#dictSelector id="caseType" label="案件类别" code="case_type" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3" >
+                                <#dictSelector id="intrusionMode" label="侵入方式" code="intrusion_mode" />
+                            </div>
+                            <div class="col-sm-3" >
+                               <#input id="stolenGoods" name="被盗物品"  style="width: 250px;"   />
+                            </div>
+                        	<div class="col-sm-3" >
+                               <#input id="crimesPersonNum" name="作案人数"  style="width: 250px;"   />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" align="center">
+                            	<#button name="搜索" icon="fa-search" clickFun="Footprint.search()"/>
+                                 <#button name="重置" icon="fa-repeat" clickFun="Footprint.clearData()"/>
+                                 
+                                 <#button name="足迹比对" icon="fa-skyatlas" clickFun="footCompare()"/>
+                                 <#button name="串并案" icon="fa-pinterest-p" clickFun="Footprint.clearData()"/>
+                                 
+                                 <#button name="导出" icon="fa-repeat" clickFun="Footprint.exportExcel()"/>
                             </div>
                         </div>
                         <#table id="FootprintTable"/>
@@ -38,6 +81,15 @@
 </div>
 <script src="${ctxPath}/static/modular/footprint/footprint/show_common.js"></script>
 <script type="text/javascript">
+var indexPage = -1 ;
+laydate.render({
+    elem: '#caseTmStart',
+    type: 'datetime'
+});
+laydate.render({
+    elem: '#caseTmEnd',
+    type: 'datetime'
+});
 /**
  * 足迹信息管理初始化
  */
@@ -53,11 +105,24 @@ var Footprint = {
  */
 Footprint.initColumn = function () {
     return [
-        {field: 'selectItem', radio: true},
+        {field: 'selectItem', checked: true},
             {title: '足迹编号', field: 'fpNo', visible: true, align: 'center', valign: 'middle'},
-            {title: '足迹遗留部位', field: 'position', visible: true, align: 'center', valign: 'middle'},
+            {title: '足迹遗留部位', field: 'positionName', visible: true, align: 'center', valign: 'middle'},
             {title: '足迹遗留方式', field: 'legacyModeName', visible: true, align: 'center', valign: 'middle'},
             {title: '足迹提取方式', field: 'extractionMethodName', visible: true, align: 'center', valign: 'middle'},
+            {title: '案件编号', field: 'caseNo', visible: true, align: 'center', valign: 'middle'},
+            {title: '案件状态', field: 'caseStateName', visible: true, align: 'center', valign: 'middle'},
+            {title: '案发时间', field: 'caseTm', visible: true, align: 'center', valign: 'middle'},
+            {title: '案发地点', field: 'caseAddress', visible: true, align: 'center', valign: 'middle'},
+            {title: '所属单位', field: 'unitName', visible: true, align: 'center', valign: 'middle'},
+            {title: '简要案情', field: 'caseDesc', visible: true, align: 'center', valign: 'middle'},
+            {title: '案件类别', field: 'caseTypeName', visible: true, align: 'center', valign: 'middle'},
+            {title: '侵入方式', field: 'intrusionModeName', visible: true, align: 'center', valign: 'middle'},
+            {title: '被盗物品', field: 'stolenGoods', visible: true, align: 'center', valign: 'middle'},
+            {title: '作案人数', field: 'crimesPersonNum', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建人', field: 'createUserName', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建机构', field: 'createOrgName', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'},
             {title: '图片', field: 'originalImg', visible: true, align: 'center', valign: 'middle',formatter:formatterImage}
     ];
 };
@@ -91,7 +156,7 @@ Footprint.openAddFootprint = function () {
         area: ['100%', '100%'], //宽高
         fix: false, //不固定
         maxmin: true,
-        content: Feng.ctxPath + '/footprint/footprint_add'
+        content: Feng.ctxPath + '/caseRelation/case_footprint_query'
     });
     this.layerIndex = index;
 };
@@ -139,22 +204,73 @@ Footprint.search = function () {
     queryData['position'] = $("#position").val();
     queryData['legacyMode'] = $("#legacyMode").val();
     queryData['extractionMethod'] = $("#extractionMethod").val();
+    
+    queryData['caseNo'] = $("#caseNo").val();
+    queryData['caseState'] = $("#caseState").val();
+    queryData['caseTmStart'] = $("#caseTmStart").val();
+    queryData['caseTmEnd'] = $("#caseTmEnd").val();
+    queryData['caseAddress'] = $("#caseAddress").val();
+    queryData['unitName'] = $("#unitName").val();
+    queryData['caseDesc'] = $("#caseDesc").val();
+    queryData['caseType'] = $("#caseType").val();
+    queryData['intrusionMode'] = $("#intrusionMode").val();
+    queryData['stolenGoods'] = $("#stolenGoods").val();
+    queryData['crimesPersonNum'] = $("#crimesPersonNum").val();
+    
+    
     Footprint.table.refresh({query: queryData});
 };
 
 Footprint.clearData = function (){
-	$("#condition").val("");
 	$("#fpNo").val("");
 	$("#position").val("");
 	$("#legacyMode").val("");
 	$("#extractionMethod").val("");
+	
+	$("#caseNo").val("");
+	$("#caseState").val("");
+	$("#caseTmStart").val("");
+	$("#caseTmEnd").val("");
+	$("#caseAddress").val("");
+	$("#unitName").val("");
+	$("#caseDesc").val("");
+	$("#caseType").val("");
+	$("#intrusionMode").val("");
+	$("#stolenGoods").val("");
+	$("#crimesPersonNum").val("");
+	
+	
 }
 Footprint.exportExcel = function(){
 	window.location.href="UserExcelDownloads"
 }
+/**
+ * 足迹比对
+ */
+function footCompare(){
+	var r = Footprint.table.btInstance.bootstrapTable("getSelections") ;
+	if(!r || r.length != 1){
+		Feng.error("请选择一条足迹进行自动识别比对!");
+	}
+	var record = r[0];
+	var caseNo = record.caseNo ;
+	var fpNo = record.fpNo ;
+	
+	indexPage = layer.open({
+        type: 2,
+        title: false,
+        area: ['700px','100px'], //宽高
+        fix: false, //不固定
+        maxmin: false,
+        closeBtn: 0,
+        content: Feng.ctxPath + '/caseRelation/loading'
+    });
+	
+}
+
 $(function () {
     var defaultColunms = Footprint.initColumn();
-    var table = new BSTable(Footprint.id, "/footprint/list", defaultColunms);
+    var table = new BSTable(Footprint.id, "/caseRelation/case_footprint_query", defaultColunms);
     table.setPaginationType("client");
     Footprint.table = table.init();
 });

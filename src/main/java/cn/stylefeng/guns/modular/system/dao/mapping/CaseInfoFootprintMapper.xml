@@ -38,34 +38,60 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        fp_no, case_no, cs_no, position, legacy_mode, extraction_method, original_img, new_img, length, width, case_state, case_tm, case_address, unit, case_desc, case_type, intrusion_mode, stolen_goods, crimes_person_num, status, del_status, upd_user_id, upd_org_id, upd_tm, crt_user_id, crt_org_id, crt_tm
+        a.fp_no, a.case_no, a.cs_no, a.position, a.legacy_mode, a.extraction_method, a.original_img, a.new_img, a.length, a.width, b.case_state, b.case_tm, b.case_address, b.unit, b.case_desc, b.case_type, b.intrusion_mode, b.stolen_goods, b.crimes_person_num, b.status, b.del_status, b.upd_user_id, b.upd_org_id, b.upd_tm, b.crt_user_id, b.crt_org_id, b.crt_tm
     </sql>
 
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="cn.stylefeng.guns.modular.system.model.CaseInfoPrintfoot" >
     select
     <include refid="Base_Column_List" />
-    fp_footprint a left join fp_case_info b on a.case_no = b.case_no where 1=1
+    from 
+    fp_footprint a left join fp_case_info b on a.case_no = b.case_no where a.case_no is not null
     <if test="fpNo != null" >
-      a.fp_no = #{fpNo,jdbcType=VARCHAR}
+      and a.fp_no = #{fpNo,jdbcType=VARCHAR}
     </if>
-     <if test="fpNo != null" >
-      a.case_no = #{caseNo,jdbcType=VARCHAR}
+     <if test="caseNo != null" >
+      and a.case_no = #{caseNo,jdbcType=VARCHAR}
     </if>
-     <if test="fpNo != null" >
-      a.position = #{position,jdbcType=VARCHAR}
+     <if test="position != null" >
+      and a.position = #{position,jdbcType=VARCHAR}
     </if>
-     <if test="fpNo != null" >
-      a.legacy_mode = #{legacyMode,jdbcType=VARCHAR}
+     <if test="legacyMode != null" >
+      and a.legacy_mode = #{legacyMode,jdbcType=VARCHAR}
     </if>
-    <if test="fpNo != null" >
-      a.extraction_method = #{extractionMethod,jdbcType=VARCHAR}
+    <if test="extractionMethod != null" >
+      and a.extraction_method = #{extractionMethod,jdbcType=VARCHAR}
     </if>
     
-    <if test="fpNo != null" >
-      a.case_address = #{caseAddress,jdbcType=VARCHAR}
+     <if test="caseTmStart != null" >
+      and b.case_tm &gt;= #{caseTmStart,jdbcType=TIMESTAMP}
     </if>
-    <if test="fpNo != null" >
-      a.case_state = #{caseState,jdbcType=VARCHAR}
+    <if test="caseTmEnd != null" >
+      and b.case_tm &lt;=  #{caseTmEnd,jdbcType=TIMESTAMP}
+    </if>
+    <if test="caseAddress != null" >
+      and b.case_address = #{caseAddress,jdbcType=VARCHAR}
+    </if>
+    <if test="caseState != null" >
+      and b.case_state = #{caseState,jdbcType=VARCHAR}
+    </if>
+    
+    <if test="unit != null" >
+      and b.unit = #{unit,jdbcType=VARCHAR}
+    </if>
+    <if test="caseDesc != null" >
+      and b.case_desc like #{caseDesc,jdbcType=VARCHAR}
+    </if>
+    <if test="caseType != null" >
+      and b.case_type = #{caseType,jdbcType=VARCHAR}
+    </if>
+    <if test="intrusionMode != null" >
+      and b.intrusion_mode = #{intrusionMode,jdbcType=VARCHAR}
+    </if>
+    <if test="stolenGoods != null" >
+      and b.stolen_goods = #{stolenGoods,jdbcType=VARCHAR}
+    </if>
+    <if test="crimesPersonNum != null" >
+      and b.crimes_person_num = #{crimesPersonNum,jdbcType=VARCHAR}
     </if>
     
   </select>

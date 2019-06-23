@@ -15,7 +15,7 @@ Footprint.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
             {title: '足迹编号', field: 'fpNo', visible: true, align: 'center', valign: 'middle'},
-            {title: '足迹遗留部位', field: 'position', visible: true, align: 'center', valign: 'middle'},
+            {title: '足迹遗留部位', field: 'positionName', visible: true, align: 'center', valign: 'middle'},
             {title: '足迹遗留方式', field: 'legacyModeName', visible: true, align: 'center', valign: 'middle'},
             {title: '足迹提取方式', field: 'extractionMethodName', visible: true, align: 'center', valign: 'middle'},
            /* {title: '长', field: 'length', visible: true, align: 'center', valign: 'middle'},

@@ -8,6 +8,8 @@ public class FootprintVO extends Footprint {
 	private String id ;
 	private String legacyModeName;
 	private String extractionMethodName;
+	private String positionName ;
+	
 	
 	private String createUserName ;
 	private String createOrgName ;

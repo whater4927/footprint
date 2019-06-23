@@ -76,31 +76,36 @@ li{
 								</div>
 					            <div class="row btn-group-m-t">
 					                <div class="col-sm-10">
-					                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CaseInfoInfoDlg.editSubmit()"/>
+					                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="editSubmit_v2()"/>
 					                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CaseInfoInfoDlg.close()"/>
 					                </div>
 					            </div>
 			                </div>
 		                </div>
                	 	</div>
-            
- 			
 
 <script src="${ctxPath}/static/modular/footprint/caseInfo/caseInfo_info.js"></script>
 <script src="${ctxPath}/static/modular/footprint/caseInfo/common_image_v2.js"></script>
 <script type="text/javascript">
-var footprints = [];
+var image_infos = [];
 @for(footprint in footprints){
 	 var footprint = {
+	    id:'${footprint.originalImg}',
 		fpNo: '${footprint.fpNo}',
-		originalImg: '${footprint.originalImg}'
+		originalImg: '${footprint.originalImg}',
+		position: '${footprint.position}',
+		positionName: '${footprint.positionName}',
+		legacyMode: '${footprint.legacyMode}',
+		legacyModeName: '${footprint.legacyModeName}',
+		extractionMethod: '${footprint.extractionMethod}',
+		extractionMethodName: '${footprint.extractionMethodName}'
 	 }
-	 footprints.push(footprint);
+	 image_infos.push(footprint);
 @}
 function getfootprint(img){
-	for(var i = 0 ; i < footprints.length; i++){
-		if(img == footprints[i].originalImg){
-			return footprints[i];
+	for(var i = 0 ; i < image_infos.length; i++){
+		if(img == image_infos[i].originalImg){
+			return image_infos[i];
 		}
 	}
 	return null;
@@ -151,12 +156,22 @@ function editImageInfo(id){
 			  //layero.layerfunction();
 			  var flag = window[layero.find('iframe')[0]['name']].FootprintInfoDlg.validate();
 			  if(flag){
+				  debugger;
 				  var info = window[layero.find('iframe')[0]['name']].imageInfo();
 				  info.id = id ;
+				  info.originalImg = id ;
 				  addInfo(image_infos,info);
 				  var infoId = "#info"+id.split(".")[0] ;
 				  $(infoId).empty();
-				  $(infoId).append(getInfoStr('',info.positionName,info.legacyModeName,info.extractionMethodName,id));
+				  var footprint = getfootprint(id);
+				  if(footprint){
+					  if(!footprint.fpNo){
+						  footprint.fpNo = '';
+					  }
+					  $(infoId).append(getInfoStr(footprint.fpNo,info.positionName,info.legacyModeName,info.extractionMethodName,id));
+				  }else{
+					  $(infoId).append(getInfoStr('',info.positionName,info.legacyModeName,info.extractionMethodName,id));
+				  }
 				  layer.close(index);
 				  return true;
 			  }
@@ -167,7 +182,6 @@ function editImageInfo(id){
 		  }
 	});
 }
-var image_infos = [] ;
 function addInfo(arr,info){
 	var index = -1; 
 	for(var i = 0 ; i < arr.length ; i++ ){
@@ -176,6 +190,8 @@ function addInfo(arr,info){
 		}
 	}
 	if(index != -1){
+		if(arr[index].fpNo)
+			info.fpNo = arr[index].fpNo ;
 		arr.splice(index,1,info);
 	}else{
 		arr.push(info);
@@ -211,7 +227,26 @@ addSubmit_v2 = function() {
 			   CaseInfoInfoDlg.close();
 		   }
 	});
-    
+}
+/**
+ * 提交添加
+ */
+editSubmit_v2 = function() {
+    CaseInfoInfoDlg.clearData();
+    CaseInfoInfoDlg.collectData();
+    var d = CaseInfoInfoDlg.caseInfoInfoData ;
+    d.imageInfos = image_infos ;
+	$.ajax({
+		   type: "POST",
+		   url: "/caseInfo/update_v2",
+		   contentType:"application/json",
+		   dataType:"json",
+		   data: JSON.stringify(d),
+		   success: function(msg){
+			   Feng.success("添加成功!");
+			   CaseInfoInfoDlg.close();
+		   }
+	});
 }
 </script>
 @}

@@ -133,15 +133,15 @@ CaseRelationInfoDlg.imageCompareImages = function(){
 		 Feng.error("请选择两个足迹比对!");
 		 return;
 	}
-	 var index = layer.open({
+	var index = layer.open({
          type: 2,
          title: '足迹比对',
          area: ['100%', '100%'], //宽高
          fix: false, //不固定
          maxmin: true,
          content: Feng.ctxPath + '/caseRelation/imageCompareImages/' + arr[0]+","+arr[1]
-  });
-  this.layerIndex = index;
+    });
+   this.layerIndex = index;
 }
 $(function() {
 	 Feng.initValidator("form", CaseRelationInfoDlg.validateFields);

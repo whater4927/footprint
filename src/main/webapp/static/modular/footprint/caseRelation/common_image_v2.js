@@ -409,7 +409,6 @@ function setImage(image,response){
 }
 function remove(response){
 	$("#selectImages").val($("#selectImages").val().replace(response,""));
-	removeInfo(image_infos,response)
 	showImages();
 }
 function showImages(){
@@ -421,34 +420,43 @@ function showImages(){
 		}
 	}
 }
-function getInfoStr(no,position,legacyMode,extractionMethod,id){
-	var fpNo = "";
-	fpNo = '<div class="card-body">编号:'+no+'<i class="fa fa-pencil-square-o" aria-hidden="true" onclick="editImageInfo(\''+id+'\')"></i></div>';
-	fpNo +='<div class="card-body">足迹遗留部位:'+position+'</div>';
-	fpNo +='<div class="card-body">足迹遗留方式:'+legacyMode+'</div>';
-	fpNo +='<div class="card-body">足迹提取方式:'+extractionMethod+'</div>';
-	return fpNo;
-}
-function setAddImage(response){
-	var removeBtn = '<button type="button" onclick="remove(\''+response+'\')" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-	var img = "<img onclick='openImage(\""+response+"\")' src='/kaptcha/"+response+"?t="+new Date().getTime()+"' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' width='200' height='200'/>" ;
-	var fpNo = "" ;
-	if((typeof getfootprint) != "undefined"){
-		var info = getfootprint(response) ;
-		if(info){
-			//fpNo = getfootprint(response).fpNo;
-			//fpNo ='<div class="card-body">编号:'+fpNo+'</div>';
-			//fpNo = getInfoStr(info.fpNo,info.positionName,info.legacyModeName,info.extractionMethodName,response);
-			fpNo = '<div id="info'+response.split(".")[0]+'">'+getInfoStr(info.fpNo,info.positionName,info.legacyModeName,info.extractionMethodName,response)+'</div>';
-		}else{
-			fpNo = '<div id="info'+response.split(".")[0]+'" class="card-body"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="editImageInfo(\''+response+'\')"></i></div>';
+function showImages_v2(){
+	for(var i = 0 ; i < caseInfos.length ; i++ ){
+		for(var j = 0 ; j < caseInfos[i].imageInfos.length ; j++){
+			setAddImage(caseInfos[i].caseNo,caseInfos[i].imageInfos[j].originalImg,caseInfos[i].imageInfos[j].fpNo);
 		}
-	} else {
-		fpNo = '<div id="info'+response.split(".")[0]+'" class="card-body"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="editImageInfo(\''+response+'\')"></i></div>';
 	}
-	/*if(true){
-		fpNo = '<div id="info'+response.split(".")[0]+'">'+getInfoStr('','桌面','泥土足迹','明胶提取',response)+'</div>';
-	}*/
-	var html = "<li><div class='card highlight'>" + fpNo+img + removeBtn +"</div></li>" ;
-	$("#images").append(html);
+}
+var arr = [] ;
+function selectImg(response){
+	var color = document.getElementById(response).style.background ;
+	if(color){//红色
+		document.getElementById(response).style.background = "" ;
+		if(arr.length>0){
+			document.getElementById(response).style.background = ""
+			var index ;
+			for(var i = 0 ;i < arr.length ; i++){
+				if(response == arr[i]){
+					index = i ;
+					break;
+				}
+			}
+			arr.splice(index,1)
+		}
+	} else {//无色
+		document.getElementById(response).style.background = "red";
+		if(arr.length>=2){
+			document.getElementById(arr[0]).style.background = ""
+			arr.splice(0,1)
+		}
+		arr.push(response);
+	}
+}
+
+
+
+function setAddImage(id,response,fpNo){
+	var img = "<img class='img-thumbnail' id='"+response+"' onclick='selectImg(\""+response+"\")'  ondblclick='openImage(\""+response+"\")'  src='/kaptcha/"+response+"?t="+new Date().getTime()+"' alt='通用的占位符缩略图' width='200px' height='200px'/>" ;
+	fpNo ='<div class="card-body">编号:'+fpNo+'</div>';
+	$("#"+id).append("<li><div class='card highlight'>" + fpNo+img +"</div></li>");
 }

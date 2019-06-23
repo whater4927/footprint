@@ -182,6 +182,7 @@ function editImageInfo(id){
 			  if(flag){
 				  var info = window[layero.find('iframe')[0]['name']].imageInfo();
 				  info.id = id ;
+				  info.originalImg = id ;
 				  addInfo(image_infos,info);
 				  var infoId = "#info"+id.split(".")[0] ;
 				  $(infoId).empty();

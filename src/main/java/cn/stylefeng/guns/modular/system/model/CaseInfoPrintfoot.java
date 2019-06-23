@@ -78,6 +78,11 @@ public class CaseInfoPrintfoot {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("case_tm")
     private Date caseTm;
+    
+    private  Date caseTmStart;
+    
+    private Date caseTmEnd ;
+    
     /**
      * 案发地点
      */
@@ -152,5 +157,5 @@ public class CaseInfoPrintfoot {
     @TableField("crt_tm")
     private Date crtTm;
 
-
+    
 }

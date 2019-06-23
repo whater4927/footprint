@@ -99,9 +99,18 @@ public class CaseInfoController extends BaseController {
         for (Footprint footprint : list) {
         	images += footprint.getOriginalImg()+",";
 		}
+        
         vo.setSelectImages(images);
         model.addAttribute("item",vo);
-        model.addAttribute("footprints",list);
+        
+        List<FootprintVO> listVo = CommonUtil.listPo2VO(list, FootprintVO.class);
+    	listVo.forEach((footprintVO)->{
+    		footprintVO.setPositionName(ConstantFactory.me().getDictsByName("position", footprintVO.getPosition()));
+    		footprintVO.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", footprintVO.getExtractionMethod()));
+    		footprintVO.setLegacyModeName(ConstantFactory.me().getDictsByName("legacy_mode", footprintVO.getLegacyMode()));
+        });
+        
+        model.addAttribute("footprints",listVo);
         model.addAttribute("caseTm",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(vo.getCaseTm()));
         LogObjectHolder.me().set(vo);
         return PREFIX + "caseInfo_edit.html";
@@ -251,7 +260,33 @@ public class CaseInfoController extends BaseController {
         }
         return SUCCESS_TIP;
     }
-
+    /**
+     * 修改案件基本信息
+     */
+    @RequestMapping(value = "/update_v2")
+    @ResponseBody
+    public Object update_v2(@RequestBody CaseInfoVO caseInfo) {
+        caseInfoService.updateById(caseInfo);
+        footprintService.delete(new EntityWrapper<Footprint>().eq("case_no", caseInfo.getCaseNo()));
+        String images  = caseInfo.getSelectImages();
+        if(StringUtil.isNotEmpty(images)) {
+        	for (FootprintVO footprintVO : caseInfo.getImageInfos()) {
+    			Footprint footprint = new Footprint();
+    			footprint.setFpNo(noService.busiNo("F"));
+    			footprint.setCaseNo(caseInfo.getCaseNo());
+    			footprint.setStatus("caseInfo");
+    			
+    			footprint.setPosition(footprintVO.getPosition());
+    			footprint.setExtractionMethod(footprintVO.getExtractionMethod());
+    			footprint.setLegacyMode(footprintVO.getLegacyMode());
+    			
+    			footprint.setOriginalImg(footprintVO.getId());
+    			EntityUtils.setCreateInfo(footprint);
+    			footprintService.insert(footprint);
+    		}
+        }
+        return SUCCESS_TIP;
+    }
     /**
      * 案件基本信息详情
      */

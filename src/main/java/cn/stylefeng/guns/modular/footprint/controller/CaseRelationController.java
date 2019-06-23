@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -27,8 +29,10 @@ import cn.stylefeng.guns.modular.footprint.service.ICaseInfoService;
 import cn.stylefeng.guns.modular.footprint.service.ICaseRelationDetailService;
 import cn.stylefeng.guns.modular.footprint.service.ICaseRelationService;
 import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
+import cn.stylefeng.guns.modular.footprint.vo.CaseInfoPrintfootVO;
 import cn.stylefeng.guns.modular.footprint.vo.CaseInfoVO;
 import cn.stylefeng.guns.modular.footprint.vo.CaseRelationVO;
+import cn.stylefeng.guns.modular.footprint.vo.FootprintVO;
 import cn.stylefeng.guns.modular.system.dao.CaseInfoFootprintMapper;
 import cn.stylefeng.guns.modular.system.model.CaseInfo;
 import cn.stylefeng.guns.modular.system.model.CaseInfoPrintfoot;
@@ -70,7 +74,10 @@ public class CaseRelationController extends BaseController {
     public String index() {
         return PREFIX + "caseRelation.html";
     }
-    
+    @RequestMapping("loading")
+    public String loading() {
+        return PREFIX + "loading.html";
+    }
     @RequestMapping("/mgr")
     public String indexMgr() {
         return PREFIX + "caseRelationMgr.html";
@@ -107,8 +114,8 @@ public class CaseRelationController extends BaseController {
     public Object case_footprint_query(
     		String caseNo,
     		String caseState,
-    		Date caseTmStart,
-    		Date caseTmEnd,
+    		String caseTmStart,
+    		String caseTmEnd,
     		String caseAddress,
     		String unit,
     		String caseDesc,
@@ -118,12 +125,69 @@ public class CaseRelationController extends BaseController {
     		String crimesPersonNum,
     		String fpNo,String position,String legacyMode,String extractionMethod) {
     	CaseInfoPrintfoot caseInfoPrintfoot = new CaseInfoPrintfoot();
-    	
+    	if(StringUtil.isNotEmpty(caseNo))
+    		caseInfoPrintfoot.setCaseNo(caseNo);
+    	if(StringUtil.isNotEmpty(caseState))
+    		caseInfoPrintfoot.setCaseState(caseState);
+    	if(StringUtil.isNotEmpty(caseTmStart))
+			try {
+				caseInfoPrintfoot.setCaseTmStart(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(caseTmStart));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+    	if(StringUtil.isNotEmpty(caseTmEnd))
+			try {
+				caseInfoPrintfoot.setCaseTmEnd(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(caseTmEnd));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+    	if(StringUtil.isNotEmpty(caseAddress))
+    		caseInfoPrintfoot.setCaseAddress(caseAddress);
+    	if(StringUtil.isNotEmpty(unit))
+    		caseInfoPrintfoot.setUnit(unit);
+    	if(StringUtil.isNotEmpty(caseDesc)) {
+    		caseInfoPrintfoot.setCaseDesc(caseDesc.trim()+"%");
+    	}
+    	if(StringUtil.isNotEmpty(caseType))
+    		caseInfoPrintfoot.setCaseType(caseType);
+    	if(StringUtil.isNotEmpty(intrusionMode))
+    		caseInfoPrintfoot.setIntrusionMode(intrusionMode);
+    	if(StringUtil.isNotEmpty(stolenGoods))
+    		caseInfoPrintfoot.setStolenGoods(stolenGoods);
+    	if(StringUtil.isNotEmpty(crimesPersonNum))
+    		caseInfoPrintfoot.setCrimesPersonNum(crimesPersonNum);
+    	if(StringUtil.isNotEmpty(fpNo))
+    		caseInfoPrintfoot.setFpNo(fpNo);
+    	if(StringUtil.isNotEmpty(position))
+    		caseInfoPrintfoot.setPosition(position);
+    	if(StringUtil.isNotEmpty(legacyMode))
+    		caseInfoPrintfoot.setLegacyMode(legacyMode);
+    	if(StringUtil.isNotEmpty(extractionMethod))
+    		caseInfoPrintfoot.setExtractionMethod(extractionMethod);
     	List<CaseInfoPrintfoot> list = caseInfoFootprintMapper.selectAll(caseInfoPrintfoot);
-//    	footprintService
-    	//SELECT *  from fp_footprint a left join fp_case_info b on a.case_no = b.case_no  where b.case_no is not null
-//    	footprintService.sele
-    	return list ;
+    	
+    	List<CaseInfoPrintfootVO> listVo = CommonUtil.listPo2VO(list, CaseInfoPrintfootVO.class);
+    	listVo.forEach((vo)->{
+    		
+    		vo.setCaseStateName(ConstantFactory.me().getDictsByName("case_status", vo.getCaseState()));
+        	if(StringUtil.isNotEmpty(vo.getUnit())) 
+        		vo.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getUnit())));
+        	vo.setCaseTypeName(ConstantFactory.me().getDictsByName("case_type", vo.getCaseType()));
+        	vo.setIntrusionModeName(ConstantFactory.me().getDictsByName("intrusion_mode", vo.getIntrusionMode()));
+        	vo.setPositionName(ConstantFactory.me().getDictsByName("position", vo.getPosition()));
+    		
+    		
+    		vo.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", vo.getExtractionMethod()));
+         	vo.setLegacyModeName(ConstantFactory.me().getDictsByName("legacy_mode", vo.getLegacyMode()));
+         	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+     			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+     		}
+     		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+     			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+     		}
+    	});
+    	
+    	return listVo ;
     }
     
     /**
@@ -162,6 +226,26 @@ public class CaseRelationController extends BaseController {
     	model.addAttribute("images",imgs);
     	LogObjectHolder.me().set(caseRelationId);
         return PREFIX + "imageCompare.html";
+    }
+    
+    /**
+     * 足迹比对
+     * @return
+     */
+    @RequestMapping("/imageCompare_v2/{caseRelationId}")
+    public String ImageCompare_v2(@PathVariable String caseRelationId, Model model) {
+    	List<CaseRelationDetail> list = caseRelationDetailService.selectList(new EntityWrapper<CaseRelationDetail>().eq("relation_no", caseRelationId));
+    	List<CaseInfo> listCaseInfo = new ArrayList<>();
+    	list.forEach((e)->listCaseInfo.add(caseInfoService.selectById(e.getCaseNo())));
+    	List<CaseInfoVO> listCaseInfoVO = CommonUtil.listPo2VO(listCaseInfo, CaseInfoVO.class);
+    	for (CaseInfoVO caseInfo : listCaseInfoVO) {
+    		List<Footprint> listFootprint = footprintService.selectList(new EntityWrapper<Footprint>().eq("case_no", caseInfo.getCaseNo()));
+    		List<FootprintVO> listFootprintVO = CommonUtil.listPo2VO(listFootprint, FootprintVO.class);
+    		caseInfo.setImageInfos(listFootprintVO);
+		}
+    	model.addAttribute("caseInfos",listCaseInfoVO);
+    	LogObjectHolder.me().set(caseRelationId);
+        return PREFIX + "imageCompare_v2.html";
     }
     /**
      * 跳转到添加串并案件
