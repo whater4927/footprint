@@ -3,7 +3,6 @@ package cn.stylefeng.guns.modular.footprint.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +31,7 @@ import cn.stylefeng.guns.modular.footprint.service.IFootprintService;
 import cn.stylefeng.guns.modular.footprint.vo.CaseInfoPrintfootVO;
 import cn.stylefeng.guns.modular.footprint.vo.CaseInfoVO;
 import cn.stylefeng.guns.modular.footprint.vo.CaseRelationVO;
+import cn.stylefeng.guns.modular.footprint.vo.CompareCaseInfoVO;
 import cn.stylefeng.guns.modular.footprint.vo.FootprintVO;
 import cn.stylefeng.guns.modular.system.dao.CaseInfoFootprintMapper;
 import cn.stylefeng.guns.modular.system.model.CaseInfo;
@@ -43,7 +43,6 @@ import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 
 /**
- * 串并案件控制器
  *
  * @author fengshuonan
  * @Date 2019-05-31 11:29:55
@@ -68,14 +67,15 @@ public class CaseRelationController extends BaseController {
     @Autowired
     private CaseInfoFootprintMapper caseInfoFootprintMapper ;
     /**
-     * 跳转到串并案件首页
      */
     @RequestMapping("")
     public String index() {
         return PREFIX + "caseRelation.html";
     }
-    @RequestMapping("loading")
-    public String loading() {
+    @RequestMapping("loading/${caseNo}/${fpNo}")
+    public String loading(@PathVariable(name="caseNo") String caseNo,@PathVariable(name="fpNo") String fpNo, Model model) {
+    	model.addAttribute("caseNo",caseNo);
+    	model.addAttribute("fpNo",fpNo);
         return PREFIX + "loading.html";
     }
     @RequestMapping("/mgr")
@@ -88,20 +88,44 @@ public class CaseRelationController extends BaseController {
         return PREFIX + "case_footprint_query.html";
     }
     
+    
+    @RequestMapping("/autoCompare/${caseNo}/${fpNo}")
+    @ResponseBody
+    public Object autoCompare(@PathVariable(name="caseNo") String caseNo,@PathVariable(name="fpNo") String fpNo) {
+    	CompareCaseInfoVO compareCaseInfoVO = new CompareCaseInfoVO();
+    	CaseInfo caseInfo1 = caseInfoService.selectById(caseNo);
+    	
+    	Footprint footprint1 = footprintService.selectById(fpNo);
+    	
+    	List<Footprint> list = footprintService.selectList(new EntityWrapper<Footprint>()
+    			.eq("position", footprint1.getPosition())
+    			.eq("Legacy_mode", footprint1.getLegacyMode())
+    			.eq("extraction_method", footprint1.getExtractionMethod())
+    			.notIn("case_no", caseNo));
+    	
+    	if(CommonUtil.isEmpty(list)) {
+    		return null ;
+    	}
+    	int index = ((int)(list.size() * Math.random())) ;
+    	
+    	Footprint footprint2 = list.get(index) ;
+    	CaseInfo caseInfo2 = caseInfoService.selectById(footprint2.getCaseNo());
+    	
+    	List<CaseInfoVO> caseInfos = new ArrayList<>();
+    	caseInfos.add(CommonUtil.po2VO(caseInfo1, CaseInfoVO.class));
+    	caseInfos.add(CommonUtil.po2VO(caseInfo2, CaseInfoVO.class));
+    	compareCaseInfoVO.setCaseInfos(caseInfos);
+    	
+    	List<FootprintVO> footprints = new ArrayList<>();
+    	footprints.add(CommonUtil.po2VO(footprint1, FootprintVO.class));
+    	footprints.add(CommonUtil.po2VO(footprint2, FootprintVO.class));
+    	compareCaseInfoVO.setFootprints(footprints);
+    	
+        return compareCaseInfoVO;
+    }
+    
     /**
-     * 案件足迹查询
      * @author whater
-     * @param caseNo	 案件编号
-     * @param caseState	案件状态
-     * @param caseTmStart	案件时间  开始
-     * @param caseTmEnd		案件是假案 结束
-     * @param caseAddress	案件地址
-     * @param unit			所属单位
-     * @param caseDesc		案件描述
-     * @param caseType		案件类型
-     * @param intrusionMode	偷窃方式
-     * @param stolenGoods	盗取物品
-     * @param crimesPersonNum	嫌疑人数量
      * @param fpNo
      * @param position
      * @param legacyMode
@@ -191,7 +215,6 @@ public class CaseRelationController extends BaseController {
     }
     
     /**
-     * 足迹照片比对
      * @return
      */
     @RequestMapping("/imageCompareImages/{images}")
@@ -201,7 +224,6 @@ public class CaseRelationController extends BaseController {
     }
     
     /**
-     * 足迹比对
      * @return
      */
     @RequestMapping("/imageCompare/{caseRelationId}")
@@ -229,7 +251,6 @@ public class CaseRelationController extends BaseController {
     }
     
     /**
-     * 足迹比对
      * @return
      */
     @RequestMapping("/imageCompare_v2/{caseRelationId}")
@@ -248,7 +269,6 @@ public class CaseRelationController extends BaseController {
         return PREFIX + "imageCompare_v2.html";
     }
     /**
-     * 跳转到添加串并案件
      */
     @RequestMapping("/caseRelation_add")
     public String caseRelationAdd() {
@@ -256,7 +276,6 @@ public class CaseRelationController extends BaseController {
     }
 
     /**
-     * 跳转到修改串并案件
      */
     @RequestMapping("/caseRelation_update/{caseRelationId}")
     public String caseRelationUpdate(@PathVariable String caseRelationId, Model model) {
@@ -266,7 +285,6 @@ public class CaseRelationController extends BaseController {
         return PREFIX + "caseRelation_edit.html";
     }
     /**
-     * 跳转到修改串并案件
      */
     @RequestMapping("/caseRelationMgr_update/{caseRelationId}")
     public String caseRelationMgrUpdate(@PathVariable String caseRelationId, Model model) {
@@ -301,7 +319,6 @@ public class CaseRelationController extends BaseController {
         return PREFIX + "caseRelationMgr_edit.html";
     }
     /**
-     * 获取串并案件列表
      */
     @RequestMapping(value = "/list")
     @ResponseBody
