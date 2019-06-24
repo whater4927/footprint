@@ -1,0 +1,141 @@
+@layout("/common/_container.html"){
+<style>
+.highlight {
+	padding: 9px 14px;
+	margin-bottom: 14px;
+	background-color: #f7f7f9;
+	border: 1px solid #e1e1e8;
+	border-radius: 4px;
+}
+
+ul li {
+	float: left;
+	margin: 0px 5px 20px 5px;
+	list-style: none;
+}
+
+li {
+	margin: 0 0 0 5px;
+}
+</style>
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal" id="form">
+		
+			  <div class="row bs-example bs-example-type">
+	                <div class="col-sm-12 b-r">
+	                	<div class="alert alert-success" style="width: 100%" align="center">
+	                	原始足迹</div>
+	                	<ul><li>
+					 		<div class='card highlight'>
+					 				<div id="info" class="card-body">
+					 					<div class="card-body">编号:${autoCompareResult.footprint.fpNo}<i class="fa fa-newspaper-o" aria-hidden="true" 
+					 					onclick="info(
+					 							'${autoCompareResult.footprint.caseInfo.caseNo}',
+					 							'${autoCompareResult.footprint.caseInfo.caseStateName}',
+					 							'${autoCompareResult.footprint.caseInfo.caseTm,'yyyy-MM-dd HH:mm:ss'}',
+					 							'${autoCompareResult.footprint.caseInfo.caseAddress}',
+					 							'${autoCompareResult.footprint.caseInfo.unitName}',
+					 							'${autoCompareResult.footprint.caseInfo.caseTypeName}',
+					 							'${autoCompareResult.footprint.caseInfo.intrusionModeName}',
+					 							'${autoCompareResult.footprint.caseInfo.stolenGoods}',
+					 							'${autoCompareResult.footprint.caseInfo.crimesPersonNum}',
+					 							'${autoCompareResult.footprint.caseInfo.caseDesc}')"></i></div>
+										<div class="card-body">足迹遗留部位:${autoCompareResult.footprint.positionName}</div>
+										<div class="card-body">足迹遗留方式:${autoCompareResult.footprint.extractionMethodName}</div>
+										<div class="card-body">足迹提取方式:${autoCompareResult.footprint.legacyModeName}</div>
+					 				</div>
+					 				<img id='${autoCompareResult.footprint.fpNo}' ondblclick='openImage("${autoCompareResult.footprint.originalImg}")'  src='/kaptcha/${autoCompareResult.footprint.originalImg}' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' />
+					 			</div></li></ul>
+	                </div>
+	            </div>
+		
+			<div class="row">
+				 <div class="col-sm-12 b-r">
+				 	<div class="alert alert-success" style="width: 100%" align="center">
+	                	自动识别关联足迹</div>
+					 <ul id="images">
+					 	@for(footprint in autoCompareResult.footprints){
+					 		<li>
+					 			<div class='card highlight'>
+					 				<div id="info" class="card-body">
+					 					<div class="card-body">编号:${footprint.fpNo}<i class="fa fa-newspaper-o" aria-hidden="true" 
+					 					onclick="info(
+					 							'${footprint.caseInfo.caseNo}',
+					 							'${footprint.caseInfo.caseStateName}',
+					 							'${footprint.caseInfo.caseTm,'yyyy-MM-dd HH:mm:ss'}',
+					 							'${footprint.caseInfo.caseAddress}',
+					 							'${footprint.caseInfo.unitName}',
+					 							'${footprint.caseInfo.caseTypeName}',
+					 							'${footprint.caseInfo.intrusionModeName}',
+					 							'${footprint.caseInfo.stolenGoods}',
+					 							'${footprint.caseInfo.crimesPersonNum}',
+					 							'${footprint.caseInfo.caseDesc}')"></i></div>
+										<div class="card-body">足迹遗留部位:${footprint.positionName}</div>
+										<div class="card-body">足迹遗留方式:${footprint.extractionMethodName}</div>
+										<div class="card-body">足迹提取方式:${footprint.legacyModeName}</div>
+					 				</div>
+					 				<img id='${footprint.fpNo}' ondblclick='openImage("${footprint.originalImg}")' onclick='selectImg("${footprint.fpNo}")'  src='/kaptcha/${footprint.originalImg}' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' />
+					 			</div>
+					 		</li>
+					 	@}
+					 </ul>
+				 </div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 " align="right">
+					<#button name="串并案" icon="fa-pinterest-p" clickFun="relationCaseInfo()"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/footprint/caseRelation/common_image_v3.js"></script>
+<script type="text/javascript">
+function info(caseNo,caseStateName,caseTm,caseAddress,unitName,caseTypeName,intrusionModeName,stolenGoods,crimesPersonNum,caseDesc){
+	var cardHtml = '<div class="ibox float-e-margins"><div class="ibox-content"><div class="form-horizontal">';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;案件编号:&nbsp;&nbsp;&nbsp;&nbsp;'+caseNo+' </div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;案件状态:&nbsp;&nbsp;&nbsp;&nbsp;'+caseStateName+' </div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;案发时间:&nbsp;&nbsp;&nbsp;&nbsp;'+caseTm+' </div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;案发地点:&nbsp;&nbsp;&nbsp;&nbsp;'+caseAddress+' </div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;所属单位:&nbsp;&nbsp;&nbsp;&nbsp;'+unitName+' </div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;案件类别:&nbsp;&nbsp;&nbsp;&nbsp;'+caseTypeName+' </div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;侵入方式:&nbsp;&nbsp;&nbsp;&nbsp;'+intrusionModeName+' </div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;被盗物品:&nbsp;&nbsp;&nbsp;&nbsp;'+stolenGoods+' </div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;作案人数:&nbsp;&nbsp;&nbsp;&nbsp;'+crimesPersonNum+'</div>';
+	cardHtml+='<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;简要案情:&nbsp;&nbsp;&nbsp;&nbsp;'+caseDesc+'</div>';
+	cardHtml+="</div></div></div>" ;
+	layer.open({
+		  type: 1, 
+		  title: '案件信息',
+	        area: ['500px','300px'], //宽高
+	        fix: false, //不固定
+	        maxmin: false,
+		  content: cardHtml
+		});
+}
+
+function relationCaseInfo(){
+	var fpNo = '${autoCompareResult.footprint.fpNo}' ;
+	var selectFpNo = arr.toLocaleString() ;
+	if(arr.length == 0){
+		Feng.error("请最少选择一个足迹进行串并案!");
+		return ;
+	}
+	
+	$.ajax({
+		type : "GET",
+		async: true ,
+		url : "/caseRelation/relationCase/" + fpNo + "/" +selectFpNo,
+		dataType : "json",
+		success : function(data) {
+			Feng.success("足迹串并案成功!");
+			window.parent.layer.close(window.parent.indexPage);
+		}
+	});
+	
+	
+}
+
+</script>
+@}

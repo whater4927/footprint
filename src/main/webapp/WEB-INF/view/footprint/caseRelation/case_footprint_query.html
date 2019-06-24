@@ -67,7 +67,6 @@
                                  <#button name="重置" icon="fa-repeat" clickFun="Footprint.clearData()"/>
                                  
                                  <#button name="足迹比对" icon="fa-skyatlas" clickFun="footCompare()"/>
-                                 <#button name="串并案" icon="fa-pinterest-p" clickFun="Footprint.clearData()"/>
                                  
                                  <#button name="导出" icon="fa-repeat" clickFun="Footprint.exportExcel()"/>
                             </div>
@@ -105,7 +104,7 @@ var Footprint = {
  */
 Footprint.initColumn = function () {
     return [
-        {field: 'selectItem', checked: true},
+        {field: 'selectItem', radio: true},
             {title: '足迹编号', field: 'fpNo', visible: true, align: 'center', valign: 'middle'},
             {title: '足迹遗留部位', field: 'positionName', visible: true, align: 'center', valign: 'middle'},
             {title: '足迹遗留方式', field: 'legacyModeName', visible: true, align: 'center', valign: 'middle'},
@@ -244,6 +243,10 @@ Footprint.clearData = function (){
 Footprint.exportExcel = function(){
 	window.location.href="UserExcelDownloads"
 }
+
+
+var footCompareReSult ;
+
 /**
  * 足迹比对
  */
@@ -251,6 +254,7 @@ function footCompare(){
 	var r = Footprint.table.btInstance.bootstrapTable("getSelections") ;
 	if(!r || r.length != 1){
 		Feng.error("请选择一条足迹进行自动识别比对!");
+		return ;
 	}
 	var record = r[0];
 	var caseNo = record.caseNo ;
@@ -265,8 +269,19 @@ function footCompare(){
         closeBtn: 0,
         content: Feng.ctxPath + '/caseRelation/loading/' + caseNo + "/" + fpNo
     });
-	
 }
+
+
+function showFootCompareResult(caseNo,fpNo){
+	indexPage = layer.open({
+        type: 2,
+        title: "足迹比对结果",
+        area: ['100%','100%'], //宽高
+        fix: false, //不固定
+        maxmin: false,
+        content: Feng.ctxPath + '/caseRelation/autoCompareResult/' + caseNo + "/" + fpNo
+    });
+} 
 
 $(function () {
     var defaultColunms = Footprint.initColumn();

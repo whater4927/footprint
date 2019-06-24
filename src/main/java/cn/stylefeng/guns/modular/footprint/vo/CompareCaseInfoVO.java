@@ -26,6 +26,8 @@ import lombok.Data;
 @Data
 public class CompareCaseInfoVO {
 	
+	private FootprintVO footprint ;
+	
 	private List<CaseInfoVO> caseInfos ;
 	
 	private List<FootprintVO> footprints ;

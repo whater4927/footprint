@@ -72,7 +72,7 @@ public class CaseRelationController extends BaseController {
     public String index() {
         return PREFIX + "caseRelation.html";
     }
-    @RequestMapping("loading/${caseNo}/${fpNo}")
+    @RequestMapping("loading/{caseNo}/{fpNo}")
     public String loading(@PathVariable(name="caseNo") String caseNo,@PathVariable(name="fpNo") String fpNo, Model model) {
     	model.addAttribute("caseNo",caseNo);
     	model.addAttribute("fpNo",fpNo);
@@ -87,9 +87,67 @@ public class CaseRelationController extends BaseController {
     public String case_footprint_page() {
         return PREFIX + "case_footprint_query.html";
     }
+    @RequestMapping("/autoCompareResult/{caseNo}/{fpNo}")
+    public String autoCompareResult(@PathVariable(name="caseNo") String caseNo,@PathVariable(name="fpNo") String fpNo, Model model) {
+    	CompareCaseInfoVO compareCaseInfoVO = new CompareCaseInfoVO();
+    	CaseInfo caseInfo1 = caseInfoService.selectById(caseNo);
+    	Footprint footprint1 = footprintService.selectById(fpNo);
+    	FootprintVO footprintVo = CommonUtil.po2VO(footprint1, FootprintVO.class);
+    	
+    	footprintVo.setPositionName(ConstantFactory.me().getDictsByName("position", footprintVo.getPosition()));
+    	footprintVo.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", footprintVo.getExtractionMethod()));
+    	footprintVo.setLegacyModeName(ConstantFactory.me().getDictsByName("legacy_mode", footprintVo.getLegacyMode()));
+    	
+    	CaseInfoVO caseInfoVo = CommonUtil.po2VO(caseInfo1, CaseInfoVO.class);
+    	
+    	caseInfoVo.setCaseStateName(ConstantFactory.me().getDictsByName("case_status", caseInfoVo.getCaseState()));
+    	if(StringUtil.isNotEmpty(caseInfoVo.getUnit())) 
+    		caseInfoVo.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(caseInfoVo.getUnit())));
+    	caseInfoVo.setCaseTypeName(ConstantFactory.me().getDictsByName("case_type", caseInfoVo.getCaseType()));
+    	caseInfoVo.setIntrusionModeName(ConstantFactory.me().getDictsByName("intrusion_mode", caseInfoVo.getIntrusionMode()));
+    	
+    	
+    	footprintVo.setCaseInfo(caseInfoVo);
+    	compareCaseInfoVO.setFootprint(footprintVo);
+    	List<Footprint> list = footprintService.selectList(new EntityWrapper<Footprint>()
+    			.eq("position", footprint1.getPosition())
+    			.eq("Legacy_mode", footprint1.getLegacyMode())
+    			.eq("extraction_method", footprint1.getExtractionMethod())
+    			.notIn("case_no", caseNo));
+    	if(CommonUtil.isEmpty(list)) {
+    		model.addAttribute("autoCompareResult", compareCaseInfoVO);
+    		return PREFIX + "autoCompareResult.html";
+    	}
+    	list = list.subList(0, list.size() > 10 ? 10 : list.size());
+    	List<FootprintVO> listVo = new ArrayList<>();
+    	for (Footprint footprint : list) {
+    		FootprintVO f = CommonUtil.po2VO(footprint, FootprintVO.class);
+    		
+    		f.setPositionName(ConstantFactory.me().getDictsByName("position", f.getPosition()));
+         	f.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", f.getExtractionMethod()));
+         	f.setLegacyModeName(ConstantFactory.me().getDictsByName("legacy_mode", f.getLegacyMode()));
+    		
+    		CaseInfo caseInfo2 = caseInfoService.selectById(f.getCaseNo());
+    		CaseInfoVO caseInfoVO = CommonUtil.po2VO(caseInfo2, CaseInfoVO.class) ;
+    		
+    		
+    		caseInfoVO.setCaseStateName(ConstantFactory.me().getDictsByName("case_status", caseInfoVO.getCaseState()));
+        	if(StringUtil.isNotEmpty(caseInfoVO.getUnit())) 
+        		caseInfoVO.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(caseInfoVO.getUnit())));
+        	caseInfoVO.setCaseTypeName(ConstantFactory.me().getDictsByName("case_type", caseInfoVO.getCaseType()));
+        	caseInfoVO.setIntrusionModeName(ConstantFactory.me().getDictsByName("intrusion_mode", caseInfoVO.getIntrusionMode()));
+    		
+        	f.setCaseInfo(caseInfoVO);
+    		
+    		listVo.add(f);
+		}
+    	compareCaseInfoVO.setFootprints(listVo);
+    	model.addAttribute("autoCompareResult", compareCaseInfoVO);
+    	return PREFIX + "autoCompareResult.html";
+    }
     
     
-    @RequestMapping("/autoCompare/${caseNo}/${fpNo}")
+    @RequestMapping("/autoCompare/{caseNo}/{fpNo}")
     @ResponseBody
     public Object autoCompare(@PathVariable(name="caseNo") String caseNo,@PathVariable(name="fpNo") String fpNo) {
     	CompareCaseInfoVO compareCaseInfoVO = new CompareCaseInfoVO();
@@ -106,6 +164,13 @@ public class CaseRelationController extends BaseController {
     	if(CommonUtil.isEmpty(list)) {
     		return null ;
     	}
+    	
+    	/*try {
+			Thread.sleep(15000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
+    	
     	int index = ((int)(list.size() * Math.random())) ;
     	
     	Footprint footprint2 = list.get(index) ;
@@ -122,6 +187,51 @@ public class CaseRelationController extends BaseController {
     	compareCaseInfoVO.setFootprints(footprints);
     	
         return compareCaseInfoVO;
+    }
+    
+    
+    
+    @RequestMapping("/relationCase/{fpNo}/{selectFpNo}")
+    @ResponseBody
+    public Object relationCase(@PathVariable(name="fpNo") String fpNo,@PathVariable(name="selectFpNo") String selectFpNo) {
+    	CaseRelation caseRelation = new CaseRelation();
+    	caseRelation.setRelationNo(noService.busiNo("R"));
+    	EntityUtils.setCreateInfo(caseRelation);
+    	
+    	String[] fpNoArr = selectFpNo.split(",");
+    	
+    	Set<String> caseNos = new HashSet<>();
+    	
+    	Footprint footprint = footprintService.selectById(fpNo);
+		footprint.setFpNo(noService.busiNo("F"));
+    	EntityUtils.setCreateInfo(footprint);
+    	footprint.setStatus("fp");
+    	caseNos.add(footprint.getCaseNo());
+    	footprint.setCaseNo(caseRelation.getRelationNo());
+        footprintService.insert(footprint);
+		
+    	
+    	
+    	
+    	for (String fpNoId : fpNoArr) {
+    		footprint = footprintService.selectById(fpNoId);
+    		footprint.setFpNo(noService.busiNo("F"));
+        	EntityUtils.setCreateInfo(footprint);
+        	footprint.setStatus("fp");
+        	caseNos.add(footprint.getCaseNo());
+        	footprint.setCaseNo(caseRelation.getRelationNo());
+            footprintService.insert(footprint);
+		}
+    	
+    	for (String caseNo : caseNos) {
+    		CaseRelationDetail caseRelationDetail = new CaseRelationDetail();
+			caseRelationDetail.setCaseNo(caseNo);
+			caseRelationDetail.setId(CommonUtil.UUID());
+			caseRelationDetail.setRelationNo(caseRelation.getRelationNo());
+	    	caseRelationDetailService.insert(caseRelationDetail);
+		}
+        caseRelationService.insert(caseRelation);
+    	return caseRelation.getRelationNo() ;
     }
     
     /**
@@ -313,11 +423,60 @@ public class CaseRelationController extends BaseController {
         		}
             });
         }
+       
         model.addAttribute("caseInfos",listVo);
         model.addAttribute("item",caseRelation);
         LogObjectHolder.me().set(caseRelation);
         return PREFIX + "caseRelationMgr_edit.html";
     }
+    
+    /**
+     */
+    @RequestMapping("/caseRelationMgr_detail/{caseRelationId}")
+    public String caseRelationMgr_detail(@PathVariable String caseRelationId, Model model) {
+        CaseRelation caseRelation = caseRelationService.selectById(caseRelationId);
+        Wrapper<CaseRelationDetail> entityWrapper = new EntityWrapper<CaseRelationDetail>() ;
+        entityWrapper.eq("relation_no", caseRelation.getRelationNo());
+        List<CaseRelationDetail> listCaseRelationDetail = caseRelationDetailService.selectList(entityWrapper);
+        List<String> ids = new ArrayList<>();
+        listCaseRelationDetail.forEach((e)->ids.add(e.getCaseNo()));
+        List<CaseInfoVO> listVo =  new ArrayList<>();
+        if(CommonUtil.isNotEmpty(ids)) {
+        	List<CaseInfo> list = caseInfoService.selectList(new EntityWrapper<CaseInfo>().in("case_no", ids));
+            listVo = CommonUtil.listPo2VO(list, CaseInfoVO.class);
+            listVo.forEach((vo)->{
+            	vo.setCaseStateName(ConstantFactory.me().getDictsByName("case_status", vo.getCaseState()));
+            	if(StringUtil.isNotEmpty(vo.getUnit())) 
+            		vo.setUnitName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getUnit())));
+            	vo.setCaseTypeName(ConstantFactory.me().getDictsByName("case_type", vo.getCaseType()));
+            	vo.setIntrusionModeName(ConstantFactory.me().getDictsByName("intrusion_mode", vo.getIntrusionMode()));
+            	
+            	if(StringUtil.isNotEmpty(vo.getCrtUserId())) {
+        			vo.setCreateUserName(ConstantFactory.me().getUserNameById(Integer.parseInt(vo.getCrtUserId())));
+        		}
+        		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
+        			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
+        		}
+            });
+        }
+        
+        
+        List<Footprint> listFootprint = footprintService.selectList(new EntityWrapper<Footprint>().eq("case_no", caseRelationId));
+        List<FootprintVO> listFootprintVo = CommonUtil.listPo2VO(listFootprint,FootprintVO.class);
+        for (FootprintVO footprintVO : listFootprintVo) {
+        	footprintVO.setPositionName(ConstantFactory.me().getDictsByName("position", footprintVO.getPosition()));
+        	footprintVO.setExtractionMethodName(ConstantFactory.me().getDictsByName("extraction_method", footprintVO.getExtractionMethod()));
+        	footprintVO.setLegacyModeName(ConstantFactory.me().getDictsByName("legacy_mode", footprintVO.getLegacyMode()));
+		}
+        
+        model.addAttribute("footprints",listFootprintVo);
+        model.addAttribute("caseInfos",listVo);
+        model.addAttribute("item",caseRelation);
+        LogObjectHolder.me().set(caseRelation);
+        return PREFIX + "caseRelationMgr_detail.html";
+    }
+    
+    
     /**
      */
     @RequestMapping(value = "/list")

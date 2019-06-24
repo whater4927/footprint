@@ -52,7 +52,8 @@ CaseRelation.initColumn = function () {
 };
 
 function formatter(value,row,index){
-	return  "<a onclick='CaseRelation.openCaseRelationMgrDetail(\""+row.relationNo+"\")'>【维护】</a>" + 
+	return  "<a onclick='CaseRelation.detail(\""+row.relationNo+"\")'>【详情】</a>" + 
+	"<a onclick='CaseRelation.openCaseRelationMgrDetail(\""+row.relationNo+"\")'>【维护】</a>" + 
 	"<a onclick='CaseRelation.openImageCompare(\""+row.relationNo+"\")'>【足迹比对】</a>";
 }
 
@@ -125,6 +126,20 @@ CaseRelation.openImageCompare = function (relationNo) {
            content: Feng.ctxPath + '/caseRelation/imageCompare_v2/' + relationNo
     });
     this.layerIndex = index;
+};
+/**
+ * 打开查看串并案件详情
+ */
+CaseRelation.detail = function (relationNo) {
+	 var index = layer.open({
+         type: 2,
+         title: '串并案件详情',
+         area: ['75%', '100%'], //宽高
+         fix: false, //不固定
+         maxmin: true,
+         content: Feng.ctxPath + '/caseRelation/caseRelationMgr_detail/' + relationNo
+  });
+  this.layerIndex = index;
 };
 /**
  * 删除串并案件

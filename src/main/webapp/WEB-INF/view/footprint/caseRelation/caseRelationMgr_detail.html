@@ -1,0 +1,226 @@
+@layout("/common/_container.html"){
+<style>
+.highlight {
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 4px;
+}
+ul li {
+	float: left;
+	margin: 0px 5px 20px 5px;
+	list-style: none;
+}
+li{
+	margin: 0 0 0 5px;
+}
+</style>
+    <!-- <div class="ibox-content"> -->
+        <div class="form-horizontal" id="form">
+			<!--  <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="relationNo" name="串并案件编号" value="${item.relationNo}" underline="true"/>
+                            <#input id="relationName" name="串案名称" value="${item.relationName}" underline="true"/>
+                            <#input id="relationReason" name="串案依据" value="${item.relationReason}" underline="true"/>
+                            <#input id="remark" name="备注" value="${item.remark}" underline="true"/>
+                            <#input id="status" name="状态" value="${item.status}" underline="true"/>
+                            <#input id="delStatus" name="是否删除" value="${item.delStatus}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="updUserId" name="最后修改人" value="${item.updUserId}" underline="true"/>
+                            <#input id="updOrgId" name="最后修改机构" value="${item.updOrgId}" underline="true"/>
+                            <#input id="updTm" name="最后修改时间" value="${item.updTm}" underline="true"/>
+                            <#input id="crtUserId" name="创建人" value="${item.crtUserId}" underline="true"/>
+                            <#input id="crtOrgId" name="创建机构id" value="${item.crtOrgId}" underline="true"/>
+                            <#input id="crtTm" name="创建时间" value="${item.crtTm}" />
+                </div>
+            </div> -->
+			
+
+             <div class="row">
+                <div class="col-sm-6">
+                	<#input id="relationNo" name="串并案件编号" value="${item.relationNo}" readonly="readonly" />
+                </div>
+                <div class="col-sm-6">
+                	<#input id="relationName" name="串案名称" value="${item.relationName}" readonly="readonly"/>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-6">
+                     <#input id="remark" name="备注" value="${item.remark}" readonly="readonly"/>
+                </div>
+                <div class="col-sm-6">
+                	<#input id="relationReason" name="串案依据" value="${item.relationReason}" readonly="readonly"/>
+                </div>
+            </div> 
+<!--
+			<div class="row">
+                <div class="col-sm-8" >
+                	<label class="col-sm-3 control-label">串并案件编号:</label><h3>${item.relationNo}</h3>
+                	<label class="col-sm-3 control-label">串案名称:</label><h3>${item.relationName}</h3>
+                	<label class="col-sm-3 control-label">串案依据:</label><h3>${item.relationReason}</h3>
+                	<label class="col-sm-3 control-label">备注:</label><h3>${item.remark}</h3>
+                </div>
+            </div>-->
+           
+            
+        </div>
+        	<div class="container">
+        		<h3>关联案件</h3>
+        		 <div class="row">
+	        		<ul id="caseInfos">
+	        		</ul>
+        		</div>
+        		<h3>关联足印</h3>
+        		<ul id="images">
+					 	@for(footprint in footprints){
+					 		<li>
+					 			<div class='card highlight'>
+					 				<div id="info" class="card-body">
+					 					<div class="card-body">编号:${footprint.fpNo}</div>
+										<div class="card-body">足迹遗留部位:${footprint.positionName}</div>
+										<div class="card-body">足迹遗留方式:${footprint.extractionMethodName}</div>
+										<div class="card-body">足迹提取方式:${footprint.legacyModeName}</div>
+					 				</div>
+					 				<img id='${footprint.fpNo}' ondblclick='openImage("${footprint.originalImg}")' src='/kaptcha/${footprint.originalImg}' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' />
+					 			</div>
+					 		</li>
+					 	@}
+					 </ul>
+        		
+        	</div>
+               <div class="row btn-group-m-t">
+                <div class="col-sm-10" align="right">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="CaseRelationInfoDlg.close()"/>
+                </div>
+            </div>  
+   <!--  </div> -->
+<script src="${ctxPath}/static/modular/footprint/caseRelation/common_image.js"></script>   
+<script type="text/javascript">
+var CaseRelationInfoDlg = {
+	 caseRelationInfoData : {
+		 caseInfos:[
+		 ],
+		 relationNo:'${item.relationNo}'
+	 }
+};
+/**
+ * 关闭此对话框
+ */
+CaseRelationInfoDlg.close = function() {
+    parent.layer.close(window.parent.CaseRelation.layerIndex);
+}
+CaseRelationInfoDlg.selectCaseInfoPage = function() {
+	var index = layer.open({
+	    type: 2,
+	    title: '案件信息选择',
+	    area: ['100%', '100%'], //宽高
+	    fix: false, //不固定
+	    maxmin: true,
+	    content: Feng.ctxPath + '/caseInfo/selectPage',
+	    success:function(layero, index){
+	    	//debugger;
+	    }
+	});
+	this.layerIndex = index;
+}
+CaseRelationInfoDlg.addCaseInfo = function(caseInfo){
+	if(this.addCase(caseInfo)){
+		this.show(caseInfo);
+	}
+}
+CaseRelationInfoDlg.show = function(caseInfo){
+	var cardHtml = '<li style="width:300px" id="card'+caseInfo.caseNo+'"><div class="card highlight" style="width:300px">';
+	cardHtml+='<div class="card-body">案件编号:'+caseInfo.caseNo+' </div>';
+	cardHtml+='<div class="card-body">案件状态:'+caseInfo.caseStateName+'</div>';
+	cardHtml+='<div class="card-body">案发时间:'+caseInfo.caseTm+'</div>';
+	cardHtml+='<div class="card-body">案发地点:'+caseInfo.caseAddress+'</div>';
+	cardHtml+='<div class="card-body">所属单位:'+caseInfo.unitName+'</div>';
+	cardHtml+='<div class="card-body">案件类别:'+caseInfo.caseTypeName+'</div>';
+	cardHtml+='<div class="card-body">侵入方式:'+caseInfo.intrusionModeName+'</div>';
+	cardHtml+='<div class="card-body">被盗物品:'+caseInfo.stolenGoods+'</div>';
+	cardHtml+='<div class="card-body">作案人数:'+caseInfo.crimesPersonNum+'</div>';
+	cardHtml+='<div class="card-body">简要案情:'+caseInfo.caseDesc+'</div>';
+	cardHtml+="</div></li>" ;
+	$("#caseInfos").append(cardHtml);
+}
+
+
+CaseRelationInfoDlg.isHaveCaseInfo = function(caseInfo){
+	if(this.caseRelationInfoData.caseInfos == 0){
+		return false ;
+	}
+	for(var i = 0 ; i < this.caseRelationInfoData.caseInfos.length ; i++){
+		if(this.caseRelationInfoData.caseInfos[i].caseNo == caseInfo.caseNo){
+			return true ;
+		}
+	}
+	return false ;
+}
+CaseRelationInfoDlg.addCase = function(caseInfo){
+	if(!this.isHaveCaseInfo(caseInfo)){
+		this.caseRelationInfoData.caseInfos.push(caseInfo);
+		return true ;
+	}
+	layer.alert("已经在关联案件中");
+	return false ;
+}
+
+CaseRelationInfoDlg.remove = function(caseNo){
+	var index = this.indexOf(caseNo);
+	if(index != -1){
+		this.caseRelationInfoData.caseInfos.splice(index,1);
+		this.refreshShowCardList();
+	}
+}
+
+CaseRelationInfoDlg.refreshShowCardList = function(){
+	$("#caseInfos").empty();
+	for(var i = 0 ; i < this.caseRelationInfoData.caseInfos.length ; i++){
+		this.show(this.caseRelationInfoData.caseInfos[i]);
+	}
+}
+
+CaseRelationInfoDlg.indexOf = function(caseNo){
+	for(var i = 0 ; i < this.caseRelationInfoData.caseInfos.length ; i++){
+		if(this.caseRelationInfoData.caseInfos[i].caseNo == caseNo){
+			return i ;
+		}
+	}
+	return -1 ;
+}
+
+CaseRelationInfoDlg.editSubmit = function(){
+    //提交信息
+    var ajax = new $ax1(Feng.ctxPath + "/caseRelation/addRel", function(data){
+        Feng.success("添加成功!");
+        window.parent.CaseRelation.table.refresh();
+        CaseRelationInfoDlg.close();
+    },function(data){
+        Feng.error("添加失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.caseRelationInfoData);
+    ajax.start();
+}
+
+$(function() {
+	@for(caseInfo in caseInfos){
+		 var caseInfo = {
+			 caseNo: '${caseInfo.caseNo}',
+			 caseStateName:'${caseInfo.caseStateName}',
+		     caseTm:'${caseInfo.caseTm,"yyyy-MM-dd HH:mm:ss"}',
+		     caseAddress:'${caseInfo.caseAddress}',
+		     unitName:'${caseInfo.unitName}',
+		     caseTypeName:'${caseInfo.caseTypeName}',
+		     intrusionModeName:'${caseInfo.intrusionModeName}',
+		     stolenGoods:'${caseInfo.stolenGoods}',
+		     crimesPersonNum:'${caseInfo.crimesPersonNum}',
+		     caseDesc: '${caseInfo.caseDesc}'
+		 }
+		 CaseRelationInfoDlg.addCaseInfo(caseInfo);
+	 @}
+});
+</script>
+@}

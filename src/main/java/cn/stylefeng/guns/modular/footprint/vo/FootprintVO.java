@@ -13,4 +13,6 @@ public class FootprintVO extends Footprint {
 	
 	private String createUserName ;
 	private String createOrgName ;
+	
+	private CaseInfoVO caseInfo ;
 }

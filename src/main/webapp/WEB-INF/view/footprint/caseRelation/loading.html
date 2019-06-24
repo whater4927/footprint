@@ -10,12 +10,13 @@ var value = 0;
 var fpNo = '${fpNo}' ;
 var caseNo = '${caseNo}' ;
 var flag = false ;
+var CHANGE_TIME = 10 ;
 function show(value){
    $("#prog").css("width",value + "%").text(value + "%");
    if(value == 99 && !flag){
 	   setTimeout(function(){ 
 			show(value);
-	   }, 100);
+	   }, CHANGE_TIME);
 	   return ;
    }
    if(value == 100){
@@ -23,20 +24,21 @@ function show(value){
 	   $("#info").append("足迹比对完成!")
 	   Feng.success("足迹比对完成!");
 	   
-	   setTimeout(function(){ 
+	   setTimeout(function(){
 		   parent.layer.close(window.parent.indexPage);
-		}, 5000);
+		   parent.showFootCompareResult('${caseNo}','${fpNo}');
+		}, 2000);
 	   return;
    }
    setTimeout(function(){ 
 		value++
 		show(value);
-	}, 100);
+	}, CHANGE_TIME);
 }
 setTimeout(function(){ 
 	value++
 	show(value);
-}, 100);
+}, CHANGE_TIME);
 
 var footprint ;
 	$.ajax({
@@ -47,6 +49,7 @@ var footprint ;
 		success : function(data) {
 			flag = true ;
 			footprint = data ;
+			parent.footCompareReSult = data ;
 		}
 	});
 </script>
