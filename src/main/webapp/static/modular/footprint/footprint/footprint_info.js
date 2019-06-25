@@ -8,21 +8,51 @@ var FootprintInfoDlg = {
     		validators: {
                 notEmpty: {
                     message: '足迹遗留部位不能为空'
-                }
+                },
+                callback: {
+					message: '不能为空',
+					callback: function(value, validator) {
+						debugger
+						if(value == "--请选择--" || !value || value.trim() == ""){
+							return false
+						}
+						return true ;
+					}
+				}
             }
     	},
     	legacyMode:{
     		validators: {
                 notEmpty: {
                     message: '足迹遗留方式不能为空'
-                }
+                },
+                callback: {
+					message: '不能为空',
+					callback: function(value, validator) {
+						debugger
+						if(value == "--请选择--" || !value || value.trim() == ""){
+							return false
+						}
+						return true ;
+					}
+				}
             }
     	},
     	extractionMethod:{
     		validators: {
                 notEmpty: {
                     message: '足迹提取方式不能为空'
-                }
+                },
+                callback: {
+					message: '不能为空',
+					callback: function(value, validator) {
+						debugger
+						if(value == "--请选择--" || !value || value.trim() == ""){
+							return false
+						}
+						return true ;
+					}
+				}
             }
     	}
     }
