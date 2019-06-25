@@ -193,32 +193,55 @@ Footprint.delete = function () {
     }
 };
 
+Footprint.searchCon = function () {
+	 	var queryData = {};
+	    queryData['condition'] = $("#condition").val();
+	    queryData['fpNo'] = $("#fpNo").val();
+	    queryData['position'] = $("#position").val();
+	    queryData['legacyMode'] = $("#legacyMode").val();
+	    queryData['extractionMethod'] = $("#extractionMethod").val();
+	    queryData['caseNo'] = $("#caseNo").val();
+	    queryData['caseState'] = $("#caseState").val();
+	    queryData['caseTmStart'] = $("#caseTmStart").val();
+	    queryData['caseTmEnd'] = $("#caseTmEnd").val();
+	    queryData['caseAddress'] = $("#caseAddress").val();
+	    queryData['unitName'] = $("#unitName").val();
+	    queryData['caseDesc'] = $("#caseDesc").val();
+	    queryData['caseType'] = $("#caseType").val();
+	    queryData['intrusionMode'] = $("#intrusionMode").val();
+	    queryData['stolenGoods'] = $("#stolenGoods").val();
+	    queryData['crimesPersonNum'] = $("#crimesPersonNum").val();
+	    return queryData ;
+}
+
 /**
  * 查询足迹信息列表
  */
 Footprint.search = function () {
-    var queryData = {};
-    queryData['condition'] = $("#condition").val();
-    queryData['fpNo'] = $("#fpNo").val();
-    queryData['position'] = $("#position").val();
-    queryData['legacyMode'] = $("#legacyMode").val();
-    queryData['extractionMethod'] = $("#extractionMethod").val();
-    
-    queryData['caseNo'] = $("#caseNo").val();
-    queryData['caseState'] = $("#caseState").val();
-    queryData['caseTmStart'] = $("#caseTmStart").val();
-    queryData['caseTmEnd'] = $("#caseTmEnd").val();
-    queryData['caseAddress'] = $("#caseAddress").val();
-    queryData['unitName'] = $("#unitName").val();
-    queryData['caseDesc'] = $("#caseDesc").val();
-    queryData['caseType'] = $("#caseType").val();
-    queryData['intrusionMode'] = $("#intrusionMode").val();
-    queryData['stolenGoods'] = $("#stolenGoods").val();
-    queryData['crimesPersonNum'] = $("#crimesPersonNum").val();
-    
+   
+    var queryData = this.searchCon();
     
     Footprint.table.refresh({query: queryData});
 };
+Footprint.exportExcel = function(){
+	var queryData= "";
+    queryData += 'fpNo='+$("#fpNo").val();
+    queryData += '&position='+$("#position").val();
+    queryData += '&legacyMode='+$("#legacyMode").val();
+    queryData += '&extractionMethod='+$("#extractionMethod").val();
+    queryData += '&caseNo='+$("#caseNo").val();
+    queryData += '&caseState='+$("#caseState").val();
+    queryData += '&caseTmStart='+$("#caseTmStart").val();
+    queryData += '&caseTmEnd='+$("#caseTmEnd").val();
+    queryData += '&caseAddress='+$("#caseAddress").val();
+    queryData += '&unit='+$("#unitName").val();
+    queryData += '&caseDesc='+$("#caseDesc").val();
+    queryData += '&caseType='+$("#caseType").val();
+    queryData += '&intrusionMode='+$("#intrusionMode").val();
+    queryData += '&stolenGoods='+$("#stolenGoods").val();
+    queryData += '&crimesPersonNum='+$("#crimesPersonNum").val();
+	window.location.href="/caseRelation/UserExcelDownloads?"+queryData
+}
 
 Footprint.clearData = function (){
 	$("#fpNo").val("");
@@ -237,12 +260,8 @@ Footprint.clearData = function (){
 	$("#intrusionMode").val("");
 	$("#stolenGoods").val("");
 	$("#crimesPersonNum").val("");
-	
-	
 }
-Footprint.exportExcel = function(){
-	window.location.href="UserExcelDownloads"
-}
+
 
 
 var footCompareReSult ;

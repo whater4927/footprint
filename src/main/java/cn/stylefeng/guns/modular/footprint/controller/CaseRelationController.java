@@ -1,18 +1,28 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -165,11 +175,11 @@ public class CaseRelationController extends BaseController {
     		return null ;
     	}
     	
-    	/*try {
+    	try {
 			Thread.sleep(15000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}*/
+		}
     	
     	int index = ((int)(list.size() * Math.random())) ;
     	
@@ -323,6 +333,121 @@ public class CaseRelationController extends BaseController {
     	
     	return listVo ;
     }
+    
+    
+    @RequestMapping(value = "UserExcelDownloads")
+    public void downloadAllClassmate(String caseNo,
+    		@RequestParam(name="caseState") String caseState,
+    		@RequestParam(name="caseTmStart") String caseTmStart,
+    		@RequestParam(name="caseTmEnd") String caseTmEnd,
+    		@RequestParam(name="caseAddress") String caseAddress,
+    		@RequestParam(name="unit") String unit,
+    		@RequestParam(name="caseDesc") String caseDesc,
+    		@RequestParam(name="caseType") String caseType,
+    		@RequestParam(name="intrusionMode") String intrusionMode,
+    		@RequestParam(name="stolenGoods") String stolenGoods,
+    		@RequestParam(name="crimesPersonNum") String crimesPersonNum,
+    		@RequestParam(name="fpNo") String fpNo,
+    		@RequestParam(name="position") String position,
+    		@RequestParam(name="legacyMode") String legacyMode,
+    		@RequestParam(name="extractionMethod") String extractionMethod,
+    		HttpServletResponse response) throws IOException {
+    	
+    	
+    	List<CaseInfoPrintfootVO> listVo = (List<CaseInfoPrintfootVO>) 
+    			this.case_footprint_query(
+    					caseNo, 
+    					caseState, 
+    					caseTmStart, 
+    					caseTmEnd, 
+    					caseAddress, 
+    					unit, 
+    					caseDesc, 
+    					caseType, 
+    					intrusionMode, 
+    					stolenGoods, 
+    					crimesPersonNum, 
+    					fpNo, position, legacyMode, extractionMethod);
+    	
+    	
+    	
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("数据");
+        String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(CommonUtil.getSystemDate()) +"_"+ CommonUtil.UUID()  + ".xls";//设置要导出的文件的名字
+        //新增数据行，并且设置单元格数据
+
+        int rowNum = 1;
+
+        String[] headers = { 
+        		"足迹编号", 
+        		"足迹遗留部位", 
+        		"足迹遗留方式", 
+        		"足迹提取方式", 
+        		"案件编号", 
+        		"案件状态", 
+        		"案发时间", 
+        		"案发地点", 
+        		"所属单位", 
+        		"简要案情", 
+        		"案件类别", 
+        		"侵入方式", 
+        		"被盗物品", 
+        		"作案人数", 
+        		"创建人", 
+        		"创建机构", 
+        		"创建时间"};
+        //headers表示excel表中第一行的表头
+        HSSFRow row = sheet.createRow(0);
+        //在excel表中添加表头
+
+        for(int i=0;i<headers.length;i++){
+            HSSFCell cell = row.createCell(i);
+            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+            cell.setCellValue(text);
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
+        //在表中存放查询到的数据放入对应的列
+        for (CaseInfoPrintfootVO vo : listVo) {
+            HSSFRow row1 = sheet.createRow(rowNum);
+            int index = 0 ;
+            row1.createCell(index++).setCellValue(vo.getFpNo());
+            row1.createCell(index++).setCellValue(vo.getPositionName());
+            row1.createCell(index++).setCellValue(vo.getLegacyModeName());
+            row1.createCell(index++).setCellValue(vo.getExtractionMethodName());
+            
+            row1.createCell(index++).setCellValue(vo.getCaseNo());
+            row1.createCell(index++).setCellValue(vo.getCaseStateName());
+            if(vo.getCaseTm() == null) {
+            	row1.createCell(index++).setCellValue("");
+            }else {
+            	row1.createCell(index++).setCellValue(simpleDateFormat.format(vo.getCaseTm()));
+            }
+            
+            row1.createCell(index++).setCellValue(vo.getCaseAddress());
+            row1.createCell(index++).setCellValue(vo.getUnitName());
+            row1.createCell(index++).setCellValue(vo.getCaseDesc());
+            row1.createCell(index++).setCellValue(vo.getCaseTypeName());
+            row1.createCell(index++).setCellValue(vo.getIntrusionModeName());
+            row1.createCell(index++).setCellValue(vo.getStolenGoods());
+            row1.createCell(index++).setCellValue(vo.getCrimesPersonNum());
+            row1.createCell(index++).setCellValue(vo.getCreateUserName());
+            row1.createCell(index++).setCellValue(vo.getCreateOrgName());
+            
+            if(vo.getCrtTm() == null) {
+            	row1.createCell(index++).setCellValue("");
+            }else {
+            	row1.createCell(index++).setCellValue(simpleDateFormat.format(vo.getCrtTm()));
+            }
+            
+            rowNum++;
+        }
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+        response.flushBuffer();
+        workbook.write(response.getOutputStream());
+    }
+    
     
     /**
      * @return
