@@ -159,11 +159,10 @@ public class DictSelectorTag extends Tag {
                 html.append("disabled=\"disabled\" ");
             } else {
                 //启用
-                if (ToolUtil.isNotEmpty(id) && ToolUtil.isNum(name)) {
+                if (ToolUtil.isNotEmpty(id) && ToolUtil.isEmpty(name)) {
                     html.append("id=\"" + id + "\" ").append("name=\"" + id + "\" ");
                 }
-
-                if (ToolUtil.isNotEmpty(name) && ToolUtil.isNum(id)) {
+                if (ToolUtil.isNotEmpty(name) && ToolUtil.isEmpty(id)) {
                     html.append("id=\"" + name + "\" ").append("name=\"" + name + "\" ");
                 }
                 
