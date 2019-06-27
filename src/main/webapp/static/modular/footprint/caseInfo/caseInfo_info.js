@@ -62,7 +62,14 @@ var CaseInfoInfoDlg = {
                     message: '案件状态不能为空'
                 }
             }
-    	}
+    	},
+		caseType:{
+			validators: {
+                notEmpty: {
+                    message: '案件类别不能为空'
+                }
+            }
+		}
     }
 };
 function onBodyDown(event) {
