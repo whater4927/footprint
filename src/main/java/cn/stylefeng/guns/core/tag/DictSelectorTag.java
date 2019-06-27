@@ -159,12 +159,16 @@ public class DictSelectorTag extends Tag {
                 html.append("disabled=\"disabled\" ");
             } else {
                 //启用
-                if (ToolUtil.isNotEmpty(id)) {
-                    html.append("id=\"" + id + "\" ");
+                if (ToolUtil.isNotEmpty(id) && ToolUtil.isNum(name)) {
+                    html.append("id=\"" + id + "\" ").append("name=\"" + id + "\" ");
                 }
 
-                if (ToolUtil.isNotEmpty(name)) {
-                    html.append("name=\"" + name + "\" ");
+                if (ToolUtil.isNotEmpty(name) && ToolUtil.isNum(id)) {
+                    html.append("id=\"" + name + "\" ").append("name=\"" + name + "\" ");
+                }
+                
+                if (ToolUtil.isNotEmpty(name) && ToolUtil.isNotEmpty(id)) {
+                    html.append("id=\"" + id + "\" ").append("name=\"" + name + "\" ");
                 }
             }
 
@@ -173,7 +177,8 @@ public class DictSelectorTag extends Tag {
 
 
             if (list.size() >= searchnum) {
-                html.append("class=\"form-control chosen-select\" style=\"width:" + width + "px\"  tabindex=\"1\" \r\n");
+                //html.append("class=\"form-control chosen-select \" style=\"width:" + width + "px\"  tabindex=\"1\" \r\n");
+            	html.append("class=\"form-control \" style=\"width:" + width + "px\"  tabindex=\"1\" \r\n");
             } else {
                 html.append("class=\"form-control\" style=\"width:" + width + "px\" \r\n");
             }
