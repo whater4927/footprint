@@ -22,38 +22,16 @@ li {
 	<div class="ibox-content">
 		<div class="form-horizontal" id="form">
 		
-			  <div class="row bs-example bs-example-type">
-	                <div class="col-sm-12 b-r">
-	                	<div class="alert alert-success" style="width: 100%" align="center">
-	                	原始足迹</div>
-	                	<ul><li>
-					 		<div class='card highlight'>
-					 				<div id="info" class="card-body">
-					 					<div class="card-body">编号:${autoCompareResult.footprint.fpNo}<i class="fa fa-newspaper-o" aria-hidden="true" 
-					 					onclick="info(
-					 							'${autoCompareResult.footprint.caseInfo.caseNo}',
-					 							'${autoCompareResult.footprint.caseInfo.caseStateName}',
-					 							'${autoCompareResult.footprint.caseInfo.caseTm,'yyyy-MM-dd HH:mm:ss'}',
-					 							'${autoCompareResult.footprint.caseInfo.caseAddress}',
-					 							'${autoCompareResult.footprint.caseInfo.unitName}',
-					 							'${autoCompareResult.footprint.caseInfo.caseTypeName}',
-					 							'${autoCompareResult.footprint.caseInfo.intrusionModeName}',
-					 							'${autoCompareResult.footprint.caseInfo.stolenGoods}',
-					 							'${autoCompareResult.footprint.caseInfo.crimesPersonNum}',
-					 							'${autoCompareResult.footprint.caseInfo.caseDesc}')"></i></div>
-										<div class="card-body">足迹遗留部位:${autoCompareResult.footprint.positionName}</div>
-										<div class="card-body">足迹遗留方式:${autoCompareResult.footprint.extractionMethodName}</div>
-										<div class="card-body">足迹提取方式:${autoCompareResult.footprint.legacyModeName}</div>
-					 				</div>
-					 				<img id='${autoCompareResult.footprint.fpNo}' ondblclick='openImage("${autoCompareResult.footprint.originalImg}")'  src='/kaptcha/${autoCompareResult.footprint.originalImg}' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' />
-					 			</div></li></ul>
-	                </div>
-	            </div>
+			<div class="row">
+				<div class="col-sm-12 " align="right">
+					<#button name="串并案" icon="fa-pinterest-p" clickFun="relationCaseInfo()"/>
+				</div>
+			</div>
 		
 			<div class="row">
 				 <div class="col-sm-12 b-r">
 				 	<div class="alert alert-success" style="width: 100%" align="center">
-	                	自动识别关联足迹</div>
+	                	自动识别关联足迹(单击勾选足迹,双击查看足迹,单击右上角足迹可查看案件信息)</div>
 					 <ul id="images">
 					 	@for(footprint in autoCompareResult.footprints){
 					 		<li>
@@ -82,11 +60,35 @@ li {
 					 </ul>
 				 </div>
 			</div>
-			<div class="row">
-				<div class="col-sm-12 " align="right">
-					<#button name="串并案" icon="fa-pinterest-p" clickFun="relationCaseInfo()"/>
-				</div>
-			</div>
+			
+			
+			<div class="row bs-example bs-example-type">
+	                <div class="col-sm-12 b-r">
+	                	<div class="alert alert-success" style="width: 100%" align="center">
+	                	原始足迹</div>
+	                	<ul><li>
+					 		<div class='card highlight'>
+					 				<div id="info" class="card-body">
+					 					<div class="card-body">编号:${autoCompareResult.footprint.fpNo}<i class="fa fa-newspaper-o" aria-hidden="true" 
+					 					onclick="info(
+					 							'${autoCompareResult.footprint.caseInfo.caseNo}',
+					 							'${autoCompareResult.footprint.caseInfo.caseStateName}',
+					 							'${autoCompareResult.footprint.caseInfo.caseTm,'yyyy-MM-dd HH:mm:ss'}',
+					 							'${autoCompareResult.footprint.caseInfo.caseAddress}',
+					 							'${autoCompareResult.footprint.caseInfo.unitName}',
+					 							'${autoCompareResult.footprint.caseInfo.caseTypeName}',
+					 							'${autoCompareResult.footprint.caseInfo.intrusionModeName}',
+					 							'${autoCompareResult.footprint.caseInfo.stolenGoods}',
+					 							'${autoCompareResult.footprint.caseInfo.crimesPersonNum}',
+					 							'${autoCompareResult.footprint.caseInfo.caseDesc}')"></i></div>
+										<div class="card-body">足迹遗留部位:${autoCompareResult.footprint.positionName}</div>
+										<div class="card-body">足迹遗留方式:${autoCompareResult.footprint.extractionMethodName}</div>
+										<div class="card-body">足迹提取方式:${autoCompareResult.footprint.legacyModeName}</div>
+					 				</div>
+					 				<img id='${autoCompareResult.footprint.fpNo}' ondblclick='openImage("${autoCompareResult.footprint.originalImg}")'  src='/kaptcha/${autoCompareResult.footprint.originalImg}' alt='通用的占位符缩略图' width='200px' height='200px' class='img-thumbnail' />
+					 			</div></li></ul>
+	                </div>
+	            </div>
 		</div>
 	</div>
 </div>
@@ -114,7 +116,7 @@ function info(caseNo,caseStateName,caseTm,caseAddress,unitName,caseTypeName,intr
 		  content: cardHtml
 		});
 }
-
+var indexPage = -1 ;
 function relationCaseInfo(){
 	var fpNo = '${autoCompareResult.footprint.fpNo}' ;
 	var selectFpNo = arr.toLocaleString() ;
@@ -122,8 +124,14 @@ function relationCaseInfo(){
 		Feng.error("请最少选择一个足迹进行串并案!");
 		return ;
 	}
-	
-	$.ajax({
+	indexPage = layer.open({
+		  type: 2,
+		  area: ['700px', '450px'],
+		  fixed: false, //不固定
+		  maxmin: true,
+		  content: '/caseRelation/caseRelation_input/'+ selectFpNo + "/" + fpNo
+	});
+	/* $.ajax({
 		type : "GET",
 		async: true ,
 		url : "/caseRelation/relationCase/" + fpNo + "/" +selectFpNo,
@@ -132,9 +140,12 @@ function relationCaseInfo(){
 			Feng.success("足迹串并案成功!");
 			window.parent.layer.close(window.parent.indexPage);
 		}
-	});
+	}); */
 	
-	
+}
+
+function close(){
+	layer.close(layerIndex);
 }
 
 </script>

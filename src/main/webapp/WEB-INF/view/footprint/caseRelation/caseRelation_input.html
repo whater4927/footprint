@@ -1,0 +1,52 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="form">
+
+            <div class="row">
+                <div class="col-sm-10 b-r">
+                            <#input id="relationName" name="串案名称" required="required"/>
+                            <#input id="relationReason" name="串案依据" required="required"/>
+                           	<#input id="remark" name="备注" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="addSubmit_1()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="close_1()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+	function addSubmit_1(){
+	    if (!CaseRelationInfoDlg.validate()) {
+		     return;
+		}	
+		var relationName = $("#relationName").val() ;
+		var relationReason = $("#relationReason").val() ;
+		var remark = $("#remark").val() ;
+		var params = "relationName="+relationName+"&relationReason="+relationReason;
+		if(remark){
+			params += "&remark="+remark
+		}
+		$.ajax({
+			type : "GET",
+			async: true ,
+			url : "/caseRelation/relationCase/${fpNo}/${selectFpNo}?"+params,
+			dataType : "json",
+			success : function(data) {
+				Feng.success("足迹串并案成功!");
+				window.parent.layer.close(window.parent.indexPage);
+			}
+		});
+	}
+	function close_1(){
+		window.parent.layer.close(window.parent.indexPage);
+	}
+</script>
+<script src="${ctxPath}/static/modular/footprint/caseRelation/caseRelation_info.js"></script>
+@}

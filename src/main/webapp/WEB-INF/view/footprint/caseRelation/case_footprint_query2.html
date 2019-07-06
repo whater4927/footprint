@@ -8,11 +8,11 @@
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="form-horizontal" id="form">
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-sm-3" >
                                 <#input id="fpNo" name="足迹编号" style="width: 250px;" />
                             </div>
-                            <div class="col-sm-3" >
+                             <div class="col-sm-3" >
                                <#dictSelector id="position" label="足迹遗留部位" code="position"  />
                             </div>
                         	<div class="col-sm-3" >
@@ -60,30 +60,15 @@
                         	<div class="col-sm-3" >
                                <#input id="crimesPersonNum" name="作案人数"  style="width: 250px;"   />
                             </div>
-                        </div> -->
-                        <div class="row">
-                            <div class="col-sm-3" >
-                               <#input id="caseNo" name="案件编号" style="width: 250px;" />
-                            </div>
-                             <div class="col-sm-3" >
-                                <#dictSelector id="caseType" label="案件类别" code="case_type" />
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-sm-3" >
-                               <#input id="caseTmStart" name="案发开始时间" style="width: 250px;" />
-                            </div>
-                            <div class="col-sm-3" >
-                                <#input id="caseTmEnd" name="案发开始时间" style="width: 250px;" />
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12" align="center">
                             	<#button name="搜索" icon="fa-search" clickFun="Footprint.search()"/>
                                  <#button name="重置" icon="fa-repeat" clickFun="Footprint.clearData()"/>
-                                 <#button name="识别" icon="fa-skyatlas" clickFun="footCompare()"/>
-                                <!--  <#button name="导出" icon="fa-repeat" clickFun="Footprint.exportExcel()"/> -->
+                                 
+                                <!--  <#button name="足迹比对" icon="fa-skyatlas" clickFun="footCompare()"/> -->
+                                 
+                                 <#button name="导出" icon="fa-repeat" clickFun="Footprint.exportExcel()"/>
                             </div>
                         </div>
                         <#table id="FootprintTable"/>
@@ -120,23 +105,23 @@ var Footprint = {
 Footprint.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            /* {title: '足迹编号', field: 'fpNo', visible: true, align: 'center', valign: 'middle'},
+            {title: '足迹编号', field: 'fpNo', visible: true, align: 'center', valign: 'middle'},
             {title: '足迹遗留部位', field: 'positionName', visible: true, align: 'center', valign: 'middle'},
             {title: '足迹遗留方式', field: 'legacyModeName', visible: true, align: 'center', valign: 'middle'},
-            {title: '足迹提取方式', field: 'extractionMethodName', visible: true, align: 'center', valign: 'middle'}, */
+            {title: '足迹提取方式', field: 'extractionMethodName', visible: true, align: 'center', valign: 'middle'},
             {title: '案件编号', field: 'caseNo', visible: true, align: 'center', valign: 'middle'},
             {title: '案件状态', field: 'caseStateName', visible: true, align: 'center', valign: 'middle'},
             {title: '案发时间', field: 'caseTm', visible: true, align: 'center', valign: 'middle'},
             {title: '案发地点', field: 'caseAddress', visible: true, align: 'center', valign: 'middle'},
             {title: '所属单位', field: 'unitName', visible: true, align: 'center', valign: 'middle'},
-           /*  {title: '简要案情', field: 'caseDesc', visible: true, align: 'center', valign: 'middle'}, */
+            {title: '简要案情', field: 'caseDesc', visible: true, align: 'center', valign: 'middle'},
             {title: '案件类别', field: 'caseTypeName', visible: true, align: 'center', valign: 'middle'},
             {title: '侵入方式', field: 'intrusionModeName', visible: true, align: 'center', valign: 'middle'},
-           /*  {title: '被盗物品', field: 'stolenGoods', visible: true, align: 'center', valign: 'middle'},
+            {title: '被盗物品', field: 'stolenGoods', visible: true, align: 'center', valign: 'middle'},
             {title: '作案人数', field: 'crimesPersonNum', visible: true, align: 'center', valign: 'middle'},
             {title: '创建人', field: 'createUserName', visible: true, align: 'center', valign: 'middle'},
             {title: '创建机构', field: 'createOrgName', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'}, */
+            {title: '创建时间', field: 'crtTm', visible: true, align: 'center', valign: 'middle'},
             {title: '图片', field: 'originalImg', visible: true, align: 'center', valign: 'middle',formatter:formatterImage}
     ];
 };

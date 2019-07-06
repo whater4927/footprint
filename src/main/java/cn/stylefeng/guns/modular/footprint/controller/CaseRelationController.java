@@ -88,14 +88,27 @@ public class CaseRelationController extends BaseController {
     	model.addAttribute("fpNo",fpNo);
         return PREFIX + "loading.html";
     }
+    
     @RequestMapping("/mgr")
     public String indexMgr() {
         return PREFIX + "caseRelationMgr.html";
     }
     
+    
+    @RequestMapping("/caseRelation_input/{selectFpNo}/{fpNo}")
+    public String caseRelation_input(@PathVariable(name="selectFpNo") String selectFpNo,@PathVariable(name="fpNo")  String fpNo, Model model) {
+    	model.addAttribute("fpNo", fpNo);
+    	model.addAttribute("selectFpNo", selectFpNo);
+    	return PREFIX + "caseRelation_input.html";
+    }
+    
     @RequestMapping("/case_footprint_page")
     public String case_footprint_page() {
         return PREFIX + "case_footprint_query.html";
+    }
+    @RequestMapping("/case_footprint_page2")
+    public String case_footprint_page2() {
+        return PREFIX + "case_footprint_query2.html";
     }
     @RequestMapping("/autoCompareResult/{caseNo}/{fpNo}")
     public String autoCompareResult(@PathVariable(name="caseNo") String caseNo,@PathVariable(name="fpNo") String fpNo, Model model) {
@@ -177,6 +190,7 @@ public class CaseRelationController extends BaseController {
     	
     	try {
 			Thread.sleep(15000);
+//    		Thread.sleep(150);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -203,9 +217,15 @@ public class CaseRelationController extends BaseController {
     
     @RequestMapping("/relationCase/{fpNo}/{selectFpNo}")
     @ResponseBody
-    public Object relationCase(@PathVariable(name="fpNo") String fpNo,@PathVariable(name="selectFpNo") String selectFpNo) {
+    public Object relationCase(@PathVariable(name="fpNo") String fpNo,@PathVariable(name="selectFpNo") String selectFpNo
+    		,@RequestParam(name="relationName") String relationName
+    		,@RequestParam(name="relationReason") String relationReason
+    		,@RequestParam(name="remark") String remark) {
     	CaseRelation caseRelation = new CaseRelation();
     	caseRelation.setRelationNo(noService.busiNo("R"));
+    	caseRelation.setRelationName(relationName);
+    	caseRelation.setRelationReason(relationReason);
+    	caseRelation.setRemark(remark);
     	EntityUtils.setCreateInfo(caseRelation);
     	
     	String[] fpNoArr = selectFpNo.split(",");
