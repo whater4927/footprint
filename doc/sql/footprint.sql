@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2019-07-07 00:05:55
+Date: 2019-07-07 22:34:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -136,18 +136,12 @@ CREATE TABLE `fp_case_info` (
 -- ----------------------------
 -- Records of fp_case_info
 -- ----------------------------
-INSERT INTO `fp_case_info` VALUES ('A0002019060001', '1', '2019-06-01 14:41:11', 'wwww', '26', '001', '1', '3', '001', '2', null, null, null, null, null, '1', '25', '2019-06-01 14:57:56');
-INSERT INTO `fp_case_info` VALUES ('A0002019060002', '2', '2019-06-01 14:58:06', 'ddddd', '26', '002', '1', '1', '22', '5', null, null, null, null, null, '1', '25', '2019-06-01 14:57:56');
-INSERT INTO `fp_case_info` VALUES ('A0002019060003', '1', '2019-06-01 14:57:54', 'wqwd', '27', '003', '3', '1', 'wwww', '8', null, 'NOR', null, null, null, '1', '25', '2019-06-01 14:57:56');
-INSERT INTO `fp_case_info` VALUES ('A0002019060004', '1', '2019-06-01 15:10:05', '222', '27', '222', '1', '1', '222', '5', null, 'NOR', null, null, null, '1', '25', '2019-06-01 15:10:17');
-INSERT INTO `fp_case_info` VALUES ('A0252019060001', '1', '2019-06-01 15:11:01', 'eee', '27', '333', '1', '1', '333', '3', null, 'NOR', null, null, null, '1', '25', '2019-06-01 15:11:09');
-INSERT INTO `fp_case_info` VALUES ('A03420190611003', '2', '2019-06-03 00:00:00', '大庆市', '33', '被盗', '1', '1', '现金', '2', null, 'NOR', null, null, null, '51', '34', '2019-06-27 20:32:48');
-INSERT INTO `fp_case_info` VALUES ('A0342019062020', '1', '2019-06-15 18:12:19', '222', '25', '2222', '1', '1', '222', '222', null, 'NOR', null, null, null, '51', '34', '2019-06-15 18:12:31');
-INSERT INTO `fp_case_info` VALUES ('A0342019062024', '1', '2019-06-15 18:14:20', '123123', '26', '004', '1', '1', '新增测试', '12312', null, 'NOR', null, null, null, '51', '34', '2019-06-15 18:14:45');
-INSERT INTO `fp_case_info` VALUES ('A0342019062027', '1', '2019-06-15 18:44:17', '222', '25', '新增测试22222', '1', '1', '222', '222', null, 'NOR', null, null, null, '51', '34', '2019-06-15 18:44:25');
-INSERT INTO `fp_case_info` VALUES ('A0342019066001', '1', '2019-06-23 07:43:22', '222', '26', '2196849', '1', '1', '222', '222', null, 'NOR', null, null, null, '51', '34', '2019-06-23 07:43:30');
-INSERT INTO `fp_case_info` VALUES ('A0342019066004', '1', '2019-06-23 07:44:11', '222', '26', '新增测试2', '1', '1', '22', '222', null, 'NOR', null, null, null, '51', '34', '2019-06-23 07:44:38');
-INSERT INTO `fp_case_info` VALUES ('A0342019067022', '1', '2019-06-23 21:11:18', '222', '27', '610盗窃案', '2', '2', '电脑', '1', null, 'NOR', null, null, null, '51', '34', '2019-06-23 21:11:42');
+INSERT INTO `fp_case_info` VALUES ('A0342019073028', '2', '2019-07-07 21:43:33', '哈尔滨', '26', '电脑盗窃', '2', '1', '电脑', '5', null, 'NOR', null, null, null, '51', '34', '2019-07-07 21:44:44');
+INSERT INTO `fp_case_info` VALUES ('A0342019073051', '2', '2019-07-05 00:00:00', '大庆', '27', '手机丢失', '2', '2', '手机', '5', null, 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:01');
+INSERT INTO `fp_case_info` VALUES ('A0342019073084', '2', '2019-02-24 00:00:00', '南岗地区', '29', '汽车盗窃', '2', '2', '汽车', '222', null, 'NOR', null, null, null, '51', '34', '2019-07-07 22:01:12');
+INSERT INTO `fp_case_info` VALUES ('A0342019073105', '2', '2019-04-28 00:00:00', '道里', '30', '电视盗窃', '1', '1', '电视', '8', null, 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:11');
+INSERT INTO `fp_case_info` VALUES ('A0342019073130', '1', '2019-07-05 00:00:00', '道外', '31', '抢劫', '2', '2', '金耳环', '9', null, 'NOR', null, null, null, '51', '34', '2019-07-07 22:05:57');
+INSERT INTO `fp_case_info` VALUES ('A0342019073143', '2', '2019-07-06 00:00:00', '龙凤区', '34', '抢劫', '2', '2', '1W人民币', '5', null, 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:11');
 
 -- ----------------------------
 -- Table structure for fp_case_relation
@@ -172,12 +166,8 @@ CREATE TABLE `fp_case_relation` (
 -- ----------------------------
 -- Records of fp_case_relation
 -- ----------------------------
-INSERT INTO `fp_case_relation` VALUES ('R0252019064008', '222', '222', '222', null, 'NOR', null, null, null, '1', '25', '2019-06-04 16:03:10');
-INSERT INTO `fp_case_relation` VALUES ('R0252019064009', '我我我我', '我问问', '我问问', null, 'NOR', null, null, null, '1', '25', '2019-06-04 16:03:21');
-INSERT INTO `fp_case_relation` VALUES ('R0252019064010', '我问问', '33333', '我问问', null, 'NOR', '1', '25', '2019-06-04 16:32:32', '1', '25', '2019-06-04 16:10:45');
-INSERT INTO `fp_case_relation` VALUES ('R0252019064011', '222', '222', '2222', null, 'NOR', '1', '25', '2019-06-04 16:13:46', '1', '25', '2019-06-04 16:13:41');
-INSERT INTO `fp_case_relation` VALUES ('R0342019065002', '11', '22', '', null, 'NOR', null, null, null, '51', '34', '2019-06-17 22:25:54');
-INSERT INTO `fp_case_relation` VALUES ('R0342019072001', '我去惡趣味請問', '222魏巍', '222', null, 'NOR', null, null, null, '51', '34', '2019-07-06 23:30:17');
+INSERT INTO `fp_case_relation` VALUES ('R0342019073159', '2019年2-3月大庆市龙凤区系列入室盗窃案', '根据案发时间、侵入方式、足迹遗留部位进行串并', '1', null, 'NOR', null, null, null, '51', '34', '2019-07-07 22:14:42');
+INSERT INTO `fp_case_relation` VALUES ('R0342019074001', '2019年2-3月道里分局系列入室盗窃案', '根据案发时间、侵入方式、足迹遗留部位进行串并', null, null, 'NOR', null, null, null, '51', '34', '2019-07-07 22:34:13');
 
 -- ----------------------------
 -- Table structure for fp_case_relation_detail
@@ -199,13 +189,17 @@ INSERT INTO `fp_case_relation_detail` VALUES ('190b0bfeefec42e38b625e7c3f130104'
 INSERT INTO `fp_case_relation_detail` VALUES ('1940a4768ddf43598f22c7882dcc665b', 'R0342019069001', 'A0342019062024');
 INSERT INTO `fp_case_relation_detail` VALUES ('1eff0cbb1f974ba695a03f1e2b13cbb4', 'R0342019070001', 'A0002019060002');
 INSERT INTO `fp_case_relation_detail` VALUES ('1f8667b616194628a3773f1d3ce201e9', 'R0342019068008', 'A0002019060001');
+INSERT INTO `fp_case_relation_detail` VALUES ('24c6e76f58d14f57b645360246590001', 'R0342019073159', 'A0342019073028');
 INSERT INTO `fp_case_relation_detail` VALUES ('27abd4efa89d4794ab488b4ec2d22eb4', 'R0342019069001', 'A0002019060004');
 INSERT INTO `fp_case_relation_detail` VALUES ('2a9a8e7f10c64a5587932d0f0f94ca23', 'R0252019064011', 'A0252019060001');
 INSERT INTO `fp_case_relation_detail` VALUES ('3a38e0a123ae4307a2085a1945f8c3c5', 'R0252019064009', 'A0002019060004');
 INSERT INTO `fp_case_relation_detail` VALUES ('3fd9cc7d16f044ff87bcab173e4e7ada', 'R0342019070001', 'R03420190610004');
+INSERT INTO `fp_case_relation_detail` VALUES ('4142fe3a0fc4480d9a529886e487d04f', 'R0342019074001', 'A0342019073143');
+INSERT INTO `fp_case_relation_detail` VALUES ('41e141020bf04ec199918693ff61bfbf', 'R0342019073159', 'A0342019073105');
 INSERT INTO `fp_case_relation_detail` VALUES ('55da8256532e4c89a9adc014cb6497eb', 'R0252019064008', 'A0002019060002');
 INSERT INTO `fp_case_relation_detail` VALUES ('64eefd9c7c0345a2a4485b7cfaf7361b', 'R0342019070001', 'A0002019060003');
 INSERT INTO `fp_case_relation_detail` VALUES ('6fa193e62e3041bdb93bb72fcbee355f', 'R0252019064010', 'A0002019060002');
+INSERT INTO `fp_case_relation_detail` VALUES ('77123fca91364f0c9c61a3354bd5e4a4', 'R0342019074001', 'A0342019073105');
 INSERT INTO `fp_case_relation_detail` VALUES ('77f089bde0df48a7bcf1857160c9f9b6', 'R0342019068008', 'A0342019062024');
 INSERT INTO `fp_case_relation_detail` VALUES ('7c2c0f930ec947d9b9e79fbe4167fdd8', 'R0342019069001', 'A0002019060002');
 INSERT INTO `fp_case_relation_detail` VALUES ('7d132aeec56c4d238d4fa3996053d804', 'R0252019064011', 'A0002019060001');
@@ -219,8 +213,11 @@ INSERT INTO `fp_case_relation_detail` VALUES ('b5de9448143e4ad09f6d5fd88df401b4'
 INSERT INTO `fp_case_relation_detail` VALUES ('b7f7fb163a6745adb7f29af586f93858', 'R0342019068008', 'A0002019060003');
 INSERT INTO `fp_case_relation_detail` VALUES ('c5767a5a9c1f470ca0552dc18b86d25c', 'R0342019072001', 'R03420190610004');
 INSERT INTO `fp_case_relation_detail` VALUES ('d86828b7d27c40faa28e6463089bde64', 'R0252019064009', 'A0002019060001');
+INSERT INTO `fp_case_relation_detail` VALUES ('debd464e7035477896e8b91d66ef9313', 'R0342019074001', 'A0342019073028');
+INSERT INTO `fp_case_relation_detail` VALUES ('def3365e084d47ada5f9835e0e16e94c', 'R0342019073159', 'A0342019073084');
 INSERT INTO `fp_case_relation_detail` VALUES ('df0546c979124497acc10dfe9bfede61', 'R0342019068008', 'A0002019060002');
 INSERT INTO `fp_case_relation_detail` VALUES ('e474040d35c74f24a7aa425a02f83734', 'R0252019064008', 'A0002019060004');
+INSERT INTO `fp_case_relation_detail` VALUES ('ee2b2ef567914449bfb30486073f9687', 'R0342019073159', 'A0342019073143');
 INSERT INTO `fp_case_relation_detail` VALUES ('f6b40a600c3547058b12888d2ebe0342', 'R03420190610004', 'A0252019060001');
 INSERT INTO `fp_case_relation_detail` VALUES ('f7eaa6cf1e534de39f389b1352d1fe14', 'R0252019064009', 'A0002019060003');
 
@@ -289,118 +286,58 @@ CREATE TABLE `fp_footprint` (
 -- ----------------------------
 -- Records of fp_footprint
 -- ----------------------------
-INSERT INTO `fp_footprint` VALUES ('F0252019065046', null, null, '1', '1', '2', 'b53bab2bb09449dfa8d581cf06cb2b56.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065047', null, null, '1', '1', '2', '46175cbeb5934a029bbebd8c583ab1a1.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065048', null, null, '1', '1', '2', '06323dcc5904428d95f21483c93765a0.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065049', null, null, '1', '1', '2', 'fc4864df4a35453686945bf07d68115a.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065050', null, null, '1', '1', '2', '6a57e4141ff147dcaff0038a1474ed55.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065051', null, null, '1', '1', '2', '52b3bb120e8c438da30b9a3eba1a2ed8.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065052', null, null, '1', '1', '2', '9a755ad8b9fc4753a585f345de2ac722.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065053', null, null, '1', '1', '2', 'c0eb28235524468bb868001a1eed39ec.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065054', null, null, '1', '1', '2', '3e27f8537b474fb19dec2cf3e2b65829.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065055', null, null, '1', '1', '2', 'bd6985dcde50465688badc38ed91d043.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065056', null, null, '1', '1', '2', '6c8669562d264a469990459ae3eafa6c.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065057', null, null, '1', '1', '2', '3239fd429b7a4675a9467f02aefa3ef1.bmp', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:51');
-INSERT INTO `fp_footprint` VALUES ('F0252019065058', null, null, '1', '1', '1', '23986145c6654f6580d8c0d263818b46.bmp', null, null, null, 'fp', 'NOR', '1', '25', '2019-06-04 22:25:38', '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065059', null, null, '1', '3', '2', 'c5b684ac476a4b47aaf15dc06286e9d1.bmp', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065060', null, null, '1', '3', '2', '193084d14b9842dd9035fde8fb3f6663.bmp', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065061', null, null, '1', '2', '2', 'a11a072e50c74f4cb01976edd180db6f.bmp', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065063', null, null, '1', '1', '2', 'd699970fce95470fa882a8bb02249b9a.bmp', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065064', null, null, '1', '2', '3', '8c58c403f18b4ceaaa428346040758a1.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065065', null, null, '1', '2', '2', 'a1a8ccfd27604547a4975600141a0896.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065066', null, null, '1', '2', '2', 'fd21cbec5822420b9b142d36cc986443.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065067', null, null, '1', '2', '2', '4ce5e538981d4e49ae34834d5e1e061e.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065068', null, null, '1', '2', '2', '65be92ec2f4d4825af20a0a1df6fdd48.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065069', null, null, '1', '2', '2', '38b29dca7cea487a856fe4018293372b.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065070', null, null, '1', '2', '2', 'e350c0227cd84b77bf0767f21f9186a1.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065071', null, null, '1', '2', '2', 'b376d1f299b145ce88381e93ca1b12cf.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065072', null, null, '1', '2', '2', '1bdabb19e3ec4ae39213477ee6b64da0.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065073', null, null, '1', '2', '1', 'aaf7e9a7c37941cea74b79d302f9b299.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065074', null, null, '1', '2', '1', 'ff1861e5a6494d2fa333ef621004346a.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065075', null, null, '1', '2', '1', 'de39acd20b394b3bb8ea7e9eeedbf8d1.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065076', null, null, '1', '2', '1', 'fbd5c6b6f0004f19be2b0737dcb93f09.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065077', null, null, '1', '2', '1', '17a645d115784fdca7a8870743f5ba2a.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065078', null, null, '1', '2', '1', '94127440be014a21bb3d2fccf900cbda.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065079', null, null, '1', '3', '1', '14c00c7e38ac47f18b90216b0da3871d.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065080', null, null, '1', '3', '3', '1522856106d44b7aa63e26fa974d3992.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065081', null, null, '1', '3', '3', '3202fbc9112c4edabd269ca7b6921c95.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065082', null, null, '1', '3', '3', '6e7887d2b8894a1f9515c703ccd238bb.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065083', null, null, '1', '3', '3', '5f35ec13dd544200b74c1c0010d0ac05.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065084', null, null, '1', '3', '3', '64a35a86e28c4ca0b4c30d5fd41ca52a.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065085', null, null, '1', '3', '3', '6acc79f86502405983c94a3981f4b1fd.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065086', null, null, '1', '3', '3', '93dcf76040854feb9f0f3afe55bb7f11.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065087', null, null, '1', '3', '3', '549e9d946b434b18a126e49acc85e06b.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065088', null, null, '1', '3', '3', 'ca7ac372d9c7434eb66ba36d56f310c8.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065089', null, null, '1', '3', '3', 'de914ff86dc94c04b696a945b02b8269.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019065090', null, null, '1', '1', '3', 'ad8c2df3a7fa4ee69bab935dcaa0e27c.jpg', null, null, null, 'fp', 'NOR', null, null, null, '1', '25', '2019-06-04 22:23:52');
-INSERT INTO `fp_footprint` VALUES ('F0252019066030', 'A0002019060002', null, '1', '2', '3', '6ff6ff48c737441aaaf5d19fc56e071c.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:17');
-INSERT INTO `fp_footprint` VALUES ('F0252019066031', 'A0002019060002', null, '1', '2', '3', '85a75e5874fa4e16a76820fde4f9b92a.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:17');
-INSERT INTO `fp_footprint` VALUES ('F0252019066032', 'A0002019060002', null, '1', '2', '3', '24d9a2c0b58847daaa59cbe8b6ecbb0a.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:17');
-INSERT INTO `fp_footprint` VALUES ('F0252019066033', 'A0002019060003', null, '1', '2', '3', '3ac3b54bc2bc4cbf9535eb0d66bba793.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:24');
-INSERT INTO `fp_footprint` VALUES ('F0252019066034', 'A0002019060003', null, '1', '2', '3', '3870917fd603470999d42cb95678a541.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:24');
-INSERT INTO `fp_footprint` VALUES ('F0252019066035', 'A0002019060003', null, '1', '2', '3', '60ac3508fdbe4b729b27c58b6c488dc1.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:24');
-INSERT INTO `fp_footprint` VALUES ('F0252019066036', 'A0002019060003', null, '1', '2', '3', '006f223ecbe24c238b5eb438c83e78d4.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:24');
-INSERT INTO `fp_footprint` VALUES ('F0252019066037', 'A0342019062024', null, '1', '2', '3', '09234a5738ed46d092d05e959bf44b5e.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:33');
-INSERT INTO `fp_footprint` VALUES ('F0252019066038', 'A0342019062024', null, '1', '2', '3', '50413c847dbc4929a30c73b44e034c2e.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:33');
-INSERT INTO `fp_footprint` VALUES ('F0252019066039', 'A0342019066001', null, '3', '4', '4', 'af7cf05fb5834ff9bef8c305eb909b01.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '1', '25', '2019-06-23 22:46:43');
-INSERT INTO `fp_footprint` VALUES ('F03420190610001', 'A0002019060001', null, '1', '2', '3', 'ad8c2df3a7fa4ee69bab935dcaa0e27c.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-25 21:44:59');
-INSERT INTO `fp_footprint` VALUES ('F03420190610002', 'A0002019060001', null, '2', '3', '4', 'd87f50b5f99243e49b625e82af9fc1e9.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-25 21:44:59');
-INSERT INTO `fp_footprint` VALUES ('F03420190610003', 'A0002019060001', null, '2', '3', '3', '84031b90416f40caa8580df00051069b.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-25 21:44:59');
-INSERT INTO `fp_footprint` VALUES ('F03420190610005', 'R03420190610004', null, '1', '2', '3', '6ff6ff48c737441aaaf5d19fc56e071c.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 21:48:06');
-INSERT INTO `fp_footprint` VALUES ('F03420190610006', 'R03420190610004', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 21:48:06');
-INSERT INTO `fp_footprint` VALUES ('F03420190610007', 'R03420190610004', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 21:48:06');
-INSERT INTO `fp_footprint` VALUES ('F03420190611004', 'A03420190611003', null, null, null, null, '0729880140ee4dc58f57b47720d376a0', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-27 20:32:48');
-INSERT INTO `fp_footprint` VALUES ('F0342019062018', 'A0002019060004', null, '1', '2', '3', '4e0465c2f9e94eb98aa24751079961f2.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-15 18:06:14');
-INSERT INTO `fp_footprint` VALUES ('F0342019062019', 'A0252019060001', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-15 18:06:20');
-INSERT INTO `fp_footprint` VALUES ('F0342019062021', 'A0342019062020', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-15 18:12:31');
-INSERT INTO `fp_footprint` VALUES ('F0342019062022', 'A0342019062020', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-15 18:12:31');
-INSERT INTO `fp_footprint` VALUES ('F0342019062023', 'A0342019062020', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-15 18:12:31');
-INSERT INTO `fp_footprint` VALUES ('F0342019062028', 'A0342019062027', null, '1', '2', '3', 'dc460df6e44f444e8fc6a4105c49aed7.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-15 18:44:25');
-INSERT INTO `fp_footprint` VALUES ('F0342019062029', 'A0342019062027', null, '1', '2', '3', 'e80ab199a01f4afa901efa9ba6374cea.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-15 18:44:25');
-INSERT INTO `fp_footprint` VALUES ('F0342019062030', 'A0342019062027', null, '1', '2', '3', 'd0d78fa5e26e4ccda2cb125c485e35a9.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-15 18:44:25');
-INSERT INTO `fp_footprint` VALUES ('F0342019063001', null, 'P0252019062007', '1', null, null, '4b1407aa1f1d4faa8ff7fac5c725368e.gif', null, null, null, 'cs', 'NOR', null, null, null, '51', '34', '2019-06-15 19:07:36');
-INSERT INTO `fp_footprint` VALUES ('F0342019063002', null, 'P0252019062007', '1', null, null, '0a53dea769a0464f9441aeb171077e53.gif', null, null, null, 'cs', 'NOR', null, null, null, '51', '34', '2019-06-15 19:07:36');
-INSERT INTO `fp_footprint` VALUES ('F0342019063003', null, 'P0252019062008', '1', null, null, 'ddf2145ee56e4d6db230983fd59d8a9e.gif', null, null, null, 'cs', 'NOR', null, null, null, '51', '34', '2019-06-15 19:07:47');
-INSERT INTO `fp_footprint` VALUES ('F0342019064001', null, 'P0342019063004', '1', null, null, 'da0a8dec5350490fb200426412980270.gif', null, null, null, 'cs', 'NOR', null, null, null, '51', '34', '2019-06-16 08:08:24');
-INSERT INTO `fp_footprint` VALUES ('F0342019064002', null, 'P0342019063004', '1', null, null, 'fba93df6722246d79428c2e7fb3387e4.gif', null, null, null, 'cs', 'NOR', null, null, null, '51', '34', '2019-06-16 08:08:24');
-INSERT INTO `fp_footprint` VALUES ('F0342019064003', null, 'P0342019063004', '1', null, null, '949ddb4ca5e944bbaeb0d8ae37df1f95.gif', null, null, null, 'cs', 'NOR', null, null, null, '51', '34', '2019-06-16 08:08:24');
-INSERT INTO `fp_footprint` VALUES ('F0342019067019', 'A0342019066004', null, '1', '2', '3', '', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-23 21:10:49');
-INSERT INTO `fp_footprint` VALUES ('F0342019067020', 'A0342019066004', null, '1', '2', '3', '', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-23 21:10:49');
-INSERT INTO `fp_footprint` VALUES ('F0342019067021', 'A0342019066004', null, '2', '2', '3', 'ffa268389bbd4aab89f7b561f2c33743.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-23 21:10:49');
-INSERT INTO `fp_footprint` VALUES ('F0342019067027', 'A0342019067022', null, '2', '2', '3', '84691f6466db4332893185ea63c47f17.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-23 21:12:02');
-INSERT INTO `fp_footprint` VALUES ('F0342019067028', 'A0342019067022', null, '4', '2', '3', '3b67a6efb2304ee8a0865f8fcef47d5d.gif', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-06-23 21:12:02');
-INSERT INTO `fp_footprint` VALUES ('F0342019068002', 'R0342019068001', null, '1', '2', '3', '6ff6ff48c737441aaaf5d19fc56e071c.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:08:38');
-INSERT INTO `fp_footprint` VALUES ('F0342019068003', 'R0342019068001', null, '1', '2', '3', '3870917fd603470999d42cb95678a541.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:08:38');
-INSERT INTO `fp_footprint` VALUES ('F0342019068004', 'R0342019068001', null, '1', '2', '3', '60ac3508fdbe4b729b27c58b6c488dc1.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:08:38');
-INSERT INTO `fp_footprint` VALUES ('F0342019068005', 'R0342019068001', null, '1', '2', '3', '09234a5738ed46d092d05e959bf44b5e.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:08:38');
-INSERT INTO `fp_footprint` VALUES ('F0342019068006', 'R0342019068001', null, '1', '2', '3', 'ad8c2df3a7fa4ee69bab935dcaa0e27c.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:08:38');
-INSERT INTO `fp_footprint` VALUES ('F0342019068007', 'R0342019068001', null, '1', '2', '3', '3ac3b54bc2bc4cbf9535eb0d66bba793.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:08:38');
-INSERT INTO `fp_footprint` VALUES ('F0342019068009', 'R0342019068008', null, '1', '2', '3', '85a75e5874fa4e16a76820fde4f9b92a.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:10:57');
-INSERT INTO `fp_footprint` VALUES ('F0342019068010', 'R0342019068008', null, '1', '2', '3', '006f223ecbe24c238b5eb438c83e78d4.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:10:57');
-INSERT INTO `fp_footprint` VALUES ('F0342019068011', 'R0342019068008', null, '1', '2', '3', '60ac3508fdbe4b729b27c58b6c488dc1.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:10:57');
-INSERT INTO `fp_footprint` VALUES ('F0342019068012', 'R0342019068008', null, '1', '2', '3', '3870917fd603470999d42cb95678a541.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:10:57');
-INSERT INTO `fp_footprint` VALUES ('F0342019068013', 'R0342019068008', null, '1', '2', '3', 'ad8c2df3a7fa4ee69bab935dcaa0e27c.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:10:57');
-INSERT INTO `fp_footprint` VALUES ('F0342019068014', 'R0342019068008', null, '1', '2', '3', '3ac3b54bc2bc4cbf9535eb0d66bba793.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:10:57');
-INSERT INTO `fp_footprint` VALUES ('F0342019068015', 'R0342019068008', null, '1', '2', '3', '09234a5738ed46d092d05e959bf44b5e.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:10:57');
-INSERT INTO `fp_footprint` VALUES ('F0342019068016', 'R0342019068008', null, '1', '2', '3', '50413c847dbc4929a30c73b44e034c2e.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-24 23:10:57');
-INSERT INTO `fp_footprint` VALUES ('F0342019069002', 'R0342019069001', null, '1', '2', '3', 'ad8c2df3a7fa4ee69bab935dcaa0e27c.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 20:59:14');
-INSERT INTO `fp_footprint` VALUES ('F0342019069003', 'R0342019069001', null, '1', '2', '3', '85a75e5874fa4e16a76820fde4f9b92a.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 20:59:15');
-INSERT INTO `fp_footprint` VALUES ('F0342019069004', 'R0342019069001', null, '1', '2', '3', '24d9a2c0b58847daaa59cbe8b6ecbb0a.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 20:59:15');
-INSERT INTO `fp_footprint` VALUES ('F0342019069005', 'R0342019069001', null, '1', '2', '3', '4e0465c2f9e94eb98aa24751079961f2.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 20:59:15');
-INSERT INTO `fp_footprint` VALUES ('F0342019069006', 'R0342019069001', null, '1', '2', '3', '50413c847dbc4929a30c73b44e034c2e.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 20:59:15');
-INSERT INTO `fp_footprint` VALUES ('F0342019069007', 'R0342019069001', null, '1', '2', '3', '09234a5738ed46d092d05e959bf44b5e.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 20:59:15');
-INSERT INTO `fp_footprint` VALUES ('F0342019069008', 'R0342019069001', null, '1', '2', '3', '3ac3b54bc2bc4cbf9535eb0d66bba793.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-06-25 20:59:15');
-INSERT INTO `fp_footprint` VALUES ('F0342019070002', 'R0342019070001', null, '1', '2', '3', '6ff6ff48c737441aaaf5d19fc56e071c.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 22:29:39');
-INSERT INTO `fp_footprint` VALUES ('F0342019070003', 'R0342019070001', null, '1', '2', '3', '60ac3508fdbe4b729b27c58b6c488dc1.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 22:29:39');
-INSERT INTO `fp_footprint` VALUES ('F0342019070004', 'R0342019070001', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 22:29:39');
-INSERT INTO `fp_footprint` VALUES ('F0342019070005', 'R0342019070001', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 22:29:39');
-INSERT INTO `fp_footprint` VALUES ('F0342019070006', 'R0342019070001', null, '1', '2', '3', '006f223ecbe24c238b5eb438c83e78d4.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 22:29:39');
-INSERT INTO `fp_footprint` VALUES ('F0342019070007', 'R0342019070001', null, '1', '2', '3', '3870917fd603470999d42cb95678a541.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 22:29:39');
-INSERT INTO `fp_footprint` VALUES ('F0342019070008', 'R0342019070001', null, '1', '2', '3', '6ff6ff48c737441aaaf5d19fc56e071c.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 22:29:39');
-INSERT INTO `fp_footprint` VALUES ('F0342019072002', 'R0342019072001', null, '1', '2', '3', '6ff6ff48c737441aaaf5d19fc56e071c.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 23:30:17');
-INSERT INTO `fp_footprint` VALUES ('F0342019072003', 'R0342019072001', null, '1', '2', '3', '60ac3508fdbe4b729b27c58b6c488dc1.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 23:30:17');
-INSERT INTO `fp_footprint` VALUES ('F0342019072004', 'R0342019072001', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 23:30:17');
-INSERT INTO `fp_footprint` VALUES ('F0342019072005', 'R0342019072001', null, '1', '2', '3', '00e3fde8f38c49ba8c4c6837203eb177.gif', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-06 23:30:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073066', 'A0342019073028', null, '1', '2', '3', '30949e9037064698b7aeb2b5463e16e1.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073067', 'A0342019073028', null, '4', '3', '3', 'e39bf92b02db4fdaa7526e7ea84907bb.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073068', 'A0342019073028', null, '4', '2', '2', '54a99dd8979a4c82a80edf8fcd0122c3.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073069', 'A0342019073028', null, '2', '4', '3', 'c8e6b34b44b24ac5b1f24b2f1de339a9.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073070', 'A0342019073028', null, '2', '3', '3', '5840ab3c4c3140ebbfcc0aeddc89d51e.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073071', 'A0342019073028', null, '1', '2', '3', 'fad3de5cecdf42b9b3d4d267383143a2.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073072', 'A0342019073028', null, '2', '2', '3', '32798b9ab7774b0a823fc141b4d51599.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073073', 'A0342019073028', null, '2', '3', '4', '4361f4d539024b0588477b96607272b3.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073074', 'A0342019073028', null, '1', '1', '2', 'a6a4351cc6b943538da68489feafc365.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073075', 'A0342019073028', null, '2', '3', '3', 'acee072a326a43d199d97713cc779ea4.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073076', 'A0342019073028', null, '1', '1', '3', 'd542331b3a8146958c95ed0c28c5ffee.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:18');
+INSERT INTO `fp_footprint` VALUES ('F0342019073077', 'A0342019073051', null, '2', '2', '3', '532aade4f67c4dc5b83a8a7299608711.bmp', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:26');
+INSERT INTO `fp_footprint` VALUES ('F0342019073078', 'A0342019073051', null, '9', '1', '2', 'da70a7821cb24fd3bb0df0680aa29dcb.bmp', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:26');
+INSERT INTO `fp_footprint` VALUES ('F0342019073079', 'A0342019073051', null, '1', '1', '3', '757ccabfb2cc4a5eafeda65dcb41ed0e.bmp', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:26');
+INSERT INTO `fp_footprint` VALUES ('F0342019073080', 'A0342019073051', null, '3', '3', '4', '5fb03107122444c9b74abdfa7db0b0ac.bmp', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:26');
+INSERT INTO `fp_footprint` VALUES ('F0342019073081', 'A0342019073051', null, '5', '2', '3', '0226f7f8612e4f6eb10dae2164f9033b.bmp', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:26');
+INSERT INTO `fp_footprint` VALUES ('F0342019073082', 'A0342019073051', null, '1', '3', '4', 'e67cb6277ddd4bf2bd5544e3c65ef65b.bmp', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:26');
+INSERT INTO `fp_footprint` VALUES ('F0342019073083', 'A0342019073051', null, '1', '1', '3', '30c16f34a1a245b09d76cce7b05a0e1c.bmp', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 21:46:26');
+INSERT INTO `fp_footprint` VALUES ('F0342019073095', 'A0342019073084', null, '1', '2', '2', '2e3843a7ee9b4b55986e49f9135b1b69.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073096', 'A0342019073084', null, '1', '2', '3', 'a8267d4f750c422d90afe02fdeed5697.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073097', 'A0342019073084', null, '2', '2', '3', 'e2bee816959c4b7ebe09df1f46370105.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073098', 'A0342019073084', null, '2', '2', '4', '38942c1da0cb4b9890501392a49e0eb9.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073099', 'A0342019073084', null, '1', '4', '4', '6b3618f239844d0ba63644340bbe0a6c.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073100', 'A0342019073084', null, '1', '3', '3', '48dbfd84c4ac456298a09fa69f2b62e5.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073101', 'A0342019073084', null, '2', '2', '3', '0a7946f6677245e5a075dd74e45ae43d.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073102', 'A0342019073084', null, '2', '3', '1', 'f74bda87983e4887b938e47e84c48b5f.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073103', 'A0342019073084', null, '8', '2', '3', 'a2e9719faa1f410ab053cef03d7a9f3b.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073104', 'A0342019073084', null, '8', '1', '2', '0631e17bada14723b048325711d0c85e.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:02:31');
+INSERT INTO `fp_footprint` VALUES ('F0342019073122', 'A0342019073105', null, '1', '3', '4', '94f256551a70436aad13113777ac986f.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:25');
+INSERT INTO `fp_footprint` VALUES ('F0342019073123', 'A0342019073105', null, '7', '1', '2', '75ad9bd0f3f14b48b1bd0d10d530a596.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:25');
+INSERT INTO `fp_footprint` VALUES ('F0342019073124', 'A0342019073105', null, '6', '1', '3', 'ebdc5f7a0b8f4183b9992139e8c7a2f6.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:25');
+INSERT INTO `fp_footprint` VALUES ('F0342019073125', 'A0342019073105', null, '1', '2', '2', '3116046557184ea6b1da70c8eaf6514c.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:25');
+INSERT INTO `fp_footprint` VALUES ('F0342019073126', 'A0342019073105', null, '1', '2', '3', 'b448e98e347c4498aa38228d64f86e8b.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:25');
+INSERT INTO `fp_footprint` VALUES ('F0342019073127', 'A0342019073105', null, '2', '2', '3', '084e5b5ea57e4eb3a4b0c88b8f94c40c.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:25');
+INSERT INTO `fp_footprint` VALUES ('F0342019073128', 'A0342019073105', null, '2', '2', '2', '309dcf9ebbd64490beaa6ac7fdff7aca.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:25');
+INSERT INTO `fp_footprint` VALUES ('F0342019073129', 'A0342019073105', null, '1', '1', '3', 'c8e528c1b3bf419384e359042a352262.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:04:25');
+INSERT INTO `fp_footprint` VALUES ('F0342019073150', 'A0342019073130', null, '1', '1', '3', '5f73fdc50b334f998bb1c62598187ad7.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073151', 'A0342019073130', null, '3', '2', '2', '263425460cbf4d978ca532424dd73ce0.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073152', 'A0342019073130', null, '2', '2', '3', 'd3bb0ee22d4f44188ef89581cc1cc881.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073153', 'A0342019073130', null, '3', '2', '2', '5185c32ebe3f425697dd5097c2200361.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073154', 'A0342019073130', null, '4', '2', '3', '564b147732604307b0167c375453594f.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073155', 'A0342019073130', null, '5', '3', '4', '0d69b6464b8c41e08ad57330be2689a8.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:17');
+INSERT INTO `fp_footprint` VALUES ('F0342019073156', 'A0342019073143', null, '8', '2', '1', '4a7e3733cc594b0f8e8109ca78e413c1.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:21');
+INSERT INTO `fp_footprint` VALUES ('F0342019073157', 'A0342019073143', null, '1', '2', '3', '22c43808e23e4fb2892b90d95aca66ee.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:21');
+INSERT INTO `fp_footprint` VALUES ('F0342019073158', 'A0342019073143', null, '7', '2', '4', 'e566593756764025af3e82a20238fbd8.jpg', null, null, null, 'caseInfo', 'NOR', null, null, null, '51', '34', '2019-07-07 22:07:21');
+INSERT INTO `fp_footprint` VALUES ('F0342019073160', 'R0342019073159', null, '1', '2', '3', '30949e9037064698b7aeb2b5463e16e1.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-07 22:14:42');
+INSERT INTO `fp_footprint` VALUES ('F0342019073161', 'R0342019073159', null, '1', '2', '3', 'b448e98e347c4498aa38228d64f86e8b.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-07 22:14:42');
+INSERT INTO `fp_footprint` VALUES ('F0342019073162', 'R0342019073159', null, '1', '2', '3', 'a8267d4f750c422d90afe02fdeed5697.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-07 22:14:42');
+INSERT INTO `fp_footprint` VALUES ('F0342019073163', 'R0342019073159', null, '1', '2', '3', '22c43808e23e4fb2892b90d95aca66ee.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-07 22:14:42');
+INSERT INTO `fp_footprint` VALUES ('F0342019074002', 'R0342019074001', null, '1', '2', '3', 'fad3de5cecdf42b9b3d4d267383143a2.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-07 22:34:13');
+INSERT INTO `fp_footprint` VALUES ('F0342019074003', 'R0342019074001', null, '1', '2', '3', '22c43808e23e4fb2892b90d95aca66ee.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-07 22:34:13');
+INSERT INTO `fp_footprint` VALUES ('F0342019074004', 'R0342019074001', null, '1', '2', '3', 'b448e98e347c4498aa38228d64f86e8b.jpg', null, null, null, 'fp', 'NOR', null, null, null, '51', '34', '2019-07-07 22:34:13');
 
 -- ----------------------------
 -- Table structure for fp_footprint_shoes
@@ -1093,7 +1030,7 @@ CREATE TABLE `sys_login_log` (
   `message` text COMMENT '具体消息',
   `ip` varchar(255) DEFAULT NULL COMMENT '登录ip',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=651 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录记录';
+) ENGINE=InnoDB AUTO_INCREMENT=659 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录记录';
 
 -- ----------------------------
 -- Records of sys_login_log
@@ -1532,6 +1469,14 @@ INSERT INTO `sys_login_log` VALUES ('647', '登录日志', '1', '2019-07-06 23:3
 INSERT INTO `sys_login_log` VALUES ('648', '登录日志', '51', '2019-07-06 23:44:31', '成功', null, '127.0.0.1');
 INSERT INTO `sys_login_log` VALUES ('649', '退出日志', '51', '2019-07-06 23:44:48', '成功', null, '127.0.0.1');
 INSERT INTO `sys_login_log` VALUES ('650', '登录日志', '1', '2019-07-06 23:44:53', '成功', null, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES ('651', '登录日志', '51', '2019-07-07 20:55:16', '成功', null, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES ('652', '退出日志', '51', '2019-07-07 20:55:26', '成功', null, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES ('653', '登录日志', '51', '2019-07-07 20:55:27', '成功', null, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES ('654', '退出日志', '51', '2019-07-07 20:56:02', '成功', null, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES ('655', '登录日志', '1', '2019-07-07 20:56:04', '成功', null, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES ('656', '退出日志', '1', '2019-07-07 20:57:34', '成功', null, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES ('657', '登录日志', '51', '2019-07-07 20:57:35', '成功', null, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES ('658', '登录日志', '51', '2019-07-07 22:32:55', '成功', null, '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1667,7 +1612,7 @@ CREATE TABLE `sys_no` (
 -- ----------------------------
 INSERT INTO `sys_no` VALUES ('3691d56cb3be423786d2f1e83ec94533', '25', '119', '5', '6000');
 INSERT INTO `sys_no` VALUES ('4e46987a77ad4479af1a29bdecdc4dae', '34', '119', '5', '11000');
-INSERT INTO `sys_no` VALUES ('bfb5c528dc90456fa8f689d35e8afac4', '34', '119', '6', '2000');
+INSERT INTO `sys_no` VALUES ('bfb5c528dc90456fa8f689d35e8afac4', '34', '119', '6', '4000');
 INSERT INTO `sys_no` VALUES ('de172ba8e09c49f9be981bc21e3f5f5f', '0', '119', '5', '1000');
 INSERT INTO `sys_no` VALUES ('ec46e22e1e8745dd85483a98d93a8441', '24', '119', '4', '7000');
 
@@ -2295,76 +2240,11 @@ CREATE TABLE `sys_relation` (
   `menuid` bigint(11) DEFAULT NULL COMMENT '菜单id',
   `roleid` int(11) DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7418 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色和菜单关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=7467 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色和菜单关联表';
 
 -- ----------------------------
 -- Records of sys_relation
 -- ----------------------------
-INSERT INTO `sys_relation` VALUES ('7225', '145', '5');
-INSERT INTO `sys_relation` VALUES ('7226', '1128273316512018446', '5');
-INSERT INTO `sys_relation` VALUES ('7227', '1133554521680871425', '5');
-INSERT INTO `sys_relation` VALUES ('7228', '1133554521680871426', '5');
-INSERT INTO `sys_relation` VALUES ('7229', '1133554521680871427', '5');
-INSERT INTO `sys_relation` VALUES ('7230', '1133554521680871428', '5');
-INSERT INTO `sys_relation` VALUES ('7231', '1133554521680871429', '5');
-INSERT INTO `sys_relation` VALUES ('7232', '1133554521680871430', '5');
-INSERT INTO `sys_relation` VALUES ('7233', '1134301147718451207', '5');
-INSERT INTO `sys_relation` VALUES ('7234', '1134301147718451201', '5');
-INSERT INTO `sys_relation` VALUES ('7235', '1134301147718451202', '5');
-INSERT INTO `sys_relation` VALUES ('7236', '1134301147718451203', '5');
-INSERT INTO `sys_relation` VALUES ('7237', '1134301147718451204', '5');
-INSERT INTO `sys_relation` VALUES ('7238', '1134301147718451205', '5');
-INSERT INTO `sys_relation` VALUES ('7239', '1134301147718451206', '5');
-INSERT INTO `sys_relation` VALUES ('7247', '1134301147718451209', '5');
-INSERT INTO `sys_relation` VALUES ('7248', '1134301147718451212', '5');
-INSERT INTO `sys_relation` VALUES ('7249', '105', '6');
-INSERT INTO `sys_relation` VALUES ('7250', '106', '6');
-INSERT INTO `sys_relation` VALUES ('7251', '107', '6');
-INSERT INTO `sys_relation` VALUES ('7252', '108', '6');
-INSERT INTO `sys_relation` VALUES ('7253', '109', '6');
-INSERT INTO `sys_relation` VALUES ('7254', '110', '6');
-INSERT INTO `sys_relation` VALUES ('7255', '111', '6');
-INSERT INTO `sys_relation` VALUES ('7256', '112', '6');
-INSERT INTO `sys_relation` VALUES ('7257', '113', '6');
-INSERT INTO `sys_relation` VALUES ('7258', '165', '6');
-INSERT INTO `sys_relation` VALUES ('7259', '166', '6');
-INSERT INTO `sys_relation` VALUES ('7260', '167', '6');
-INSERT INTO `sys_relation` VALUES ('7261', '114', '6');
-INSERT INTO `sys_relation` VALUES ('7262', '164', '6');
-INSERT INTO `sys_relation` VALUES ('7263', '128', '6');
-INSERT INTO `sys_relation` VALUES ('7264', '158', '6');
-INSERT INTO `sys_relation` VALUES ('7265', '159', '6');
-INSERT INTO `sys_relation` VALUES ('7266', '131', '6');
-INSERT INTO `sys_relation` VALUES ('7267', '135', '6');
-INSERT INTO `sys_relation` VALUES ('7268', '136', '6');
-INSERT INTO `sys_relation` VALUES ('7269', '137', '6');
-INSERT INTO `sys_relation` VALUES ('7270', '152', '6');
-INSERT INTO `sys_relation` VALUES ('7271', '153', '6');
-INSERT INTO `sys_relation` VALUES ('7272', '154', '6');
-INSERT INTO `sys_relation` VALUES ('7273', '132', '6');
-INSERT INTO `sys_relation` VALUES ('7274', '138', '6');
-INSERT INTO `sys_relation` VALUES ('7275', '139', '6');
-INSERT INTO `sys_relation` VALUES ('7276', '140', '6');
-INSERT INTO `sys_relation` VALUES ('7277', '155', '6');
-INSERT INTO `sys_relation` VALUES ('7278', '156', '6');
-INSERT INTO `sys_relation` VALUES ('7279', '157', '6');
-INSERT INTO `sys_relation` VALUES ('7280', '1128273316512018446', '6');
-INSERT INTO `sys_relation` VALUES ('7281', '1133554521680871425', '6');
-INSERT INTO `sys_relation` VALUES ('7282', '1133554521680871426', '6');
-INSERT INTO `sys_relation` VALUES ('7283', '1133554521680871427', '6');
-INSERT INTO `sys_relation` VALUES ('7284', '1133554521680871428', '6');
-INSERT INTO `sys_relation` VALUES ('7285', '1133554521680871429', '6');
-INSERT INTO `sys_relation` VALUES ('7286', '1133554521680871430', '6');
-INSERT INTO `sys_relation` VALUES ('7287', '1134301147718451207', '6');
-INSERT INTO `sys_relation` VALUES ('7288', '1134301147718451201', '6');
-INSERT INTO `sys_relation` VALUES ('7289', '1134301147718451202', '6');
-INSERT INTO `sys_relation` VALUES ('7290', '1134301147718451203', '6');
-INSERT INTO `sys_relation` VALUES ('7291', '1134301147718451204', '6');
-INSERT INTO `sys_relation` VALUES ('7292', '1134301147718451205', '6');
-INSERT INTO `sys_relation` VALUES ('7293', '1134301147718451206', '6');
-INSERT INTO `sys_relation` VALUES ('7301', '1134301147718451209', '6');
-INSERT INTO `sys_relation` VALUES ('7302', '1134301147718451213', '6');
-INSERT INTO `sys_relation` VALUES ('7303', '1134301147718451212', '6');
 INSERT INTO `sys_relation` VALUES ('7368', '105', '1');
 INSERT INTO `sys_relation` VALUES ('7369', '106', '1');
 INSERT INTO `sys_relation` VALUES ('7370', '107', '1');
@@ -2415,6 +2295,55 @@ INSERT INTO `sys_relation` VALUES ('7414', '1133554521680871430', '1');
 INSERT INTO `sys_relation` VALUES ('7415', '1134301147718451209', '1');
 INSERT INTO `sys_relation` VALUES ('7416', '1134301147718451212', '1');
 INSERT INTO `sys_relation` VALUES ('7417', '1134301147718451213', '1');
+INSERT INTO `sys_relation` VALUES ('7418', '1133554521680871425', '5');
+INSERT INTO `sys_relation` VALUES ('7419', '1133554521680871426', '5');
+INSERT INTO `sys_relation` VALUES ('7420', '1133554521680871427', '5');
+INSERT INTO `sys_relation` VALUES ('7421', '1133554521680871428', '5');
+INSERT INTO `sys_relation` VALUES ('7422', '1133554521680871429', '5');
+INSERT INTO `sys_relation` VALUES ('7423', '1133554521680871430', '5');
+INSERT INTO `sys_relation` VALUES ('7424', '1134301147718451209', '5');
+INSERT INTO `sys_relation` VALUES ('7425', '1134301147718451212', '5');
+INSERT INTO `sys_relation` VALUES ('7426', '1134301147718451213', '5');
+INSERT INTO `sys_relation` VALUES ('7427', '105', '6');
+INSERT INTO `sys_relation` VALUES ('7428', '106', '6');
+INSERT INTO `sys_relation` VALUES ('7429', '107', '6');
+INSERT INTO `sys_relation` VALUES ('7430', '108', '6');
+INSERT INTO `sys_relation` VALUES ('7431', '109', '6');
+INSERT INTO `sys_relation` VALUES ('7432', '110', '6');
+INSERT INTO `sys_relation` VALUES ('7433', '111', '6');
+INSERT INTO `sys_relation` VALUES ('7434', '112', '6');
+INSERT INTO `sys_relation` VALUES ('7435', '113', '6');
+INSERT INTO `sys_relation` VALUES ('7436', '165', '6');
+INSERT INTO `sys_relation` VALUES ('7437', '166', '6');
+INSERT INTO `sys_relation` VALUES ('7438', '167', '6');
+INSERT INTO `sys_relation` VALUES ('7439', '114', '6');
+INSERT INTO `sys_relation` VALUES ('7440', '164', '6');
+INSERT INTO `sys_relation` VALUES ('7441', '128', '6');
+INSERT INTO `sys_relation` VALUES ('7442', '158', '6');
+INSERT INTO `sys_relation` VALUES ('7443', '159', '6');
+INSERT INTO `sys_relation` VALUES ('7444', '131', '6');
+INSERT INTO `sys_relation` VALUES ('7445', '135', '6');
+INSERT INTO `sys_relation` VALUES ('7446', '136', '6');
+INSERT INTO `sys_relation` VALUES ('7447', '137', '6');
+INSERT INTO `sys_relation` VALUES ('7448', '152', '6');
+INSERT INTO `sys_relation` VALUES ('7449', '153', '6');
+INSERT INTO `sys_relation` VALUES ('7450', '154', '6');
+INSERT INTO `sys_relation` VALUES ('7451', '132', '6');
+INSERT INTO `sys_relation` VALUES ('7452', '138', '6');
+INSERT INTO `sys_relation` VALUES ('7453', '139', '6');
+INSERT INTO `sys_relation` VALUES ('7454', '140', '6');
+INSERT INTO `sys_relation` VALUES ('7455', '155', '6');
+INSERT INTO `sys_relation` VALUES ('7456', '156', '6');
+INSERT INTO `sys_relation` VALUES ('7457', '157', '6');
+INSERT INTO `sys_relation` VALUES ('7458', '1133554521680871425', '6');
+INSERT INTO `sys_relation` VALUES ('7459', '1133554521680871426', '6');
+INSERT INTO `sys_relation` VALUES ('7460', '1133554521680871427', '6');
+INSERT INTO `sys_relation` VALUES ('7461', '1133554521680871428', '6');
+INSERT INTO `sys_relation` VALUES ('7462', '1133554521680871429', '6');
+INSERT INTO `sys_relation` VALUES ('7463', '1133554521680871430', '6');
+INSERT INTO `sys_relation` VALUES ('7464', '1134301147718451209', '6');
+INSERT INTO `sys_relation` VALUES ('7465', '1134301147718451212', '6');
+INSERT INTO `sys_relation` VALUES ('7466', '1134301147718451213', '6');
 
 -- ----------------------------
 -- Table structure for sys_role

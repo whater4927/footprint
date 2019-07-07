@@ -133,6 +133,7 @@ public class CaseRelationController extends BaseController {
     	footprintVo.setCaseInfo(caseInfoVo);
     	compareCaseInfoVO.setFootprint(footprintVo);
     	List<Footprint> list = footprintService.selectList(new EntityWrapper<Footprint>()
+    			.isNotNull("case_no")
     			.eq("position", footprint1.getPosition())
     			.eq("Legacy_mode", footprint1.getLegacyMode())
     			.eq("extraction_method", footprint1.getExtractionMethod())
@@ -179,6 +180,7 @@ public class CaseRelationController extends BaseController {
     	Footprint footprint1 = footprintService.selectById(fpNo);
     	
     	List<Footprint> list = footprintService.selectList(new EntityWrapper<Footprint>()
+    			.isNotNull("case_no")
     			.eq("position", footprint1.getPosition())
     			.eq("Legacy_mode", footprint1.getLegacyMode())
     			.eq("extraction_method", footprint1.getExtractionMethod())
@@ -189,7 +191,7 @@ public class CaseRelationController extends BaseController {
     	}
     	
     	try {
-			Thread.sleep(15000);
+			Thread.sleep(1500);
 //    		Thread.sleep(150);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -220,7 +222,7 @@ public class CaseRelationController extends BaseController {
     public Object relationCase(@PathVariable(name="fpNo") String fpNo,@PathVariable(name="selectFpNo") String selectFpNo
     		,@RequestParam(name="relationName") String relationName
     		,@RequestParam(name="relationReason") String relationReason
-    		,@RequestParam(name="remark") String remark) {
+    		,@RequestParam(name="remark",required=false) String remark) {
     	CaseRelation caseRelation = new CaseRelation();
     	caseRelation.setRelationNo(noService.busiNo("R"));
     	caseRelation.setRelationName(relationName);

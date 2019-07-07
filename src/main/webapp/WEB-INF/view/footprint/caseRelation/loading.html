@@ -10,25 +10,39 @@ var value = 0;
 var fpNo = '${fpNo}' ;
 var caseNo = '${caseNo}' ;
 var flag = false ;
+var isSuccess = false ;
 var CHANGE_TIME = 100 ;
 function show(value){
    $("#prog").css("width",value + "%").text(value + "%");
    if(value == 99 && !flag){
+	   console.log("flag:"+flag)
 	   setTimeout(function(){ 
 			show(value);
 	   }, CHANGE_TIME);
 	   return ;
    }
    if(value == 100){
-	   $("#info").empty();
-	   $("#info").append("足迹比对完成!")
-	   Feng.success("足迹比对完成!");
 	   
-	   setTimeout(function(){
-		   parent.layer.close(window.parent.indexPage);
-		   parent.showFootCompareResult('${caseNo}','${fpNo}');
-		}, 2000);
-	   return;
+	   if(isSuccess){
+		   $("#info").empty();
+		   $("#info").append("足迹比对完成!")
+		   Feng.success("足迹比对完成!");
+		   
+		   setTimeout(function(){
+			   parent.layer.close(window.parent.indexPage);
+			   parent.showFootCompareResult('${caseNo}','${fpNo}');
+			}, 1000);
+		   return; 
+	   }else{
+		   $("#info").empty();
+		   $("#info").append("足迹比对完成!未识别到关联图片")
+		   Feng.success("足迹比对完成!未识别到关联图片");
+		   setTimeout(function(){
+			   parent.layer.close(window.parent.indexPage);
+			   //parent.showFootCompareResult('${caseNo}','${fpNo}');
+			}, 1000);
+		   return; 
+	   }
    }
    setTimeout(function(){ 
 		value++
@@ -48,8 +62,13 @@ var footprint ;
 		dataType : "json",
 		success : function(data) {
 			flag = true ;
+			isSuccess = true ;
 			footprint = data ;
 			parent.footCompareReSult = data ;
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			isSuccess = false ;
+			flag = true ;
 		}
 	});
 </script>

@@ -111,6 +111,7 @@ public class FootprintController extends BaseController {
     	if(StringUtil.isNotEmpty(extractionMethod))
     		entityWrapper.eq("extraction_method", extractionMethod);
     	entityWrapper.eq("status", "fp");
+    	entityWrapper.isNotNull("case_no");
     	List<FootprintVO> listVo = CommonUtil.listPo2VO(footprintService.selectList(entityWrapper), FootprintVO.class);
     	listVo.forEach((vo)->{
     		vo.setPositionName(ConstantFactory.me().getDictsByName("position", vo.getPosition()));
