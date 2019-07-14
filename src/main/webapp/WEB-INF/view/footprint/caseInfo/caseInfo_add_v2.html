@@ -134,7 +134,7 @@ function init(){
 	uploader.on( 'uploadSuccess', function( file ,response) {
 		$("#selectImages").val($("#selectImages").val()+","+response)
 		setAddImage(response);
-		image_infos.push({id:response.split(".")[0]})
+		image_infos.push({id:response})
 	})
 }
 

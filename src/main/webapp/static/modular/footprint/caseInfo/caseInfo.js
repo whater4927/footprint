@@ -68,7 +68,10 @@ CaseInfo.openAddCaseInfo_v2 = function () {
         area: ['100%', '100%'], //宽高
         fix: false, //不固定
         maxmin: true,
-        content: Feng.ctxPath + '/caseInfo/caseInfo_add_v2'
+        content: Feng.ctxPath + '/caseInfo/caseInfo_add_v2',
+        end :function(){
+        	CaseInfo.search();
+        }
     });
     this.layerIndex = index;
 };

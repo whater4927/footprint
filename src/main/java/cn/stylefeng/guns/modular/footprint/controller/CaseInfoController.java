@@ -122,7 +122,7 @@ public class CaseInfoController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-    	List<CaseInfo> list =  caseInfoService.selectList(null);
+    	List<CaseInfo> list =  caseInfoService.selectList(new EntityWrapper<CaseInfo>().orderBy("crt_tm",false));
         List<CaseInfoVO> listVo = CommonUtil.listPo2VO(list, CaseInfoVO.class);
         listVo.forEach((vo)->{
         	vo.setCaseStateName(ConstantFactory.me().getDictsByName("case_status", vo.getCaseState()));
