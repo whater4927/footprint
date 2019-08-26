@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.footprint.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,6 +52,7 @@ import cn.stylefeng.guns.modular.system.model.CaseRelationDetail;
 import cn.stylefeng.guns.modular.system.model.Footprint;
 import cn.stylefeng.guns.modular.system.service.INoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.util.FileUtil;
 
 /**
  *
@@ -351,6 +353,15 @@ public class CaseRelationController extends BaseController {
      		if(StringUtil.isNotEmpty(vo.getCrtOrgId())) {
      			vo.setCreateOrgName(ConstantFactory.me().getDeptName(Integer.parseInt(vo.getCrtOrgId())));
      		}
+     		/*String img = vo.getOriginalImg() ;
+     		File file = new File("D:/tmp/"+img);
+     		try {
+     			File newFile = new File("D:/temp/"+img) ;
+     			newFile.createNewFile();
+				cn.stylefeng.guns.modular.footprint.util.FileUtil.copy(file, newFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}*/
     	});
     	
     	return listVo ;
